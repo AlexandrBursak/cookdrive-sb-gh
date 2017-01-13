@@ -11,3 +11,6 @@ $ git status - після додання файлу на моніторинг, �
 $ git commit -m "Add cute octocat story"
 
 $ git add '*.txt'
+
+
+test
