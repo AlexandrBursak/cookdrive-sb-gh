@@ -28,6 +28,7 @@ $config = [
             // for the mailer to send real emails.
             'useFileTransport' => true,
         ],
+        
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -48,6 +49,11 @@ $config = [
         */
     ],
     'params' => $params,
+    'modules' => [
+            'user' => [
+                'class' => 'dektrium\user\Module',
+            ],
+        ],
 ];
 
 if (YII_ENV_DEV) {
