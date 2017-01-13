@@ -1,0 +1,13 @@
+Press enter to submit commands
+
+> git init - в директорії ініціюємо гіт
+
+$ git status - перевірка репозиторію, якщо у ньому відбулися хоч якісь зміни, підсвітиться список файлів червоним
+
+$ git add octocat.txt - додаємо файл
+
+$ git status - після додання файлу на моніторинг, перевіряємо статус репозиторію
+
+$ git commit -m "Add cute octocat story"
+
+$ git add '*.txt'
