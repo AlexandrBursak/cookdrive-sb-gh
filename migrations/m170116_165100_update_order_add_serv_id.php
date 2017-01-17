@@ -6,7 +6,7 @@ class m170116_165100_update_order_add_serv_id extends Migration
 {
     public function up()
     {
-
+        $this->addColumn('order', 'serv_id', $this->integer()->after('price'));
     }
 
     public function down()
