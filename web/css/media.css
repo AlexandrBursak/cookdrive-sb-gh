@@ -1,0 +1,48 @@
+@media only screen and (max-width : 1200px) {
+
+}
+
+
+
+@media only screen and (max-width : 992px) {
+body{
+	background-color: #999;
+}
+.categori_wrap {
+    width: 140px;
+    padding: 5px;
+}
+.categori_wrap div {
+    height: 80px;
+}
+.categori_wrap span{
+	font-size: 12px;
+}
+}
+
+
+@media only screen and (max-width : 768px) {
+h1{
+    font-size: 24px;
+}  
+h2{
+    font-size: 18px;
+}
+}
+
+
+
+@media only screen and (max-width : 480px) {
+.categori_wrap {
+    width: 94px;
+}
+.categori_wrap div {
+    height: 60px;
+}
+.categori_wrap a {
+    padding: 5px;
+}
+.categori_wrap span {
+    font-size: 8px;
+}
+}

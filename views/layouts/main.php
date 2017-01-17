@@ -64,6 +64,8 @@ AppAsset::register($this);
     </div>
 </div>
 
+<a href="#" id="up_page"></a>
+
 <footer class="footer">
     <div class="container">
         <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
