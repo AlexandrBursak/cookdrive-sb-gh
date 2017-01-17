@@ -236,7 +236,7 @@ $this->title = 'My Yii Application';
                                     <div class="catalog_product_footer clearfix">
                                         <a href="#">Замовити</a>
                                         <div class="catalog_product_quantity">
-                                            <input type="text" name="" value="1">
+                                            <input type="text" name="" value="1" maxlength="3">
                                             <span class="plus"></span>
                                             <span class="minus"></span>
                                             <span class="unit">шт.</span>
@@ -262,7 +262,7 @@ $this->title = 'My Yii Application';
                                     <div class="catalog_product_footer clearfix">
                                         <a href="#">Замовити</a>
                                         <div class="catalog_product_quantity">
-                                            <input type="text" name="" value="1">
+                                            <input type="text" name="" value="1" maxlength="3">
                                             <span class="plus"></span>
                                             <span class="minus"></span>
                                             <span class="unit">шт.</span>
@@ -288,7 +288,7 @@ $this->title = 'My Yii Application';
                                     <div class="catalog_product_footer clearfix">
                                         <a href="#">Замовити</a>
                                         <div class="catalog_product_quantity">
-                                            <input type="text" name="" value="1">
+                                            <input type="text" name="" value="1" maxlength="3">
                                             <span class="plus"></span>
                                             <span class="minus"></span>
                                             <span class="unit">шт.</span>
@@ -314,7 +314,7 @@ $this->title = 'My Yii Application';
                                     <div class="catalog_product_footer clearfix">
                                         <a href="#">Замовити</a>
                                         <div class="catalog_product_quantity">
-                                            <input type="text" name="" value="1">
+                                            <input type="text" name="" value="1" maxlength="3">
                                             <span class="plus"></span>
                                             <span class="minus"></span>
                                             <span class="unit">шт.</span>

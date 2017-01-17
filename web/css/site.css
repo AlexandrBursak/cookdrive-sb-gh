@@ -116,7 +116,9 @@ a.desc:after {
 
 
 
-
+.navbar-inverse{
+    border-bottom: 2px solid #f56a48;
+}
 
 
 .clearfix:before,
@@ -337,6 +339,7 @@ body{
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 10px solid #f56a48;
+    cursor: pointer;
 }
 .catalog_product_quantity .minus{
     position: absolute;
@@ -347,4 +350,5 @@ body{
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-top: 10px solid rgba(0,0,0,0.5);
+    cursor: pointer;
 }
