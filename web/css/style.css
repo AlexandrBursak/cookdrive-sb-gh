@@ -21,12 +21,15 @@ body{
 /*    background-color: #999;*/
 }
 .cart_navbar{
-    position: relative;
+    
 }
 .cart_navbar a{
+    position: relative;
     padding-left: 50px !important;
 }
-.cart_navbar:before{
+.cart_navbar a:before{
+/*    content: "\f07a";
+    font: normal normal normal 14px/1 FontAwesome;*/
     content: '';
     position: absolute;
     width: 30px;
@@ -40,12 +43,27 @@ body{
     border-radius: 50%;
     background-color: rgb(255,200,0);
     opacity: 0.5;
-    z-index: 9999; 
+    z-index: 1; 
 }
 .cart_navbar a.active:before{
     opacity: 1;
 }
-
+.cart_navbar a:after{
+    content: "\f07a";
+    font: normal normal normal 16px/1 FontAwesome;
+    color: #222;
+    position: absolute;
+    left: 17px;
+    top: 50%;
+    transform: translate(0,-50%);
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    -moz-transform: translate(0,-50%);
+    z-index: 2;
+}
+.cart_navbar a.active:after{
+    color: #000;
+}
 .categories_wrap, .categori_content ul{
     list-style: none;
     text-align: center;
@@ -116,18 +134,29 @@ body{
     left: 15px;
     height: 35px;
     width: 35px;
-  /*  background: #000;*/
     z-index: 9999;
     background: rgba(0,0,0,0.5);
     transition: all 0.5s ease;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
-/*    opacity: 0.8;*/
+    color: #fff;
 }
 #up_page:hover{
     background: #f56a48;
 }
+#up_page:before{
+    content: "\f077";
+    font: normal normal normal 18px/1 FontAwesome;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+}
+
 
 
 
@@ -155,6 +184,25 @@ body{
     border-radius: 10px;
     border: 1px solid #999;
     background: #fff;
+}
+.hidden_info{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -235px;
+    left: 0;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    background: rgba(0,0,0,0.2);
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px 10px 0 0;
+}
+.catalog_product_wrap:hover .hidden_info{
+    top: 0;
+    background: rgba(0,0,0,0.7);
 }
 .catalog_product_img{
     position: relative;
@@ -279,6 +327,9 @@ body{
     font-size: 26px;
     color: #11e416;
 }
+.balance_after{
+    font-size: 12px;
+}
 .cart_title{
     font-family: 'OpenSansSemibold'; 
     font-size: 24px;
@@ -301,12 +352,12 @@ body{
     vertical-align: middle;
 }
 .one_order_item_img{
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     position: relative;
 }
 .one_order_item_name {
-    width: 620px;
+    width: 640px;
     padding: 0 20px;
     font-size: 18px;
     font-family: 'OpenSansSemibold';
@@ -315,10 +366,19 @@ body{
     padding: 20px 0; 
 }
 .one_order_item_remove{
-    width: 20px;
-    height: 20px;
-    background: red;
+    position: relative;
+    width: 17px;
+    height: 17px;
     margin-left: 35px;
+    color: #000;
+}
+.one_order_item_remove:before{
+    content: "\f00d";
+    font: normal normal normal 18px/1 FontAwesome;
+    position: absolute;
+}
+.one_order_item_remove:hover{
+    color: red;
 }
 .one_order_item_price,
 .one_order_item_price_all{
@@ -333,14 +393,40 @@ body{
     text-align: center;
     float: none;
 }
-.order_sum{
+.order_footer{
     padding-top: 20px;
+}
+.order_sum{
     font-size: 24px;
+    float: left;
 }
 .order_sum span{
     padding: 0 5px;
     font-size: 28px;
     font-family: 'OpenSansSemibold';
+}
+.order_remove{
+    float: right;
+}
+.order_remove a{
+    color: #f53b0d;
+    font-family: 'OpenSansSemibold';
+    display: inline-block;
+    padding: 10px 0 20px 20px;
+    text-decoration: underline;
+    position: relative; 
+    margin-left: 10px;
+}
+.order_remove a:before{
+    content: "\f014";
+    font: normal normal normal 14px/1 FontAwesome;
+    position: absolute;
+    top: 14px;
+    left: 0; 
+}
+.order_remove a:hover{
+    color: red;
+    text-decoration: none; 
 }
 .order_enter{
     padding: 40px 0;
@@ -348,10 +434,20 @@ body{
 }
 .order_enter input{
     padding: 10px 30px;
-    border-radius: 15px;
-    background: red;
+    border-radius: 30px;
+    background: #f53b0d;
     text-transform: uppercase;
     font-family: 'OpenSansSemibold';
     color: #fff;
     font-size: 18px;
+    border: none;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+
+}
+.order_enter input:hover{
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
+    background: red;
 }

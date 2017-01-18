@@ -1,6 +1,6 @@
 @media only screen and (max-width : 1200px) {
     .one_order_item_name {
-        width: 420px;
+        width: 440px;
 }
 }
 
@@ -8,7 +8,7 @@
 
 @media only screen and (max-width : 992px) {
 body{
-	background-color: #999;
+	background-color: rgba(153,153,153,0.5);
 }
 .categori_wrap {
     width: 140px;
@@ -21,7 +21,7 @@ body{
 	font-size: 12px;
 }
     .one_order_item_name {
-        width: 295px;
+        width: 215px;
 }
 .one_order_item_remove{
     margin-left: 20px;

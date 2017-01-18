@@ -2,8 +2,8 @@
     <div class="col-lg-12">
     	<div class="cart_wrap clearfix">
 	    	<div class="balance">
-				<p class="balance_before">Ваш балас<span>600</span>грн.</p>
-				<p class="balance_after">балас після замовлення<span>600</span>грн.</p>
+				<p class="balance_before">Ваш баланс<span>600</span>грн.</p>
+				<p class="balance_after">баланс після замовлення<span>600</span>грн.</p>
 			</div>
     		<div class="cart_title">
     			<span>Ваше замовлення</span>
@@ -56,9 +56,14 @@
     				</div>
     			</div>
     		</div>
-    		<div class="order_sum">
-				<p>Загальна сума замовлення:<span>600</span>грн.</p>
-			</div>
+    		<div class="order_footer clearfix">
+    			<div class="order_remove">
+					<a href="#">Очистити кошик</a>
+				</div>
+	    		<div class="order_sum">
+					<p>Загальна сума замовлення:<span>600</span>грн.</p>
+				</div>
+    		</div>
 			<div class="order_enter">
 				<input type="submit" name="" value="Замовити">
 			</div>
