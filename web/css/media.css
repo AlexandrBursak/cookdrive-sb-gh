@@ -1,5 +1,7 @@
 @media only screen and (max-width : 1200px) {
-
+    .one_order_item_name {
+        width: 420px;
+}
 }
 
 
@@ -18,6 +20,19 @@ body{
 .categori_wrap span{
 	font-size: 12px;
 }
+    .one_order_item_name {
+        width: 295px;
+}
+.one_order_item_remove{
+    margin-left: 20px;
+}
+.one_order_item_price,
+.one_order_item_price_all{
+    width: 90px;
+    font-size: 14px;
+}
+.one_order_item {
+    border-radius: 5px;
 }
 
 
@@ -27,6 +42,14 @@ h1{
 }  
 h2{
     font-size: 18px;
+}
+.one_order_item_info{
+    display: block;
+    margin: 0 auto;
+    width: 280px;
+}
+.one_order_item_remove {
+    margin-left: 10px;
 }
 }
 
@@ -45,4 +68,16 @@ h2{
 .categori_wrap span {
     font-size: 8px;
 }
+
+.one_order_item_name {
+    width: 205px;
+}
+.one_order_item_img {
+    width: 70px;
+    height: 70px;
+}
+.one_order_item_price, .one_order_item_price_all {
+    font-size: 12px;
+}
+
 }
