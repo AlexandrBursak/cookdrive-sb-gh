@@ -27,6 +27,7 @@ class AppAsset extends AssetBundle
         'js/script.js',
     ];
     public $depends = [
+        'yii\authclient\widgets\AuthChoiceAsset',
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];
