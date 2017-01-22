@@ -9,7 +9,9 @@
 namespace app\models;
 
 
-class History
+use yii\db\ActiveRecord;
+
+class History extends ActiveRecord
 {
 
 }
