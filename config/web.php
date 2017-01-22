@@ -1,4 +1,5 @@
 <?php
+$config = parse_ini_file('hello.ini', true);
 
 $params = require(__DIR__ . '/params.php');
 
@@ -6,29 +7,56 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language'=>'en', // back to English
     'components' => [
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@dektrium/user/views' => '@app/views/user'
+                ],
+            ],
+        ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'google' => [
+                    'class'        => 'dektrium\user\clients\Google',
+                    'clientId'     => $config['oauth_google_clientId'],
+                    'clientSecret' => $config['oauth_google_clientSecret'],
+                ],
+            ],
+        ],
+
+        'urlManager' => [
+            'showScriptName' => false,
+            'enablePrettyUrl' => true,
+            'rules' => [
+                'defaultRoute' => '/site/index',
+            ],
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'c3KxaQtedXAsvrUkULoiSDJ2gYPnidXf',
+            'cookieValidationKey' => 'kO8iHt9xUGpPne1zGgy0rqncBNmHnc86',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
-        ],
-        'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'viewPath' => '@app/mailer',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => $config['smtp_host'],
+                'username' => $config['smtp_username'],
+                'password' => $config['smtp_password'],
+                'port' => '2525',
+                'encryption' => 'tls',
+            ],
         ],
-        
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -39,34 +67,33 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
+    ],
+    'modules' => [
+        'redactor' => 'yii\redactor\RedactorModule',
+        'class' => 'yii\redactor\RedactorModule',
+        'uploadDir' => '@webroot/uploads',
+        'uploadUrl' => '/hello/uploads',
+        'user' => [
+            'class' => 'dektrium\user\Module',
+            'enableUnconfirmedLogin' => TRUE,
+            'confirmWithin' => 21600,
+            'cost' => 12,
+            'controllerMap' => [
+                'admin' => 'app\controllers\user\AdminController'
             ],
+            'admins' => ['admin']
         ],
-        */
     ],
     'params' => $params,
-    'modules' => [
-            'user' => [
-                'class' => 'dektrium\user\Module',
-            ],
-        ],
 ];
 
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
-    ];
+    $config['modules']['debug'] = 'yii\debug\Module';
 
     $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = [
-        'class' => 'yii\gii\Module',
-    ];
+    $config['modules']['gii'] = 'yii\gii\Module';
 }
 
 return $config;
