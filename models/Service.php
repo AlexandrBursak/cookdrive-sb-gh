@@ -14,4 +14,12 @@ use yii\db\ActiveRecord;
 class Service extends ActiveRecord
 {
 
+    public function rules()
+    {
+        return [
+            // name and link are both required
+            [['name', 'link'], 'required'],
+
+        ];
+    }
 }
