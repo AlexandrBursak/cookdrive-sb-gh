@@ -57,12 +57,11 @@ Yii::$app->user->identity
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Logout (' . Yii::$app->user->identity->profile->name . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'
-            //'<li>' . Yii::$app->user->identity . '</li>',
             )
 
         ],
