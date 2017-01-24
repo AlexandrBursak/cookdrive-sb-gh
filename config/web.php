@@ -78,9 +78,13 @@ $config = [
             'enableUnconfirmedLogin' => TRUE,
             'confirmWithin' => 21600,
             'cost' => 12,
-            'controllerMap' => [
-                'admin' => 'app\controllers\user\AdminController'
+            'modelMap' => [
+                'Profile' => 'app\models\Profile',
             ],
+            'controllerMap' => [
+                'registration' => 'app\controllers\RegistrationController'
+            ],
+
             'admins' => ['admin']
         ],
     ],
