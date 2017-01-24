@@ -10,30 +10,24 @@ namespace app\models;
 
 
 use yii\base\Model;
+use dektrium\user\models\Profile as BaseProfile;
 
-class ProfileForm extends Model
+class Profile extends BaseProfile
 {
-    public $user_id;
-    public $name;
-    public $public_email;
-    public $gravatar_email;
-    public $gravatar_id;
-    public $location;
-    public $website;
-    public $bio;
-    public $timezone;
-    public $user;
+    
 
     public function rules()
     {
-        return [
-            // name, email, subject and body are required
-            [['name'], 'required'],
-            // email has to be a valid email address
-            ['gravatar_email', 'email'],
-            // verifyCode needs to be entered correctly
-            ['website', 'string'],
-        ];
+
+        $rules = parent::rules();
+        $rules[] = ['photo_url', 'string'];
+
+        return $rules;
+    }
+
+    public function getAvatarUrl($size = 200)
+    {
+        return $this->photo_url . '?sz=' . $size;
     }
 
 }
