@@ -9,6 +9,11 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
+// use yii\web\CartController;
+// use app\models\Product;
+// use app\models\Cart;
+// use yii\db\ActiveRecord;
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -26,6 +31,9 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    $session = Yii::$app->session;
+    $qty_head = $session['cart.qty'];
+    $qty_head = !$qty_head ? 0 : $qty_head;
     NavBar::begin([
         'brandLabel' => 'My food',
         'brandUrl' => Yii::$app->homeUrl,
@@ -40,7 +48,7 @@ AppAsset::register($this);
             // ['label' => 'About', 'url' => ['/site/about']],
             // ['label' => 'Contact', 'url' => ['/site/contact']],
             [
-                'label' => '0 шт.', 
+                'label' => $qty_head . ' шт.', 
                 'url' => ['/cart/index'],
                 'options' => ['class' => 'cart_navbar']
             ],

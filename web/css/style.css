@@ -18,7 +18,6 @@ p{
 body{
     min-width: 320px;
     font-family: 'OpenSansRegular';
-/*    background-color: #999;*/
 }
 .cart_navbar{
     
@@ -28,8 +27,6 @@ body{
     padding-left: 50px !important;
 }
 .cart_navbar a:before{
-/*    content: "\f07a";
-    font: normal normal normal 14px/1 FontAwesome;*/
     content: '';
     position: absolute;
     width: 30px;
@@ -283,8 +280,8 @@ body{
     background: #f56a48;
 }
 .catalog_product_footer a:active{
-    border: 1px solid rgba(0,0,0,0.5);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0,0,0,0.8);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8);
 }
 .catalog_product_quantity .plus{
     position: absolute;
@@ -326,6 +323,7 @@ body{
 .balance_before span{
     font-size: 26px;
     color: #11e416;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
 .balance_after{
     font-size: 12px;
@@ -361,6 +359,10 @@ body{
     padding: 0 20px;
     font-size: 18px;
     font-family: 'OpenSansSemibold';
+}
+.one_order_item_name span{
+    font-size: 12px;
+    padding-left: 5px;
 }
 .one_order_item_info{
     padding: 20px 0; 
@@ -404,24 +406,26 @@ body{
     padding: 0 5px;
     font-size: 28px;
     font-family: 'OpenSansSemibold';
+    display: inline-block;
 }
 .order_remove{
     float: right;
+    padding: 20px 0 20px 20px;
 }
 .order_remove a{
     color: #f53b0d;
     font-family: 'OpenSansSemibold';
     display: inline-block;
-    padding: 10px 0 20px 20px;
+    padding-left: 20px;
     text-decoration: underline;
     position: relative; 
     margin-left: 10px;
 }
 .order_remove a:before{
     content: "\f014";
-    font: normal normal normal 14px/1 FontAwesome;
+    font: normal normal normal 16px/1 FontAwesome;
     position: absolute;
-    top: 14px;
+    top: 2px;
     left: 0; 
 }
 .order_remove a:hover{
@@ -445,9 +449,12 @@ body{
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
-
 }
 .order_enter input:hover{
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
     background: red;
+}
+.no_orders{
+    padding: 10px;
+    font-size: 16px;
 }

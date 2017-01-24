@@ -8,7 +8,8 @@ $this->title = 'My food';
     <div class="row">
         <div class="col-lg-12">
             <ul class="categories_wrap">
-                <li class="categori_wrap">
+            <?= app\components\CategoryWidget::widget()?>
+                <!-- <li class="categori_wrap">
                     <a href="#">
                         <div>
                             <img src="images/day_food.png" alt="img">
@@ -103,7 +104,7 @@ $this->title = 'My food';
                         </div>
                         <span>Напівфабрикати</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
 <!--             <ul class="categories_wrap">
                 <li class="categori_wrap">
