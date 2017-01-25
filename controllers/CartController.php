@@ -20,8 +20,6 @@ class CartController extends Controller {
 		if(!empty($product)) {
 			$cart->addToCart($product, $qty);
 		}
-
-
 		return $this->render('index', compact('session'));
 	}
 

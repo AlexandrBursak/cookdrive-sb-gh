@@ -21,7 +21,7 @@ use yii\helpers\ArrayHelper;
 <?php foreach ($products as $product):?>
                             <li>
                                 <div class="catalog_product_wrap">
-                                    <a href="#">
+                                    <a href="<?= \yii\helpers\Url::to(['product/view', 'id'=>$product->id])?>">
                                         <div class="catalog_product_img">
                                              <img src="http://cookdrive.com.ua/var/catalog/products/thumbs/577cc94af3587.png <?php 
                                              // echo $product->photo_url
@@ -40,7 +40,7 @@ use yii\helpers\ArrayHelper;
                                         </div>
                                     </a>
                                     <div class="catalog_product_footer clearfix">
-                                        <a class='add_to_cart' data-id='<?php echo $product->id?>' href="<?= \yii\helpers\Url::to(['cart/add', 'id'=>$product->id])?>">Замовити</a>
+                                        <a class='add_to_cart' data-id='<?php echo $product->id?>' href="<?= \yii\helpers\Url::to(['cart/index', 'id'=>$product->id])?>">Замовити</a>
                                         <div class="catalog_product_quantity">
                                             <input class='qty' type="text" value="1" maxlength="3">
                                             <span class="plus"></span>
