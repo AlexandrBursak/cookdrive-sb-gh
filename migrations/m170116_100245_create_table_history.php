@@ -8,10 +8,10 @@ class m170116_100245_create_table_history extends Migration
     {
         $this->createTable('history', [
             'id' => $this->primaryKey(),
-            'orders id' => $this->integer(),
+            'orders_id' => $this->integer(),
             'summa' => $this->double()->notNull(),
             'operation' => $this->integer()->notNull(),
-            'users id' => $this->integer()->notNull(),
+            'users_id' => $this->integer()->notNull(),
             'date' => $this->date()->notNull(),
         ]);
     }
