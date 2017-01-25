@@ -40,8 +40,8 @@ class Cart extends ActiveRecord {
 		
 		$_SESSION['cart'][$product->id]['qty'] = $qty;
 
-		$qty_all = '';
-		$sum_all = '';
+		$qty_all = 0;
+		$sum_all = 0;
 
 		foreach ($_SESSION['cart'] as $id => $item){
 			$qty_all += $item['qty'];
