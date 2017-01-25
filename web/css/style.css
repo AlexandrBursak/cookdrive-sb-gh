@@ -502,3 +502,6 @@ body{
 .product_content .catalog_product_footer {
     max-width: 390px;
 }
+.auth-clients {
+    margin: 10px 0 0 0;
+}

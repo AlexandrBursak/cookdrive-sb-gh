@@ -8,6 +8,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+use dektrium\user\widgets\Connect;
 
 // use yii\web\CartController;
 // use app\models\Product;
@@ -27,6 +28,13 @@ AppAsset::register($this);
     <?php $this->head() ?>
 </head>
 <body>
+<?php/*
+echo '<pre>';
+$param = Yii::$app->user->profile;
+var_dump($param);
+echo '</pre>';*/
+?>
+Yii::$app->user->identity
 <?php $this->beginBody() ?>
 
 <div class="wrap">
@@ -53,17 +61,17 @@ AppAsset::register($this);
                 'options' => ['class' => 'cart_navbar']
             ],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
+                '<li>' .Connect::widget([ 'baseAuthUrl' => ['/user/security/auth']]). '</li>') : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Logout (' . Yii::$app->user->identity->profile->name . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'
             )
+
         ],
     ]);
     NavBar::end();

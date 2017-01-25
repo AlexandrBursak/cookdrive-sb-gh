@@ -2,16 +2,16 @@
 
 use yii\db\Migration;
 
-class m170117_134350_add_column_serv_id extends Migration
+class m170124_102527_add_profile_photo_url extends Migration
 {
     public function up()
     {
-        $this->addColumn('order', 'serv_id', $this->integer()->after('price'));
+        $this->addColumn('profile', 'photo_url', $this->string()->after('timezone'));
     }
 
     public function down()
     {
-        echo "m170117_134350_add_column_serv_id cannot be reverted.\n";
+        echo "m170124_102527_add_profile_photo_url cannot be reverted.\n";
 
         return false;
     }
