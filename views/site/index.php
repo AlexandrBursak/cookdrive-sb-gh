@@ -8,7 +8,8 @@ $this->title = 'My food';
     <div class="row">
         <div class="col-lg-12">
             <ul class="categories_wrap">
-                <li class="categori_wrap">
+            <?= app\components\CategoryWidget::widget()?>
+                <!-- <li class="categori_wrap">
                     <a href="#">
                         <div>
                             <img src="images/day_food.png" alt="img">
@@ -103,9 +104,9 @@ $this->title = 'My food';
                         </div>
                         <span>Напівфабрикати</span>
                     </a>
-                </li>
+                </li> -->
             </ul>
-            <ul class="categories_wrap">
+<!--             <ul class="categories_wrap">
                 <li class="categori_wrap">
                     <a href="#">
                         <div>
@@ -202,7 +203,7 @@ $this->title = 'My food';
                         <span>Напівфабрикати</span>
                     </a>
                 </li>
-            </ul>
+            </ul> -->
         </div>
     </div>
 
@@ -223,6 +224,38 @@ $this->title = 'My food';
                                     <a href="#">
                                         <div class="catalog_product_img">
                                             <img src="images/japanese_food_rol.png" alt="img">
+                                            <div class="hidden_info">
+                                                <p>Запечене куряче філе, сир Едам, айсберг, зелена цибуля, соус спайс</p>
+                                            </div>
+                                        </div>
+                                        <div class="catalog_product_info_wrap">
+                                            <p class="catalog_product_subcategori_title">Великі роли</p>
+                                            <h3>Чікен-рол</h3>
+                                            <p class="catalog_product_info">215/20/50г.</p>
+                                        </div>
+                                        <div class="catalog_product_price">
+                                            <p>59<span> грн.</span></p>
+                                        </div>
+                                    </a>
+                                    <div class="catalog_product_footer clearfix">
+                                        <a href="<?= \yii\helpers\Url::to(['cart/add', 'id'=>$hit->id])?>">Замовити</a>
+                                        <div class="catalog_product_quantity">
+                                            <input type="text" name="" value="1" maxlength="3">
+                                            <span class="plus"></span>
+                                            <span class="minus"></span>
+                                            <span class="unit">шт.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="catalog_product_wrap">
+                                    <a href="#">
+                                        <div class="catalog_product_img">
+                                            <img src="images/japanese_food_rol.png" alt="img">
+                                            <div class="hidden_info">
+                                                <p>Запечене куряче філе, сир Едам, айсберг, зелена цибуля, соус спайс</p>
+                                            </div>
                                         </div>
                                         <div class="catalog_product_info_wrap">
                                             <p class="catalog_product_subcategori_title">Великі роли</p>
@@ -249,6 +282,9 @@ $this->title = 'My food';
                                     <a href="#">
                                         <div class="catalog_product_img">
                                             <img src="images/japanese_food_rol.png" alt="img">
+                                            <div class="hidden_info">
+                                                <p>Запечене куряче філе, сир Едам, айсберг, зелена цибуля, соус спайс</p>
+                                            </div>
                                         </div>
                                         <div class="catalog_product_info_wrap">
                                             <p class="catalog_product_subcategori_title">Великі роли</p>
@@ -275,32 +311,9 @@ $this->title = 'My food';
                                     <a href="#">
                                         <div class="catalog_product_img">
                                             <img src="images/japanese_food_rol.png" alt="img">
-                                        </div>
-                                        <div class="catalog_product_info_wrap">
-                                            <p class="catalog_product_subcategori_title">Великі роли</p>
-                                            <h3>Чікен-рол</h3>
-                                            <p class="catalog_product_info">215/20/50г.</p>
-                                        </div>
-                                        <div class="catalog_product_price">
-                                            <p>59<span> грн.</span></p>
-                                        </div>
-                                    </a>
-                                    <div class="catalog_product_footer clearfix">
-                                        <a href="#">Замовити</a>
-                                        <div class="catalog_product_quantity">
-                                            <input type="text" name="" value="1" maxlength="3">
-                                            <span class="plus"></span>
-                                            <span class="minus"></span>
-                                            <span class="unit">шт.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="catalog_product_wrap">
-                                    <a href="#">
-                                        <div class="catalog_product_img">
-                                            <img src="images/japanese_food_rol.png" alt="img">
+                                            <div class="hidden_info">
+                                                <p>Запечене куряче філе, сир Едам, айсберг, зелена цибуля, соус спайс</p>
+                                            </div>
                                         </div>
                                         <div class="catalog_product_info_wrap">
                                             <p class="catalog_product_subcategori_title">Великі роли</p>
