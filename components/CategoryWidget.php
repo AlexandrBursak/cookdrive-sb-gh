@@ -32,7 +32,7 @@ class CategoryWidget extends Widget {
 	} 
 
 	public function getCategoryHtml ($data){
-		$srt = '';
+		$str = '';
 		foreach ($data as $category) {
 			$str .= $this->catToTemplate($category);
 		}
