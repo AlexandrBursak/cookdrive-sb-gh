@@ -39,14 +39,15 @@ class Cart extends ActiveRecord {
 	public function changeToCart($product, $qty){
 		
 		$_SESSION['cart'][$product->id]['qty'] = $qty;
-		
+
+		$qty_all = '';
+		$sum_all = '';
+
 		foreach ($_SESSION['cart'] as $id => $item){
 			$qty_all += $item['qty'];
 			$sum_all += $item['qty'] * $item['price'];	
 		}
 		$_SESSION['cart.qty'] = $qty_all;
 		$_SESSION['cart.sum'] = $sum_all;
-
 	}
-
 }	
