@@ -10,11 +10,6 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use dektrium\user\widgets\Connect;
 
-// use yii\web\CartController;
-// use app\models\Product;
-// use app\models\Cart;
-// use yii\db\ActiveRecord;
-
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>

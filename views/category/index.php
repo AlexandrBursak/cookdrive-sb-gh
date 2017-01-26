@@ -21,11 +21,11 @@ $this->title = 'My food';
             <div class="categori_content_wrap">
 <?php if(!empty($top)):?>
                 <div class="categori_title">
-                    <h1>Японська кухня</h1>
+                    <h1></h1>
                 </div>
                 <div class="subcategori_content_wrap">
                     <div class="subcategori_title">
-                        <h2>Великі роли</h2>
+                        <h2></h2>
                     </div>
                     <div class="categori_content">
                         <ul>
@@ -34,9 +34,7 @@ $this->title = 'My food';
                                 <div class="catalog_product_wrap">
                                     <a href="<?= \yii\helpers\Url::to(['product/view', 'id'=>$product->id])?>">
                                         <div class="catalog_product_img">
-                                             <img src="http://cookdrive.com.ua/var/catalog/products/thumbs/577cc94af3587.png <?php 
-                                             // echo $product->photo_url
-                                             ?>" alt="<?php echo $product->product_name?>">
+                                            <img src="<?php echo $product->photo_url ?>" alt="<?php echo $product->product_name?>">
                                             <div class="hidden_info">
                                                 <p><?php echo $product->description?></p>
                                             </div>
