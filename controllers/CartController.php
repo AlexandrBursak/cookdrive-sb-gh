@@ -29,8 +29,8 @@ class CartController extends Controller {
 		$this->layout = false;
 		$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
 		return json_encode(array(
-			cart_count=> $qty,
-			cart_html=> $this->render('index', compact('session'))
+			'cart_count'=> $qty,
+			'cart_html'=> $this->render('index', compact('session'))
 			));
 	}
 
@@ -43,8 +43,8 @@ class CartController extends Controller {
 		$this->layout = false;
 		$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
 		return json_encode(array(
-			cart_count=> $qty,
-			cart_html=> $this->render('index', compact('session'))
+			'cart_count'=> $qty,
+			'cart_html'=> $this->render('index', compact('session'))
 			));
 	}
 
@@ -57,8 +57,8 @@ class CartController extends Controller {
 		$this->layout = false;
 		$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
 		return json_encode(array(
-			cart_count=> $qty,
-			cart_html=> $this->render('index', compact('session'))
+			'cart_count'=> $qty,
+			'cart_html'=> $this->render('index', compact('session'))
 			));
 	}
 
@@ -76,8 +76,8 @@ class CartController extends Controller {
 		$this->layout = false;
 		$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
 		return json_encode(array(
-			cart_count=> $qty,
-			cart_html=> $this->render('index', compact('session'))
+			'cart_count'=> $qty,
+			'cart_html'=> $this->render('index', compact('session'))
 			));
 	}
 
