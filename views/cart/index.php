@@ -9,10 +9,12 @@ use yii\helpers\ArrayHelper;
     <div class="row">
         <div class="col-lg-12">
             <div class="cart_wrap clearfix">
+                <?php if(!(\Yii::$app->user->isGuest)) { ?>
                 <div class="balance">
                     <p class="balance_before">Ваш баланс<span>600</span>грн.</p>
                     <p class="balance_after">баланс після замовлення<span><?php echo (600 - $session['cart.sum'])?></span>грн.</p>
                 </div>
+        <?php } ?>
                 <div class="cart_title">
                     <span>Ваше замовлення</span>
                 </div>
