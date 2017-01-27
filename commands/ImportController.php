@@ -46,22 +46,18 @@ class ImportController extends Controller
         }
     }
 
-    private function importFile()
-    {
+    private function importFile(){
         // Start the parser here
-
-
         $commandPath = \Yii::getAlias('@app') . "/commands/";
-
-        echo exec("php " . $commandPath . "index.php");
-
+        $output = array();
+        $return_var = false;
+        echo exec("php " . $commandPath . "index.php", $output, $return_var);
+        if ($return_var == 0) {
         $fileJSON = fopen('output.json', 'r');
         $contents = fread($fileJSON, filesize('output.json'));
         $sets_json = json_decode($contents, JSON_UNESCAPED_UNICODE);
         if ($fileJSON && $contents) {
             if (!empty($sets_json)) {
-
-//todo find the right place for this
                 $this->deleteData();
 
                 foreach ($sets_json as $key => $set) {
@@ -73,6 +69,7 @@ class ImportController extends Controller
 
             }
         }
+    }
     }
 
     private function deleteData(){
