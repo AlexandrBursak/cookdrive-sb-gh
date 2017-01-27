@@ -18,9 +18,7 @@ use yii\helpers\ArrayHelper;
                     </div>
                     <div class="catalog_product_wrap  product_content_wrap clearfix">
                         <div class="catalog_product_img">
-                             <img src="http://cookdrive.com.ua/var/catalog/products/thumbs/577cc94af3587.png <?php 
-                             // echo $product->photo_url
-                             ?>" alt="<?php echo $product->product_name?>">
+                            <img src="<?php echo $product->photo_url ?>" alt="<?php echo $product->product_name?>">
                         </div>
                         <div class="product_content">
                             <div class="catalog_product_info_wrap">

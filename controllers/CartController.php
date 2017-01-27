@@ -10,6 +10,12 @@ use Yii;
 class CartController extends Controller {
 
 	public function actionIndex() {
+		$session = Yii::$app->session;
+		$session->open();
+		return $this->render('index', compact('session'));
+	}
+
+	public function actionAdd() {
 		$id = Yii::$app->request->get('id');
 		$qty = (int)Yii::$app->request->get('qty');
 		$qty = !$qty ? 1 : $qty;
@@ -20,7 +26,12 @@ class CartController extends Controller {
 		if(!empty($product)) {
 			$cart->addToCart($product, $qty);
 		}
-		return $this->render('index', compact('session'));
+		$this->layout = false;
+		$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
+		return json_encode(array(
+			'cart_count'=> $qty,
+			'cart_html'=> $this->render('index', compact('session'))
+			));
 	}
 
 	public function actionClear() {
@@ -29,7 +40,12 @@ class CartController extends Controller {
 		$session->remove('cart');
 		$session->remove('cart.qty');
 		$session->remove('cart.sum');
-		return $this->render('index', compact('session'));
+		$this->layout = false;
+		$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
+		return json_encode(array(
+			'cart_count'=> $qty,
+			'cart_html'=> $this->render('index', compact('session'))
+			));
 	}
 
 	public function actionDel(){
@@ -38,7 +54,12 @@ class CartController extends Controller {
 		$session->open();
 		$cart = new Cart();
 		$cart->recalc($id);
-		return $this->render('index', compact('session'));
+		$this->layout = false;
+		$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
+		return json_encode(array(
+			'cart_count'=> $qty,
+			'cart_html'=> $this->render('index', compact('session'))
+			));
 	}
 
 	public function actionChange(){
@@ -52,6 +73,17 @@ class CartController extends Controller {
 		if(!empty($product)) {
 			$cart->changeToCart($product, $qty);
 		}
-		return $this->render('index', compact('session'));
+		$this->layout = false;
+		$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
+		return json_encode(array(
+			'cart_count'=> $qty,
+			'cart_html'=> $this->render('index', compact('session'))
+			));
 	}
+
+	public function actionConfirmOrder() {
+
+	}
+
+
 }
