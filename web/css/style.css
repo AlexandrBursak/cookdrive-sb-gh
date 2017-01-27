@@ -15,6 +15,9 @@
 p{
     margin: 0;
 }
+input{
+    outline: 0;
+}
 body{
     min-width: 320px;
     font-family: 'OpenSansRegular';
@@ -453,7 +456,7 @@ body{
     padding: 40px 0;
     text-align: center;
 }
-.order_enter input{
+.order_enter a{
     padding: 10px 30px;
     border-radius: 30px;
     background: #f53b0d;
@@ -466,10 +469,12 @@ body{
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
+    text-decoration: none;
 }
-.order_enter input:hover{
+.order_enter a:hover{
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.9);
     background: red;
+    text-decoration: none;
 }
 .no_orders{
     padding: 10px;

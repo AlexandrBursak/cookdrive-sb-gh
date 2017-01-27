@@ -155,12 +155,32 @@ function cart_res() {
 	if(Number($('.cart_navbar a').text().charAt(0)) > 0){
 		$('.cart_navbar a').addClass('active');
 	}
+
+	confirm_order();
 }
 
 
-
-
-
+function confirm_order(){
+	$('#to_order').on("click", function(e){
+		e.preventDefault();
+		$.ajax({
+			url: '/cart/confirm',
+			type: 'POST',
+			success: function(res){
+				if (res) {
+					res = JSON.parse(res);
+					update_global_cart(res.cart_count);
+					update_cart(res);
+				} else {
+					$('.google.auth-link').click();
+				}
+			},
+			error: function(){
+				alert('Error!');
+			}
+		});
+	});
+}
 
 
 
@@ -190,10 +210,12 @@ $(document).ready(function() {
 		});
 	});
 
+
 	cart_quantity();
 
 	cart_res();
 
+	// confirm_order();
 
 // up page 
 	$('#up_page').click(function() {
@@ -207,5 +229,7 @@ $(document).ready(function() {
 			return false;
 		}
 	});
+
+	$(".fancybox").fancybox();
 
 });
