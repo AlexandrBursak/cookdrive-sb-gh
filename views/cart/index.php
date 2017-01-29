@@ -9,12 +9,16 @@ use yii\helpers\ArrayHelper;
     <div class="row">
         <div class="col-lg-12">
             <div class="cart_wrap clearfix">
+
                 <?php if(!(\Yii::$app->user->isGuest)) { ?>
-                <div class="balance">
-                    <p class="balance_before">Ваш баланс<span>600</span>грн.</p>
-                    <p class="balance_after">баланс після замовлення<span><?php echo (600 - $session['cart.sum'])?></span>грн.</p>
-                </div>
-        <?php } ?>
+
+                    <div class="balance">
+                        <p class="balance_before">Ваш баланс<span>600</span>грн.</p>
+                        <p class="balance_after">баланс після замовлення<span><?php echo (600 - $session['cart.sum'])?></span>грн.</p>
+                    </div>
+
+                <?php } ?>
+
                 <div class="cart_title">
                     <span>Ваше замовлення</span>
                 </div>
@@ -59,7 +63,7 @@ use yii\helpers\ArrayHelper;
                     </div>
                 </div>
                 <div class="order_enter">
-                    <input type="submit" name="" value="Замовити">
+                    <a id='to_order' href="#">Замовити</a>
                 </div>
             </div>           
         </div>
@@ -70,9 +74,15 @@ use yii\helpers\ArrayHelper;
     <div class="row">
         <div class="col-lg-12">
         	<div class="cart_wrap clearfix">
-    	    	<div class="balance">
-    				<p class="balance_before">Ваш баланс<span>600</span>грн.</p>
-    			</div>
+
+                <?php  if(!(\Yii::$app->user->isGuest)) { ?>
+
+                    <div class="balance">
+                        <p class="balance_before">Ваш баланс<span>600</span>грн.</p>
+                    </div>
+
+                <?php } ?>
+
         		<div class="cart_title">
         			<span>Ваше замовлення</span>
         		</div>
