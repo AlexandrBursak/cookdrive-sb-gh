@@ -10,10 +10,10 @@ class CategoryController extends Controller {
 
 	public function actionIndex() {
 		$top = Product::find()->asArray()->select('category')->distinct()->all();
-		$category = $top[0][category];
+		$category = $top[0]['category'];
 		$products = Product::find()->asArray()->where(['category' => $category])->all();
 		foreach ($products as $key => $value) {
-			$new_arr[$value[sub_category]][]=$value;
+			$new_arr[$value['sub_category']][]=$value;
 		}
 		return $this->render('index', compact('new_arr', 'category'));
 	}
@@ -22,14 +22,17 @@ class CategoryController extends Controller {
 		$category = Yii::$app->request->get('category');
 		$products = Product::find()->asArray()->where(['category' => $category])->all();
 		foreach ($products as $key => $value) {
-			$new_arr[$value[sub_category]][]=$value;
+			$new_arr[$value['sub_category']][]=$value;
 		}
 		return $this->render('view', compact('new_arr', 'category'));
 	}
 	public function actionSearch(){
-        $params = Yii::$app->request->get('params');
-        $products=Product::find()->where(["sub_category"=>$params])->all();
-        return $this->render('view', compact('products'));
+        $category = Yii::$app->request->get('params');
+        $products=Product::find()->asArray()->where(['like', 'sub_category', $category])->all();
+        foreach ($products as $key => $value) {
+            $new_arr[$value['sub_category']][]=$value;
+        }
+        return $this->render('view', compact('new_arr'));
 
     }
 }

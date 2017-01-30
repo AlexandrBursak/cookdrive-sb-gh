@@ -1,8 +1,6 @@
 <?php
 /* @var $this yii\web\View */
 use yii\helpers\Html;
-
-$this->title = 'My food';
 use yii\helpers\ArrayHelper;
 ?>
     <div class="row">
@@ -10,7 +8,7 @@ use yii\helpers\ArrayHelper;
             <div class="categori_content_wrap">
 <?php if(!empty($new_arr)):?>
                 <div class="categori_title">
-                    <h1><?php echo $category?></h1>
+                    <h1><?=isset($category)?$category:'' ?></h1>
                 </div>
 <?php foreach ($new_arr as $key => $value):?>
                 <div class="subcategori_content_wrap">
