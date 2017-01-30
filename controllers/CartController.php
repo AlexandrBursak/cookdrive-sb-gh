@@ -18,6 +18,7 @@ class CartController extends Controller {
 	}
 
 	public function actionAdd() {
+
 		if (Yii::$app->request->isAjax){
 			$id = Yii::$app->request->get('id');
 			$qty = (int)Yii::$app->request->get('qty');
@@ -32,8 +33,8 @@ class CartController extends Controller {
 			$this->layout = false;
 			$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
 			return json_encode(array(
-				cart_count=> $qty,
-				cart_html=> $this->render('index', compact('session'))
+				'cart_count'=> $qty,
+				'cart_html'=> $this->render('index', compact('session'))
 			));
 		}
 		else{
@@ -51,8 +52,8 @@ class CartController extends Controller {
 			$this->layout = false;
 			$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
 			return json_encode(array(
-				cart_count=> $qty,
-				cart_html=> $this->render('index', compact('session'))
+				'cart_count'=> $qty,
+				'cart_html'=> $this->render('index', compact('session'))
 			));
 		}
 		else{
@@ -61,6 +62,7 @@ class CartController extends Controller {
 	}
 
 	public function actionDel(){
+
 		if (Yii::$app->request->isAjax){
 			$id = Yii::$app->request->get('id');
 			$session = Yii::$app->session;
@@ -70,8 +72,8 @@ class CartController extends Controller {
 			$this->layout = false;
 			$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
 			return json_encode(array(
-				cart_count=> $qty,
-				cart_html=> $this->render('index', compact('session'))
+				'cart_count'=> $qty,
+				'cart_html'=> $this->render('index', compact('session'))
 			));
 		}
 		else{
@@ -94,8 +96,8 @@ class CartController extends Controller {
 			$this->layout = false;
 			$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
 			return json_encode(array(
-				cart_count=> $qty,
-				cart_html=> $this->render('index', compact('session'))
+				'cart_count'=> $qty,
+				'cart_html'=> $this->render('index', compact('session'))
 			));
 		}
 		else{
@@ -131,8 +133,8 @@ class CartController extends Controller {
 						$this->layout = false;
 						$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
 						return json_encode(array(
-							cart_count=> $qty,
-							cart_html=> $this->render('index', compact('session'))
+							'cart_count'=> $qty,
+							'cart_html'=> $this->render('index', compact('session'))
 						));
 
 				    // $session->setFlash('cartConfirm', 'Ваше замовлення було успішно підтверджене!');
@@ -156,6 +158,7 @@ class CartController extends Controller {
    		}
 		else $this->redirect(['site/error']);
 	}
+
 
 }
 

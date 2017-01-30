@@ -32,3 +32,5 @@ tests/_support/_generated
 #ignore file named db.php
 /config/db.php
 /composer.lock
+composer-setup.php
+composer.bat
