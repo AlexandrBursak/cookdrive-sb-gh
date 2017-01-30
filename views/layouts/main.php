@@ -68,11 +68,30 @@ Yii::$app->user->identity
             )
 
         ],
+
     ]);
     NavBar::end();
     ?>
 
+
+
     <div class="container">
+
+
+            <div class="row">
+            <div class="col-lg-12">
+                <div class="input-group">
+                    <form method="get" action="<?=\yii\helpers\Url::to(['category/search']) ?>">
+                    <input type="text" class="form-control" name="params" placeholder="Введіть дані для пошуку">
+                    </form>
+                    <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Шукати</button>
+      </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </div>
+
+
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
