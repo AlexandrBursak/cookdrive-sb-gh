@@ -207,7 +207,7 @@ $this->title = 'My food';
         </div>
     </div>
 
-    <div class="row">
+<!--     <div class="row">
         <div class="col-lg-12">
             <div class="categori_content_wrap">
                 <div class="categori_title">
@@ -340,7 +340,7 @@ $this->title = 'My food';
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 <!-- <div class="site-index">
 

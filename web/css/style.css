@@ -202,7 +202,6 @@ body{
     background: rgba(0,0,0,0.2);
     color: #fff;
     padding: 10px;
-    border-radius: 10px 10px 0 0;
 }
 .catalog_product_wrap:hover .hidden_info{
     top: 0;
