@@ -102,7 +102,7 @@ AppAsset::register($this);
         <div class="row">
             <div class="col-lg-12">
                 <form method="get" action="<?=\yii\helpers\Url::to(['category/search']) ?>" class="input-group">
-                    <input type="text" class="form-control" name="params" placeholder="Введіть дані для пошуку">
+                    <input type="text" class="form-control" name="query" placeholder="Введіть дані для пошуку">
                     <span class="input-group-btn">
                         <input class="btn btn-default" type="submit" value="Шукати">
                     </span>
