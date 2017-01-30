@@ -19,7 +19,8 @@ class Cart extends ActiveRecord {
 				'name' => $product->product_name,
 				'price' => $product->price,
 				'img' => $product->photo_url,
-				'description' => $product->description
+				'description' => $product->description,
+                'service_id' => $product->serv_id
 			];
 		}
 		$_SESSION['cart.qty'] = isset($_SESSION['cart.qty']) ? $_SESSION['cart.qty'] + $qty : $qty;
