@@ -171,6 +171,12 @@ function confirm_order(){
 					res = JSON.parse(res);
 					update_global_cart(res.cart_count);
 					update_cart(res);
+					$.fancybox({
+        				content:'<div class="success"><p>Ваше замовлення успішно оформлено.</p><span>СМАЧНОГО!</span></div>'
+      				});
+      				setTimeout(function(){
+ 						$.fancybox.close();
+					}, 3000);
 				} else {
 					$('.google.auth-link').click();
 				}
@@ -214,8 +220,6 @@ $(document).ready(function() {
 	cart_quantity();
 
 	cart_res();
-
-	// confirm_order();
 
 // up page 
 	$('#up_page').click(function() {

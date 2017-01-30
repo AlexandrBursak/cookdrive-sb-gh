@@ -525,3 +525,16 @@ body{
 .auth-clients {
     margin: 10px 0 0 0;
 }
+.success{
+    font-family: 'OpenSansSemibold';
+    font-size: 18px;
+    text-align: center;
+    width: 290px;
+}
+.success span{
+    display: block;
+    padding-top: 15px;
+    font-size: 20px;
+    color: #11e416;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+}
