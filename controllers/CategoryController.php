@@ -26,4 +26,10 @@ class CategoryController extends Controller {
 		}
 		return $this->render('view', compact('new_arr', 'category'));
 	}
+	public function actionSearch(){
+        $params = Yii::$app->request->get('params');
+        $products=Product::find()->where(["sub_category"=>$params])->all();
+        return $this->render('view', compact('products'));
+
+    }
 }
