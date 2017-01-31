@@ -49,12 +49,13 @@ class ImportController extends Controller
     private function importFile(){
         // Start the parser here
         $commandPath = \Yii::getAlias('@app') . "/commands/";
-        $output = array();
+        $filepath=\Yii::getAlias('@app') ."/runtime/parser/";
+            $output = array();
         $return_var = false;
         echo exec("php " . $commandPath . "index.php", $output, $return_var);
         if ($return_var == 0) {
-        $fileJSON = fopen('output.json', 'r');
-        $contents = fread($fileJSON, filesize('output.json'));
+        $fileJSON = fopen("$filepath". "output.json", 'r');
+        $contents = fread($fileJSON, filesize($filepath.'output.json'));
         $sets_json = json_decode($contents, JSON_UNESCAPED_UNICODE);
         if ($fileJSON && $contents) {
             if (!empty($sets_json)) {

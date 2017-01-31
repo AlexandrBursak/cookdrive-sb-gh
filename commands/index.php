@@ -3,7 +3,7 @@
 require(__DIR__ . '/../vendor/autoload.php');
 use Sunra\PhpSimple\HtmlDomParser;
 
-$filename = 'output.json';
+$filename = 'runtime/parser/output.json';
 
 //create or open file if exists
     $file = fopen($filename, 'w');
