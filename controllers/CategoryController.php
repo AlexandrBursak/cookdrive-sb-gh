@@ -28,7 +28,9 @@ class CategoryController extends Controller {
 	}
 	public function actionSearch(){
         $params = Yii::$app->request->get('query');
-        $products=Product::find()->asArray()->where(['like', 'sub_category', $params])->orWhere(['like', 'product_name', $params])->all();
+        $products=Product::find()->asArray()->where(['like', 'sub_category', $params])
+            ->orWhere(['like', 'product_name', $params])
+            ->all();
         foreach ($products as $key => $value) {
             $new_arr[$value['sub_category']][]=$value;
         }

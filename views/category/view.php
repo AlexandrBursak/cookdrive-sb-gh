@@ -5,8 +5,14 @@ use yii\helpers\ArrayHelper;
 ?>
     <div class="row">
         <div class="col-lg-12">
+            <form method="get" action="<?=\yii\helpers\Url::to(['category/search']) ?>" class="input-group">
+                <input type="text" class="form-control" name="query" placeholder="Введіть дані для пошуку">
+                <span class="input-group-btn">
+                        <input class="btn btn-default" type="submit" value="Шукати">
+                    </span>
+            </form>
             <div class="categori_content_wrap">
-<?php if(!empty($new_arr)):?>
+<?php if(!empty($new_arr)){?>
                 <div class="categori_title">
                     <h1><?=isset($category)?$category:'' ?></h1>
                 </div>
@@ -52,7 +58,9 @@ use yii\helpers\ArrayHelper;
                     </div>
                 </div>
 <?php endforeach;?>
-<?php endif;?>
+<?php }
+else echo "<h1>Нічого не знайдено!</h1>"
+?>
             </div>
         </div>
     </div>
