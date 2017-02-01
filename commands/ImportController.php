@@ -49,7 +49,7 @@ class ImportController extends Controller
     private function importFile(){
         // Start the parser here
         $commandPath = \Yii::getAlias('@app') . "/commands/";
-        $filepath=\Yii::getAlias('@app') ."/runtime/parser/";
+        $filepath=\Yii::getAlias('@app') ."/runtime/";
             $output = array();
         $return_var = false;
         echo exec("php " . $commandPath . "index.php", $output, $return_var);
