@@ -27,7 +27,8 @@ class CategoryController extends Controller {
 		return $this->render('view', compact('new_arr', 'category'));
 	}
 	public function actionSearch(){
-        $params = Yii::$app->request->get('query');
+        $params = trim(Yii::$app->request->get('query'));
+        $params=str_replace('+', '', $params);
         if (!$params=='') {
             $products = Product::find()->asArray()->where(['like', 'sub_category', $params])
                 ->orWhere(['like', 'product_name', $params])
