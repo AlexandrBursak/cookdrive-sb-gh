@@ -28,7 +28,11 @@ class CategoryController extends Controller {
 	}
 	public function actionSearch(){
         $params = trim(Yii::$app->request->get('query'));
-        $params=str_replace('+', '', $params);
+        $params=strip_tags($params);
+        if (Yii::$app->request->get('query') != $params){
+            $this->redirect(\yii\helpers\Url::to(['category/search', 'query'=>$params]));
+        }
+
         if (!$params=='') {
             $products = Product::find()->asArray()->where(['like', 'sub_category', $params])
                 ->orWhere(['like', 'product_name', $params])
