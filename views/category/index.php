@@ -30,7 +30,7 @@ $this->title = 'My food';
     <div class="subcategori_list">
         <ul class="clearfix">
             <?php foreach ($new_arr as $key => $value):?>
-                <li><a href="#<?php echo $key?>"><?php echo $key?></a></li>
+                <li><a href="#"><?php echo $key?></a></li>
             <?php endforeach;?>
         </ul>
     </div>
@@ -38,7 +38,7 @@ $this->title = 'My food';
     <?php foreach ($new_arr as $key => $value):?>
                 <div class="subcategori_content_wrap">
                     <div class="subcategori_title">
-                        <h2><?php echo $key?><a name="<?php echo $key?>"></a></h2>
+                        <h2><?php echo $key?></h2>
                     </div>
                     <div class="categori_content">
                         <ul>
