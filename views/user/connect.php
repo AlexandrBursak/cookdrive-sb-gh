@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
  * @var dektrium\user\models\Account $account
  */
 
-$this->title = Yii::t('user', 'Sign in');
+$this->title = Yii::t('user', 'Вхід');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="row">
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <p>
                         <?= Yii::t(
                             'user',
-                            'In order to finish your registration, we need you to enter following fields'
+                            'Для закінчення вашої реєстрації, ви повинні заповнити відповідні поля нижще'
                         ) ?>:
                     </p>
                 </div>
@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'username') ?>
 
-                <?= Html::submitButton(Yii::t('user', 'Continue'), ['class' => 'btn btn-success btn-block']) ?>
+                <?= Html::submitButton(Yii::t('user', 'Продовжити'), ['class' => 'btn btn-success btn-block']) ?>
 
                 <?php ActiveForm::end(); ?>
             </div>
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a(
                 Yii::t(
                     'user',
-                    'If you already registered, sign in and connect this account on settings page'
+                    'Якщо ви вже зареєстровані, увійдіть та підключіть акаунт в налаштуваннях'
                 ),
                 ['/user/settings/networks']
             ) ?>.

@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use app\models\Profile;
+use app\models\Service;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -26,9 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col-lg-12">
             <div class="admin_order_wrap">
-                <div class="all_user_order_block_slide">Розгорнути/Згорнути</div>
+                <div class="clearfix">
+                    <div class="all_user_order_block_slide">
+                        <span>Розгорнути всі</span>
+                    </div>
+                </div>
                 <ul>
-                    <?php foreach($users as $keys => $values) { ?>
+                    <?php if(isset($orders_per_user)) { ?>
+                    <?php foreach($orders_per_user as $keys => $values) { ?>
                     <li class="admin_order_one">
                         <div class="user_order_block_up">
                             <div class="user_name">
@@ -39,6 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php echo Profile::findOne($keys)->name ; ?>
                             </div>
                         </div>
+                        <div class="table-responsive">
                         <table class="table table-hover user_order_block_dn">
                             <thead>
                                 <tr>
@@ -46,6 +54,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <th>Ціна</th>
                                     <th>Кількість</th>
                                     <th>Загальна вартість</th>
+                                    <th>Сервіс</th>
+                                    <th>Операції</th>
                                 </tr>
                             </thead>
                         <?php
@@ -57,6 +67,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <td><?= $value['price'] ?> грн.</td>
                                 <td><?= $value['quantity'] ?> шт.</td>
                                 <td><?= $value['price']*$value['quantity'] ?> грн.</td>
+                                <td><?= Html::a(Service::findOne($value['serv_id'])->name, ['url' => Service::findOne($value['serv_id'])->url]); ?></td>
+                                <td>
+                                    <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['/user/admin/order-delete', 'id' => $value['id']], [
+                                        'title' => 'Видалити',
+                                        'data-confirm' => 'А ви впевнені що хочете видалити замовлення?',
+                                        'data-method' => 'POST',
+                                    ]) ?>
+                                    <?= Html::a('<span class="glyphicon glyphicon-retweet"></span>', ['/user/admin/order-update', 'id' => $value['id']], [
+                                        'title' => 'Редагування замовлення',
+                                    ]) ?>
+                                </td>
                             </tr>
                                 <!--</div>-->
 
@@ -66,11 +87,60 @@ $this->params['breadcrumbs'][] = $this->title;
                         ?>
                             <tfooter>
                                 <tr>
-                                    <td colspan="4" align="right">Все замовлення на суму: <?=$summ_all?> .грн</td>
+                                    <th colspan="6">Все замовлення користувача на суму: <?=$summ_all?> грн. </th>
                                 </tr>
                             </tfooter>
                         </table>
+                        </div>
                     </li>
+                    <?php } ?>
+                    <?php } else if(isset($orders)) { ?>
+                    <li class="admin_order_one">
+                        <div class="user_order_block_up">
+                            <div class="user_name">
+                                Загальне замовлення
+                            </div>
+                        </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover user_order_block_dn">
+                                    <thead>
+                                    <tr>
+                                        <th>Назва товару</th>
+                                        <th>Кількість</th>
+                                        <th>Ціна</th>
+                                        <th>Всього</th>
+                                        <th>Сервіс</th>
+                                    </tr>
+                                    </thead>
+                                    <?php foreach ($orders as $key => $value) { ?>
+
+<!--                                        Array-->
+<!--                                        (-->
+<!--                                        [id] => 80-->
+<!--                                        [date] => 2017-02-02-->
+<!--                                        [user_id] => 17-->
+<!--                                        [product_id] => 218-->
+<!--                                        [quantity] => 1-->
+<!--                                        [product_name] => Бургер Бургер з індичкою-->
+<!--                                        [price] => 56-->
+<!--                                        [serv_id] =>-->
+<!--                                        )-->
+                                        <tr>
+                                            <!--<td><?php // Html::a(Profile::findOne($value['user_id'])->name, ['/user/profile/show', 'id' => $value['user_id']], ['target' => '_blank', 'data' => ['pjax' => 0]]) ?></td>-->
+                                            <td><?= $value['product_name'] ?></td>
+                                            <td><?= $value['quantity_sum'] ?> шт.</td>
+                                            <td><?= $value['price'] ?> грн.</td>
+                                            <td><?= $value['price']*$value['quantity_sum'] ?> грн.</td>
+                                            <td><?= Html::a(Service::findOne($value['serv_id'])->name, ['url' => Service::findOne($value['serv_id'])->url]); ?></td>
+                                        </tr>
+                                    <?php } ?>
+                                </table>
+                        </div>
+                    </li>
+
+                    <?php } else {?>
+
+                        //TODO: add text, if orders not found
                     <?php } ?>
                 </ul>
             </div>

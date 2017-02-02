@@ -24,6 +24,10 @@ use yii\bootstrap\Nav;
             'url' => ['/user/admin/orders'],
         ],
         [
+            'label' => 'Замовлення на користувача',
+            'url' => ['/user/admin/user-orders'],
+        ],
+        [
             'label' => 'Користувачі',
             'url' => ['/user/admin/index'],
         ],

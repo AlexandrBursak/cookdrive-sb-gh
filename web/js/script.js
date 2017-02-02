@@ -248,10 +248,13 @@ $(document).ready(function() {
 
     $('.all_user_order_block_slide').click(function(e){
         e.preventDefault();
-        if($('.admin_order_one').hasClass('active')){
+        $(this).text($(this).hasClass('active') ? 'Розгорнути всі' : 'Згорнути всі')
+        if($('.all_user_order_block_slide').hasClass('active')){
+            $('.all_user_order_block_slide').removeClass('active');
             $('.admin_order_one').removeClass('active');
             $('.user_order_block_dn').slideUp();
         }else {
+            $('.all_user_order_block_slide').addClass('active');
             $('.admin_order_one').addClass('active');
             $('.user_order_block_dn').slideDown();
         }

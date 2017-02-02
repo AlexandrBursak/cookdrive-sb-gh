@@ -541,7 +541,7 @@ body{
 .user_order_block_up, .all_user_order_block_slide{
     position: relative;
     padding: 10px;
-    background: #999;
+    background: rgba(153,153,153,0.2);
     cursor: pointer;
     border-top: 2px solid #f54a4a;
 }
@@ -549,7 +549,7 @@ body{
     content: "\f078";
     font: normal normal normal 11px/1 FontAwesome;
     position: absolute;
-    top: 16px;
+    top: 14px;
     right: 15px;
     -webkit-transition: all 500ms ease;
     -moz-transition: all 500ms ease;
@@ -567,6 +567,12 @@ body{
 }
 .user_order_block_dn{
     display: none;
+    padding: 5px;
+    padding-left: 20px;
+    border-bottom: 1px solid #999;
+}
+.admin_order_wrap{
+    padding: 15px 0;
 }
 .admin_order_wrap ul{
     list-style: none;
@@ -575,4 +581,61 @@ body{
 .all_user_order_block_slide{
     display: inline-block;
     border: none;
+    width: 150px;
+    border-radius: 20px;
+    border: 1px solid #999;
+    padding: 5px 15px;
+    margin-bottom: 15px;
+    float: right;
+}
+.all_user_order_block_slide:after{
+    content: "\f078";
+    font: normal normal normal 11px/1 FontAwesome;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+}
+.all_user_order_block_slide.active:after{
+    -moz-transform: rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+    -o-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+    color: #f54a4a;
+}
+.user_product_name{
+    float: left;
+    max-width: 405px;
+    padding-right: 20px;
+    font-family: 'OpenSansSemibold';
+    font-size: 16px;
+}
+.user_product_name p:first-letter {
+    text-transform: uppercase;
+}
+.user_product_info{
+    float: right;
+    width: 290px;
+}
+.user_product_info div{
+    float: left;
+}
+.user_product_info div:first-child{
+    width: 35%;
+}
+.user_product_info div:last-child{
+    width: 35%;
+    text-align: right;
+}
+.user_order_qty{
+    width: 30%;
+    text-align: center;
+}
+.user_name{
+    padding-right: 25px;
 }

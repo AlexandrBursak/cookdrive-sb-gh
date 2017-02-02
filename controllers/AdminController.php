@@ -11,20 +11,29 @@ use yii\filters\VerbFilter;
 
 class AdminController extends BaseAdminController
 {
-
     public function actionOrders()
+    {
+        $orders = Order::find()->select('product_name, serv_id, price, product_id, SUM(quantity) AS quantity_sum')->groupBy(['product_name','product_name', 'serv_id', 'price', 'product_id'])->asArray()->where(['date' => date("Y:m:d")])->all();
+
+        return $this->render('orderindex', [
+            'orders' => $orders,
+        ]);
+    }
+
+    public function actionUserOrders()
     {
         /*$dataProvider = new ActiveDataProvider([
             'query' => Order::find()->where(['date' => date("Y:m:d")]),
         ]);*/
-        $dataProvider = Order::find()->asArray()->where(['date' => date("Y:m:d")])->all();
-        $users = [];
-        foreach ($dataProvider as $key => $value) {
-            $users[$value['user_id']][]=$value;
+        $orders = Order::find()->asArray()->where(['date' => date("Y:m:d")])->all();
+        $orders_per_user = [];
+        foreach ($orders as $key => $value) {
+            $orders_per_user[$value['user_id']][]=$value;
         }
 
         return $this->render('orderindex', [
-            'users' => $users,
+            'orders_per_user' => $orders_per_user,
+            'orders' => $orders,
         ]);
     }
 
@@ -66,6 +75,7 @@ class AdminController extends BaseAdminController
      */
     public function actionOrderUpdate($id)
     {
+
         $model = $this->findOrderModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
