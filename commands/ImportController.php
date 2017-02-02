@@ -7,6 +7,7 @@
 
 namespace app\commands;
 
+use yii\db\Query;
 use yii\console\Controller;
 use app\models\Product;
 
@@ -33,6 +34,11 @@ class ImportController extends Controller
         $product->date_add=date("Y:m:d");
         $product->category=$categoryName;
         $product->sub_category=$item["subcategory"];
+        $service = (int)((new Query())->select('id')
+            ->from('service')
+            ->where(['name'=>'CookDrive'])
+            ->one());
+        $product->serv_id=$service;
         $product->save();
 
     }
