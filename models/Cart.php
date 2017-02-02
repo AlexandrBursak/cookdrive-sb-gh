@@ -20,6 +20,7 @@ class Cart extends ActiveRecord {
 				'price' => $product->price,
 				'img' => $product->photo_url,
 				'description' => $product->description,
+                'sub_category' => $product->sub_category,
                 'service_id' => $product->serv_id
 			];
 		}

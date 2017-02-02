@@ -21,6 +21,9 @@ class Order extends \yii\db\ActiveRecord
          return $this->hasOne(User::className(), ['id' => 'user_id']);
         */
     }
+    public function  getProfile(){
+        return $this->hasOne(Profile::className(), ['user_id' => 'user_id']);
+    }
 
     public function getProduct(){
 
@@ -31,6 +34,21 @@ class Order extends \yii\db\ActiveRecord
 
         return $this->hasOne(Service::className(), ['id' => 'serv_id']);
 
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID замовлення',
+            'date' => 'Дата замовлення',
+            'user_id' => 'Користувач/ID користувача',
+            'product_id' => 'Продукт/ID продукту',
+            'quantity' => 'Кількість',
+            'product_name' => 'Назва продукту',
+            'price' => 'Ціна',
+            'serv_id' => 'Сервіс/Мережа',
+            'summ' => 'Всьго'
+        ];
     }
 
 }

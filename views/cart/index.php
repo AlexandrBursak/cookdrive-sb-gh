@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-
+use app\models\History;
 use yii\helpers\ArrayHelper;
 ?>
 <?php if (!empty($session['cart'])) : ?>
@@ -13,8 +13,8 @@ use yii\helpers\ArrayHelper;
                 <?php if(!(\Yii::$app->user->isGuest)) { ?>
 
                     <div class="balance">
-                        <p class="balance_before">Ваш баланс<span>600</span>грн.</p>
-                        <p class="balance_after">баланс після замовлення<span><?php echo (600 - $session['cart.sum'])?></span>грн.</p>
+                        <p class="balance_before">Ваш баланс<span><?= History::myBalance(\Yii::$app->user->id) ?></span>грн.</p>
+                        <p class="balance_after">баланс після замовлення<span><?php echo (History::myBalance(\Yii::$app->user->id) - $session['cart.sum'])?></span>грн.</p>
                     </div>
 
                 <?php } ?>
@@ -78,7 +78,7 @@ use yii\helpers\ArrayHelper;
                 <?php  if(!(\Yii::$app->user->isGuest)) { ?>
 
                     <div class="balance">
-                        <p class="balance_before">Ваш баланс<span>600</span>грн.</p>
+                        <p class="balance_before">Ваш баланс<span><?= History::myBalance(\Yii::$app->user->id) ?></span>грн.</p>
                     </div>
 
                 <?php } ?>

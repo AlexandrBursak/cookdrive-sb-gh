@@ -13,7 +13,7 @@ $config = [
         'view' => [
             'theme' => [
                 'pathMap' => [
-                    '@dektrium/user/views' => '@app/views/user'
+                    '@dektrium/user/views' => '@app/views/',
                 ],
             ],
         ],
@@ -84,11 +84,13 @@ $config = [
                 'Profile' => 'app\models\Profile',
             ],
             'controllerMap' => [
-                'registration' => 'app\controllers\RegistrationController'
+                'registration' => 'app\controllers\RegistrationController',
+                'admin' => 'app\controllers\AdminController',
             ],
 
             'admins' => ['admin']
         ],
+
     ],
     'params' => $params,
 ];

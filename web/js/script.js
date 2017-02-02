@@ -234,4 +234,27 @@ $(document).ready(function() {
 		}
 	});
 
+
+    $('.user_order_block_up').click(function(e){
+        e.preventDefault();
+        if($(this).closest('.admin_order_one').hasClass('active')){
+            $(this).closest('.admin_order_one').removeClass('active');
+            $(this).closest('.admin_order_one').find('.user_order_block_dn').slideUp();
+        }else {
+            $(this).closest('.admin_order_one').addClass('active');
+            $(this).closest('.admin_order_one').find('.user_order_block_dn').slideDown();
+        }
+    });
+
+    $('.all_user_order_block_slide').click(function(e){
+        e.preventDefault();
+        if($('.admin_order_one').hasClass('active')){
+            $('.admin_order_one').removeClass('active');
+            $('.user_order_block_dn').slideUp();
+        }else {
+            $('.admin_order_one').addClass('active');
+            $('.user_order_block_dn').slideDown();
+        }
+    });
+
 });

@@ -51,7 +51,7 @@ class RegistrationController extends  BaseRegistrationController
         $user->profile = $profile;
         
         if ($user->load(\Yii::$app->request->post()) && $user->create()) {
-            
+
             $account->connect($user);
             $this->trigger(self::EVENT_AFTER_CONNECT, $event);
 

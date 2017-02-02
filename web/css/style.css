@@ -537,3 +537,42 @@ body{
     color: #11e416;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
+
+.user_order_block_up, .all_user_order_block_slide{
+    position: relative;
+    padding: 10px;
+    background: #999;
+    cursor: pointer;
+    border-top: 2px solid #f54a4a;
+}
+.user_order_block_up:after{
+    content: "\f078";
+    font: normal normal normal 11px/1 FontAwesome;
+    position: absolute;
+    top: 16px;
+    right: 15px;
+    -webkit-transition: all 500ms ease;
+    -moz-transition: all 500ms ease;
+    -ms-transition: all 500ms ease;
+    -o-transition: all 500ms ease;
+    transition: all 500ms ease;
+}
+.admin_order_one.active .user_order_block_up:after{
+    -moz-transform: rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
+    -o-transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+    color: #f54a4a;
+}
+.user_order_block_dn{
+    display: none;
+}
+.admin_order_wrap ul{
+    list-style: none;
+    padding: 0;
+}
+.all_user_order_block_slide{
+    display: inline-block;
+    border: none;
+}

@@ -19,4 +19,15 @@ use yii\db\ActiveRecord;
 class History extends ActiveRecord
 {
 
+    public function myBalance($user_id)
+    {
+
+        $data = History::find()->where(['users_id' => \Yii::$app->user->id])->sum('summa');
+        if(!$data) {
+            return 0;
+        }
+        return $data;
+
+    }
+
 }

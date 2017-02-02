@@ -9,6 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use dektrium\user\widgets\Connect;
+use app\models\History;
 
 AppAsset::register($this);
 ?>
@@ -27,6 +28,7 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+
     $session = Yii::$app->session;
     $qty_head = $session['cart.qty'];
     $qty_head = !$qty_head ? 0 : $qty_head;
@@ -49,12 +51,12 @@ AppAsset::register($this);
         {
             $subitems[] = [
                 'label' => 'Користувачі',
-                'url' => ['/users'],
+                'url' => ['/user/admin/index'],
             ];
 
             $subitems[] = [
                 'label' => 'Замовлення',
-                'url' => ['/users'],
+                'url' => ['/user/admin/orders'],
             ];
 
             $subitems[] = [
