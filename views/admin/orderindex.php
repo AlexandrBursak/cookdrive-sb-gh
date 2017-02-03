@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <td><?= $value['price'] ?> грн.</td>
                                 <td><?= $value['quantity'] ?> шт.</td>
                                 <td><?= $value['price']*$value['quantity'] ?> грн.</td>
-                                <td><?= Html::a(Service::findOne($value['serv_id'])->name, ['url' => Service::findOne($value['serv_id'])->url]); ?></td>
+                                <td><?= Html::a(Service::findOne($value['serv_id'])->name, Url::to(Service::findOne($value['serv_id'])->link, true), ['target' => '_blank']); ?></td>
                                 <td>
                                     <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['/user/admin/order-delete', 'id' => $value['id']], [
                                         'title' => 'Видалити',
@@ -98,7 +98,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <li class="admin_order_one">
                         <div class="user_order_block_up">
                             <div class="user_name">
-                                Загальне замовлення
+                                Загальний чек замовлення
                             </div>
                         </div>
                             <div class="table-responsive">
@@ -112,35 +112,30 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <th>Сервіс</th>
                                     </tr>
                                     </thead>
-                                    <?php foreach ($orders as $key => $value) { ?>
+                                    <?php
+                                        $summ_all = 0;
+                                        foreach ($orders as $key => $value) { ?>
+                                            <tr>
+                                                <td><?= $value['product_name'] ?></td>
+                                                <td><?= $value['quantity_sum'] ?> шт.</td>
+                                                <td><?= $value['price'] ?> грн.</td>
+                                                <td><?= $value['price']*$value['quantity_sum'] ?> грн.</td>
+                                                <td><?= Html::a(Service::findOne($value['serv_id'])->name, Url::to(Service::findOne($value['serv_id'])->link, true), ['target' => '_blank']); ?></td>
+                                            </tr>
+                                            <?php $summ_all += $value['price']*$value['quantity_sum']; ?>
 
-<!--                                        Array-->
-<!--                                        (-->
-<!--                                        [id] => 80-->
-<!--                                        [date] => 2017-02-02-->
-<!--                                        [user_id] => 17-->
-<!--                                        [product_id] => 218-->
-<!--                                        [quantity] => 1-->
-<!--                                        [product_name] => Бургер Бургер з індичкою-->
-<!--                                        [price] => 56-->
-<!--                                        [serv_id] =>-->
-<!--                                        )-->
+                                        <?php } ?>
+                                    <tfooter>
                                         <tr>
-                                            <!--<td><?php // Html::a(Profile::findOne($value['user_id'])->name, ['/user/profile/show', 'id' => $value['user_id']], ['target' => '_blank', 'data' => ['pjax' => 0]]) ?></td>-->
-                                            <td><?= $value['product_name'] ?></td>
-                                            <td><?= $value['quantity_sum'] ?> шт.</td>
-                                            <td><?= $value['price'] ?> грн.</td>
-                                            <td><?= $value['price']*$value['quantity_sum'] ?> грн.</td>
-                                            <td><?= Html::a(Service::findOne($value['serv_id'])->name, ['url' => Service::findOne($value['serv_id'])->url]); ?></td>
+                                            <th colspan="6">Загальна сума: <?=$summ_all?> грн. </th>
                                         </tr>
-                                    <?php } ?>
+                                    </tfooter>
                                 </table>
                         </div>
                     </li>
 
                     <?php } else {?>
-
-                        //TODO: add text, if orders not found
+                        <h1>Замовлення відсутні</h1>
                     <?php } ?>
                 </ul>
             </div>
