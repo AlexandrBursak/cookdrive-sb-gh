@@ -27,14 +27,22 @@ class CategoryController extends Controller {
 		return $this->render('view', compact('new_arr', 'category'));
 	}
 	public function actionSearch(){
-        $params = Yii::$app->request->get('query');
-        $products=Product::find()->asArray()->where(['like', 'sub_category', $params])
-            ->orWhere(['like', 'product_name', $params])
-            ->all();
-        foreach ($products as $key => $value) {
-            $new_arr[$value['sub_category']][]=$value;
+        $params = trim(Yii::$app->request->get('query'));
+        $params=strip_tags($params);
+        if (Yii::$app->request->get('query') != $params){
+            $this->redirect(\yii\helpers\Url::to(['category/search', 'query'=>$params]));
         }
-        return $this->render('view', compact('new_arr'));
+
+        if (!$params=='') {
+            $products = Product::find()->asArray()->where(['like', 'sub_category', $params])
+                ->orWhere(['like', 'product_name', $params])
+                ->all();
+            foreach ($products as $key => $value) {
+                $new_arr[$value['sub_category']][] = $value;
+            }
+            return $this->render('view', compact('new_arr'));
+        }
+        else $this->redirect(\yii\helpers\Url::to(['@web/index.php']));
 
     }
 }
