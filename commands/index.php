@@ -29,7 +29,7 @@ foreach ($html->find('a[data-category_id]') as $category){
     //find product
     foreach($html->find('section ul li a') as $element) {
         if (($element->find('div img'))){
-            $linkElement = $element->href;
+            $linkElement =$SERVICE.$element->href;
         }
 //echo $linkElement;
 
