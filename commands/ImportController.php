@@ -25,7 +25,14 @@ class ImportController extends Controller
 // insert into database
     private function importItem($item, $categoryName) {
 
-        $product = new Product();
+        $product = Product::find()->where(['link' => $item['link']])
+            ->one();
+      //  echo $products;
+      //  var_dump($products);
+       if (!isset($product)){
+            $product = new Product();
+        }
+
         $product->product_name = $item['product_name'];
         $product->description=$item["description"];
         $product->weight=$item["weight"];
@@ -39,6 +46,7 @@ class ImportController extends Controller
             ->where(['name'=>'CookDrive'])
             ->one());
         $product->serv_id=$service;
+        $product->link = $item['link'];
         $product->save();
 
     }
@@ -65,12 +73,12 @@ class ImportController extends Controller
         $sets_json = json_decode($contents, JSON_UNESCAPED_UNICODE);
         if ($fileJSON && $contents) {
             if (!empty($sets_json)) {
-                $this->deleteData();
+              //  $this->deleteData();
 
-                foreach ($sets_json as $key => $set) {
+                foreach ($sets_json as $category => $set) {
                     if (isset($set)) {
 
-                        $this->importSet($set, $key);
+                        $this->importSet($set, $category);
                     }
                 }
 

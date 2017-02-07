@@ -28,6 +28,10 @@ foreach ($html->find('a[data-category_id]') as $category){
 
     //find product
     foreach($html->find('section ul li a') as $element) {
+        if (($element->find('div img'))){
+            $linkElement = $element->href;
+        }
+//echo $linkElement;
 
         $nameElement = $element->find('h3.c__list-name', 0);
 
@@ -42,6 +46,7 @@ foreach ($html->find('a[data-category_id]') as $category){
                     (double)$element->find('div.c__list-price', 0)->plaintext:'',
                 'photo_url' => !empty(trim($SERVICE.$element->find('img', 0)->src))?
                     $SERVICE.$element->find('img', 0)->src :'',
+                'link' => (trim($linkElement)),
             );
         }
     }
