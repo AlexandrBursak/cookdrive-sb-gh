@@ -378,6 +378,10 @@ body {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
 }
 
+.balance_before span.active {
+    color: red;
+}
+
 .balance_after {
     font-size: 12px;
 }
@@ -619,6 +623,11 @@ body {
     font-size: 20px;
     color: #11e416;
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+    text-transform: uppercase;
+}
+
+.success.active span {
+    color: red;
 }
 
 .user_order_block_up, .all_user_order_block_slide{

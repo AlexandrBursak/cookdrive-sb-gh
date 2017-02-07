@@ -113,31 +113,29 @@ class CartController extends Controller {
 
    			if (!(\Yii::$app->user->isGuest)) {
 
-    			if (isset($session['cart'])) {
+				if ((History::myBalance(\Yii::$app->user->id))>-300) {
 
-     				foreach ($session['cart'] as $key => $value) {
-					    $order = new Order();
-					    $order->date = date("Y:m:d");
-					    $order->user_id = \Yii::$app->user->id;
-					    $order->product_id = $key;
-					    $order->quantity = $value['qty'];
-					    $order->product_name = $value['sub_category'] . ' '  . $value['name'];
-					    $order->price = $value['price'];
-					    $order->serv_id = $value['service_id'];
-					    $order->save();
+	    			if (isset($session['cart'])) {
 
-                        $history = new History();
+	     				foreach ($session['cart'] as $key => $value) {
+						    $order = new Order();
+						    $order->date = date("Y:m:d");
+						    $order->user_id = \Yii::$app->user->id;
+						    $order->product_id = $key;
+						    $order->quantity = $value['qty'];
+						    $order->product_name = $value['sub_category'] . ' '  . $value['name'];
+						    $order->price = $value['price'];
+						    $order->serv_id = $value['service_id'];
+						    $order->save();
 
-                        $history->orders_id = $order->id;
-                        $history->summa = -($order->quantity * $order->price);
-                        $history->operation = 1;
-                        $history->users_id = $order->user_id;
-                        $history->date = date("Y:m:d");
-
-                        $history->save();
-
-
-     				}
+	                        $history = new History();
+	                        $history->orders_id = $order->id;
+	                        $history->summa = -($order->quantity * $order->price);
+	                        $history->operation = 1;
+	                        $history->users_id = $order->user_id;
+	                        $history->date = date("Y:m:d");
+	                        $history->save();
+	     				}
 
 						$session->open();
 						$session->remove('cart');
@@ -149,29 +147,21 @@ class CartController extends Controller {
 							'cart_count'=> $qty,
 							'cart_html'=> $this->render('index', compact('session'))
 						));
-
-				    // $session->setFlash('cartConfirm', 'Ваше замовлення було успішно підтверджене!');
-				    // return json_encode(['cart_html' => $this->render('index')]);
-
-    			} 
-    			
-    			else {
-    	// 		 	return json_encode(array(
-					// 	cart_count=> $qty,
-					// 	cart_html=> $this->render('index', compact('session'))
-					// ));
-    			}
+	    			} 
+	    			
+	    			else {
+	    			}
+	    		}
+	    		else {
+	    			return json_encode(array(
+	    				'balance' => History::myBalance(\Yii::$app->user->id)
+					));
+	    		}
     		}
    			else { 	
-				// return json_encode(array(
-				// 	cart_count=> $qty,
-				// 	cart_html=> $this->render('index', compact('session'))
-				// ));
 			}
    		}
 		else $this->redirect(['site/error']);
 	}
-
-
 }
 

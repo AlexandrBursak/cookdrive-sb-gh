@@ -32,7 +32,6 @@ function update_global_cart(cart_count) {
     else {
         $('.cart_navbar a').removeClass('active');
     }
-
 }
 
 function update_cart(data) {
@@ -155,6 +154,7 @@ function cart_res() {
     }
 
     confirm_order();
+    colorBalance();
 }
 
 
@@ -167,14 +167,22 @@ function confirm_order() {
             success: function (res) {
                 if (res) {
                     res = JSON.parse(res);
-                    update_global_cart(res.cart_count);
-                    update_cart(res);
-                    $.fancybox({
-                        content: '<div class="success"><p>Ваше замовлення успішно оформлено.</p><span>СМАЧНОГО!</span></div>'
-                    });
-                    setTimeout(function () {
-                        $.fancybox.close();
-                    }, 3000);
+                    if (res['balance']) {
+                        $.fancybox({
+                            content: '<div class="success active"><p>Ваше замовлення не прийнято.</p><span>Поповніть рахунок!</span></div>'
+                        });
+                    }
+                    else{
+                        update_global_cart(res.cart_count);
+                        update_cart(res);
+                        colorBalance();
+                        $.fancybox({
+                            content: '<div class="success"><p>Ваше замовлення успішно оформлено.</p><span>СМАЧНОГО!</span></div>'
+                        });
+                        setTimeout(function () {
+                            $.fancybox.close();
+                        }, 3000);
+                    }
                 } else {
                     $('.google.auth-link').click();
                 }
@@ -185,6 +193,16 @@ function confirm_order() {
         });
     });
 }
+
+function colorBalance() {
+    if (Number($('.balance_before span').text()) < 0) {
+        $('.balance_before span').addClass('active');
+    }
+    else{
+        $('.balance_before span').removeClass('active');
+    }
+}
+
 
 
 $(window).scroll(upPage);
@@ -240,7 +258,6 @@ $(document).ready(function () {
     });
 
 
-
     $('.user_order_block_up').click(function(e){
         e.preventDefault();
         if($(this).closest('.admin_order_one').hasClass('active')){
@@ -265,5 +282,7 @@ $(document).ready(function () {
             $('.user_order_block_dn').slideDown();
         }
     });
+
+    colorBalance();
 
 });
