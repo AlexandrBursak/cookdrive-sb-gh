@@ -14,10 +14,17 @@ $this->title = 'My food';
                     </span>
             </form>
             <ul class="categories_wrap">
-            <?= app\components\CategoryWidget::widget()?>
-                
+            <?php foreach ($top as $key => $value):?>
+                <li class="categori_wrap">
+                    <a href="<?php echo \yii\helpers\Url::to(['category/view', 'category' => $value['category'] ])?> ">
+                        <div>
+                            <img src="/images/<?php echo $value['category'] ?>.png" alt="<?php echo $value['category'] ?>">
+                        </div>
+                        <span><?php echo $value['category'] ?></span>
+                    </a>
+                </li>
+            <?php endforeach;?>
             </ul>
-
         </div>
     </div>
     <div class="row">

@@ -13,8 +13,6 @@ class Product extends ActiveRecord{
 
     public function getService()
     {
-
         return $this->hasOne(Service::className(), ['id' => 'serv_id']);
     }
-
 }

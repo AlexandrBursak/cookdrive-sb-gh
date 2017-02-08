@@ -19,15 +19,9 @@ class CategoryWidget extends Widget {
 		$this->tpl .= '.php';
 	} 
 
-	public function run (){
-
-		// $category = Yii::$app->cache->get('category');
-		// if($category) return $category;
-
-		$this->data = Product::find()->asArray()->select('category')->distinct()->all();
+	public function run(){
+		$this->data = Product::find()->asArray()->select('category')->where(['serv_id' => $id])->distinct()->all();
 		$this->categoryHtml = $this->getCategoryHtml($this->data);
-
-		// Yii::$app->cache->set('category', $this->categoryHtml, 60);
 		return $this->categoryHtml;
 	} 
 

@@ -8,14 +8,14 @@ use yii\web\Controller;
 
 class CategoryController extends Controller {
 
-	public function actionIndex() {
-		$top = Product::find()->asArray()->select('category')->distinct()->all();
+	public function actionIndex($id) {
+		$top = Product::find()->asArray()->select('category')->where(['serv_id' => $id])->distinct()->all();
 		$category = $top[0]['category'];
 		$products = Product::find()->asArray()->where(['category' => $category])->all();
 		foreach ($products as $key => $value) {
 			$new_arr[$value['sub_category']][]=$value;
 		}
-		return $this->render('index', compact('new_arr', 'category'));
+		return $this->render('index', compact('new_arr', 'category', 'top'));
 	}
 
 	public function actionView($category) {

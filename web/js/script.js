@@ -252,8 +252,11 @@ $(document).ready(function () {
     $('.subcategori_list a').click(function (e) {
         e.preventDefault();
         var id = $(this).text();
-        console.log(id);
-        var top = $('.subcategori_title h2:contains(' + id + ')').offset().top - $('.navbar').height() - 15;
+
+        var top = $('.subcategori_title h2').filter(function() {
+            return $(this).text() === id;
+        }).offset().top - $('.navbar').height() - 15; 
+        
         $('html, body').animate({scrollTop: top}, 500);
     });
 
