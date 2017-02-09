@@ -1,7 +1,12 @@
 <?php
-/* @var $this yii\web\View */
+
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
+
+$this->title = 'Catalog';
+// $this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['category/index', 'id' => $id_serv[]]];
+$this->params['breadcrumbs'][] = $this->title;
+// debug($new_arr);
 ?>
     <div class="row">
         <div class="col-lg-12">

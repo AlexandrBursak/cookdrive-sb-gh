@@ -1,9 +1,9 @@
 <?php
 
-/* @var $this yii\web\View */
 use yii\helpers\Html;
 
-$this->title = 'My food';
+$this->title = 'Categories';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
     <div class="row">
         <div class="col-lg-12">
@@ -16,7 +16,7 @@ $this->title = 'My food';
             <ul class="categories_wrap">
             <?php foreach ($top as $key => $value):?>
                 <li class="categori_wrap">
-                    <a href="<?php echo \yii\helpers\Url::to(['category/view', 'category' => $value['category'] ])?> ">
+                    <a href="<?php echo \yii\helpers\Url::to(['category/view', 'category' => $value['category']])?> ">
                         <div>
                             <img src="/images/<?php echo $value['category'] ?>.png" alt="<?php echo $value['category'] ?>">
                         </div>

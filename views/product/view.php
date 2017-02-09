@@ -1,9 +1,10 @@
 <?php
 /* @var $this yii\web\View */
 use yii\helpers\Html;
-
-$this->title = 'My food';
 use yii\helpers\ArrayHelper;
+
+$this->title = 'Product';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
     <div class="row">
         <div class="col-lg-12">

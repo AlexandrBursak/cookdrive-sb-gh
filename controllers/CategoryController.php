@@ -10,6 +10,7 @@ class CategoryController extends Controller {
 
 	public function actionIndex($id) {
 		$top = Product::find()->asArray()->select('category')->where(['serv_id' => $id])->distinct()->all();
+		// debug($id);
 		$category = $top[0]['category'];
 		$products = Product::find()->asArray()->where(['category' => $category])->all();
 		foreach ($products as $key => $value) {
@@ -20,12 +21,15 @@ class CategoryController extends Controller {
 
 	public function actionView($category) {
 		$category = Yii::$app->request->get('category');
+		// $id_serv = Product::find()->asArray()->select('serv_id')->where(['category' => $category])->distinct()->all();
+		// debug($id_serv);
 		$products = Product::find()->asArray()->where(['category' => $category])->all();
 		foreach ($products as $key => $value) {
 			$new_arr[$value['sub_category']][]=$value;
 		}
-		return $this->render('view', compact('new_arr', 'category'));
+		return $this->render('view', compact('new_arr', 'category', 'id_serv'));
 	}
+
 	public function actionSearch(){
         $params = trim(Yii::$app->request->get('query'));
         $params=strip_tags($params);
