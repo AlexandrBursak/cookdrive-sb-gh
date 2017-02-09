@@ -25,4 +25,5 @@ class SettingsController extends BaseSettingsController
 
     	return $this->render('orders');
     }
+
 }
