@@ -436,7 +436,9 @@ body {
     font-family: 'OpenSansSemibold';
 }
 
-.one_order_item_name p:first-letter {
+.one_order_item_name p:first-letter,
+.one_order_item_name a:first-letter,
+.one_order_item_name span:first-letter {
     text-transform: uppercase;
 }
 

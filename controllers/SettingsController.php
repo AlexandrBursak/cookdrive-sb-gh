@@ -13,11 +13,16 @@ use dektrium\user\controllers\SettingsController as BaseSettingsController;
 class SettingsController extends BaseSettingsController
 {
 
-    public function actionOrders()
-    {
+    public function behaviors() {
 
-
-
+        $param = parent::behaviors();
+        
+        $param['access']['rules'][0]['actions'][] = 'orders';
+        return $param;
     }
 
+    public function actionOrders() {
+
+    	return $this->render('orders');
+    }
 }

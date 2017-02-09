@@ -86,6 +86,7 @@ $config = [
             'controllerMap' => [
                 'registration' => 'app\controllers\RegistrationController',
                 'admin' => 'app\controllers\AdminController',
+                'settings' => 'app\controllers\SettingsController',
             ],
 
             'admins' => ['admin']
