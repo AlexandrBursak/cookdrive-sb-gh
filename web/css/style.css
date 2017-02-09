@@ -151,7 +151,7 @@ body {
     display: none;
     border-radius: 50%;
     position: fixed;
-    bottom: 20px;
+    bottom: 30px;
     left: 15px;
     height: 35px;
     width: 35px;
@@ -555,6 +555,7 @@ body {
 
 .product_content_wrap {
     padding: 10px;
+    margin-bottom: 30px;
 }
 
 .product_content_wrap .catalog_product_img {
@@ -759,4 +760,47 @@ body {
     background: #f56a48;
     text-decoration: none;
     color: #fff;
+}
+
+.ui-autocomplete {
+    z-index: 5000;
+}
+
+.contacts {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.search-field {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.contacts-list {
+    padding: 0;
+    width: 100%;
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+    font-family: sans-serif;
+    width: 100%;
+    padding: 5px;
+    border-bottom: 1px dotted grey;
+}
+
+.contact-image {
+    margin: 5px;
+}
+
+.contact-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.contact-number {
+    font-size: 18px;
+    color: grey;
 }

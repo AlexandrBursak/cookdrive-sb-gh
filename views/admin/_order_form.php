@@ -4,7 +4,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\jui\AutoComplete;
-use app\models\Service;
+use app\models\Product;
+use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Order */
@@ -21,21 +22,39 @@ use app\models\Service;
 
     <?php // $form->field($model, 'user_id')->textInput() ?>
 
-    <?= $form->field($model, 'product_id')->textInput() ?>
+    <?php $form->field($model, 'product_id')->textInput() ?>
 
     <?= $form->field($model, 'quantity')->textInput() ?>
 
-    <?= $form->field($model, 'product_name')->textInput(['maxlength' => true])->hiddenInput()?>
 
+    <?php //$form->field($model, 'serv_id')->textInput()
+    $data = Product::find()->select(['id','product_name', 'sub_category'])->asArray()->all();
+    $products = [];
+    foreach ($data as $key => $value)
+    {
+        $products[] =  $value['product_name'];
+    }
+
+    ?>
+
+    <?= $form->field($model, 'product_name')->widget(
+        AutoComplete::className(), [
+        'clientOptions' => [
+            'source' => $products,
+            'select' => new JsExpression("function( event, ui ) {
+                    console.log(ui);
+                 }")
+        ],
+        'options'=>[
+            'class'=>'form-control'
+        ],
+
+    ]);
+    ?>
     <?= $form->field($model, 'price')->textInput() ?>
 
-    <?= $form->field($model, 'serv_id')->textInput()/*->widget(AutoComplete::classname(), [
-        'clientOptions' => [
-            'source' => Service::find()->all(),
-        ],
-    ])*/ ?>
+    <?php //debug($products);?>
 
-    <?php //debug(Service::find()->select('name')->asArray()->all()); ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Сторити' : 'Редагувати', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

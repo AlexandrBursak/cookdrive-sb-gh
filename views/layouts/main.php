@@ -33,10 +33,10 @@ AppAsset::register($this);
     $qty_head = $session['cart.qty'];
     $qty_head = !$qty_head ? 0 : $qty_head;
     NavBar::begin([
-        'brandLabel' => 'CookDrive for SoftBistro',
+        'brandLabel' => 'SoftBistro Food',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-top',
+            'class' => 'navbar-inverse navbar-top-fixed',
         ],
     ]);
     $menuItems = [
@@ -123,7 +123,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left">&copy; SoftBistro Food <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>

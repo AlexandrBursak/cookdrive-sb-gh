@@ -123,14 +123,11 @@ class CartController extends Controller {
 						    $order->user_id = \Yii::$app->user->id;
 						    $order->product_id = $key;
 						    $order->quantity = $value['qty'];
-						    $order->product_name = $value['sub_category'] . ' '  . $value['name'];
-						    $order->price = $value['price'];
-						    $order->serv_id = $value['service_id'];
 						    $order->save();
 
 	                        $history = new History();
 	                        $history->orders_id = $order->id;
-	                        $history->summa = -($order->quantity * $order->price);
+	                        $history->summa = -($order->quantity * $value['price']);
 	                        $history->operation = 1;
 	                        $history->users_id = $order->user_id;
 	                        $history->date = date("Y:m:d");
