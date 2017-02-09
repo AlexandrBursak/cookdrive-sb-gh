@@ -13,11 +13,4 @@ use dektrium\user\controllers\SettingsController as BaseSettingsController;
 class SettingsController extends BaseSettingsController
 {
 
-    public function actionOrders()
-    {
-
-
-
-    }
-
 }

@@ -31,14 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-12">
             <div class="admin_order_wrap">
                 <div class="clearfix">
-                    <div class="all_user_order_block_slide">
-                        <span>Розгорнути всі</span>
+                    <div class="all_user_order_block_slide active">
+                        <span>Згорнути всі</span>
                     </div>
                 </div>
                 <ul>
                     <?php if(isset($orders_per_user)) { ?>
                     <?php foreach($orders_per_user as $keys => $values) { ?>
-                    <li class="admin_order_one">
+                    <li class="admin_order_one active">
                         <div class="user_order_block_up">
                             <div class="user_name">
                                 <?= Html::img(Profile::findOne($keys)->getAvatarUrl(24), [
@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                         </div>
                         <div class="table-responsive">
-
+                <?php Pjax::begin(['id' => 'items', 'enablePushState' => false]) ?>
                         <table class="table table-hover user_order_block_dn">
                             <thead>
                                 <tr>
@@ -64,9 +64,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php
                         $summ_all = 0;
                         foreach ($values as $key => $value) { ?>
-
-                        <?php Pjax::begin(['id' => 'item-' . $value['id'], 'enablePushState' => false]) ?>
-                        <!--<div class="user_order_block_dn">-->
                             <?php $product = Product::findOne($value['product_id']); ?>
                             <tr>
                                 <td><?= $product->product_name ?></td>
@@ -87,7 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]) ?>
                                 </td>
                             </tr>
-                                <!--</div>-->
+
 
                         <?php
                                 $summ_all +=$product->price*$value['quantity'];
@@ -99,12 +96,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </tr>
                             </tfooter>
                         </table>
-                            <?php Pjax::end(); ?>
+                    <?php Pjax::end(); ?>
+
                         </div>
                     </li>
                     <?php } ?>
                     <?php } else if(isset($orders)) { ?>
-                    <li class="admin_order_one">
+                    <li class="admin_order_one active">
                         <div class="user_order_block_up">
                             <div class="user_name">
                                 Загальний чек замовлення
@@ -172,9 +170,9 @@ $this->registerJs("$(document).on('ready', function() {  // 'pjax:success' use i
             });
             $('#pModal').on('replaceconfirm', function (e, obj) {
                 $.ajax({
-                    url:'/user/admin/order-update?id=' + obj.orderId + '&itemId=' + obj.itemId,
+                    url:'/user/admin/order-update?id=' + obj.orderId + '&itemId=' + obj.itemId + '&qty=' + obj.qty,
                     success: function(result) {
-                        $.pjax.reload({container:'[data-key=' + obj.orderId + ']'}); 
+                        $.pjax.reload({container:'[id=items]'}); 
                     },
                     error: function() {
                     }

@@ -9,6 +9,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\History;
+use app\models\Product;
 
 class AdminController extends BaseAdminController
 {
@@ -71,35 +72,52 @@ class AdminController extends BaseAdminController
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @param integer $itemId
+     * @param integer $qty
      * @return mixed
      */
-    public function actionOrderUpdate($id, $itemId)
+    public function actionOrderUpdate($id, $itemId, $qty)
     {
         if(Yii::$app->request->isAjax) {
             $model = $this->findOrderModel($id);
 
-            if ($model->load(Yii::$app->request->post())) {
+            //if ($model->load(Yii::$app->request->post())) {
 
-//                $history_order = History::find()->where(['orders_id' => $id])->asArray()->one();
-//
-//                $history = new History();
-//                $history->summa = $history_order['summa'] * (-1);
-//                $history->operation = 2;  // операция возврата
-//                $history->users_id = $history_order['users_id'];
-//                $history->date = date("Y:m:d");
-//                $history->save();
+                $history_order = History::find()->where(['orders_id' => $id])->asArray()->one();
+
+                $history = new History();
+                $history->orders_id = $model->id;
+                $history->summa = $history_order['summa'] * (-1);
+                $history->operation = 2;  // операція возврата поповнення
+                $history->users_id = $history_order['users_id'];
+                $history->date = date("Y:m:d");
+                $history->save();
+
+                $new_product = Product::find()->where(['id' => $itemId])->asArray()->one();
+
+                $history = new History();
+                $history->orders_id = $model->id;
+                $history->summa = -($new_product['price'] * $qty);
+                $history->operation = 1;  // операция зняття грошей
+                $history->users_id = $history_order['users_id'];
+                $history->date = date("Y:m:d");
+                $history->save();
 
                 $model->product_id = $itemId;
+                $model->quantity = $qty;
                 $model->date = date("Y:m:d");
                 $model->save();
 
 
+
+
+
+
                 //return $this->redirect(['order-view', 'id' => $model->id]);
-            } else {
+           // } else {
                 //return $this->render('orderupdate', [
                 //    'model' => $model,
                 //]);
-            }
+            //}
         }
     }
 
@@ -111,9 +129,11 @@ class AdminController extends BaseAdminController
      */
     public function actionOrderDelete($id)
     {
+        //History::findAll(['orders_id' => $id])->deleteAll();
+        History::deleteAll("orders_id = " . $id );
         $this->findOrderModel($id)->delete();
 
-        return $this->redirect(['orders']);
+        return $this->redirect(['user-orders']);
     }
 
     /**
@@ -131,5 +151,6 @@ class AdminController extends BaseAdminController
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
 
 }

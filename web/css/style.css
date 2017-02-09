@@ -658,10 +658,7 @@ body {
     color: #f54a4a;
 }
 .user_order_block_dn{
-    display: none;
-    padding: 5px;
-    padding-left: 20px;
-    border-bottom: 1px solid #999;
+    display: table;
 }
 .admin_order_wrap{
     padding: 15px 0;

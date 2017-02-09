@@ -36,7 +36,7 @@ AppAsset::register($this);
         'brandLabel' => 'SoftBistro Food',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-top-fixed',
+            'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
