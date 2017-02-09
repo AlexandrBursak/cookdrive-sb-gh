@@ -3,7 +3,9 @@
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 
-$this->title = 'Product';
+$this->title = 'Продукт';
+$this->params['breadcrumbs'][] = ['label' => 'Категорії', 'url' => ['category/index', 'id' => $id_service['serv_id']]];
+$this->params['breadcrumbs'][] = ['label' => 'Каталог', 'url' => ['category/view', 'category' => $category['category']]];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
     <div class="row">

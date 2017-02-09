@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 
-$this->title = 'Categories';
+$this->title = 'Категорії';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
     <div class="row">

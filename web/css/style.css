@@ -29,6 +29,14 @@ body {
     font-family: 'OpenSansRegular';
 }
 
+.main_container{
+    padding-top: 60px;
+}
+
+.breadcrumb{
+    background: none;
+}
+
 .cart_navbar a {
     position: relative;
     padding-left: 50px !important;
@@ -198,6 +206,10 @@ body {
     text-transform: uppercase;
 }
 
+.categori_title h1 {
+    margin: 10px 0 10px 0;
+
+}   
 .categori_content li {
     padding: 10px;
     display: inline-block;

@@ -36,7 +36,7 @@ AppAsset::register($this);
         'brandLabel' => 'SoftBistro Food',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-top-fixed',
+            'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
     $menuItems = [
@@ -99,7 +99,7 @@ AppAsset::register($this);
     ?>
 
 
-    <div class="container">
+    <div class="container main_container">
     <!--<div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -113,6 +113,7 @@ AppAsset::register($this);
         </div> -->
 
         <?= Breadcrumbs::widget([
+            'homeLink' => ['label' => 'Головна ', 'url' => '/'],
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
         <?= $content ?>
