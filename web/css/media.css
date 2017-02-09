@@ -8,6 +8,11 @@
     body{
         background-color: rgba(232, 232, 232, 0.55);
     }
+
+    .categories_wrap{
+        margin-top: 20px;
+    }
+
     .categori_wrap {
         width: 140px;
         padding: 5px;

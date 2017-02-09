@@ -8,16 +8,15 @@ use app\models\Order;
 use yii\data\ActiveDataProvider;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\History;
 
 class AdminController extends BaseAdminController
 {
     public function actionOrders()
     {
-        $orders = Order::find()->select('product_name, serv_id, price, product_id, SUM(quantity) AS quantity_sum')->groupBy(['product_name','product_name', 'serv_id', 'price', 'product_id'])->asArray()->where(['date' => date("Y:m:d")])->all();
+        $orders = Order::find()->select('id, product_id, SUM(quantity) AS quantity_sum')->groupBy(['id', 'product_id'])->asArray()->where(['date' => date("Y:m:d")])->all();
 
-        return $this->render('orderindex', [
-            'orders' => $orders,
-        ]);
+        return $this->render('orderindex', ['orders' => $orders]);
     }
 
     public function actionUserOrders()
@@ -71,19 +70,36 @@ class AdminController extends BaseAdminController
      * Updates an existing Order model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
+     * @param integer $itemId
      * @return mixed
      */
-    public function actionOrderUpdate($id)
+    public function actionOrderUpdate($id, $itemId)
     {
+        if(Yii::$app->request->isAjax) {
+            $model = $this->findOrderModel($id);
 
-        $model = $this->findOrderModel($id);
+            if ($model->load(Yii::$app->request->post())) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['order-view', 'id' => $model->id]);
-        } else {
-            return $this->render('orderupdate', [
-                'model' => $model,
-            ]);
+//                $history_order = History::find()->where(['orders_id' => $id])->asArray()->one();
+//
+//                $history = new History();
+//                $history->summa = $history_order['summa'] * (-1);
+//                $history->operation = 2;  // операция возврата
+//                $history->users_id = $history_order['users_id'];
+//                $history->date = date("Y:m:d");
+//                $history->save();
+
+                $model->product_id = $itemId;
+                $model->date = date("Y:m:d");
+                $model->save();
+
+
+                //return $this->redirect(['order-view', 'id' => $model->id]);
+            } else {
+                //return $this->render('orderupdate', [
+                //    'model' => $model,
+                //]);
+            }
         }
     }
 

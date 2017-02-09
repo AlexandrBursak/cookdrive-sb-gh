@@ -5,6 +5,8 @@ use yii\grid\GridView;
 use app\models\Profile;
 use app\models\Service;
 use yii\helpers\Url;
+use app\models\Product;
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -47,6 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                         </div>
                         <div class="table-responsive">
+
                         <table class="table table-hover user_order_block_dn">
                             <thead>
                                 <tr>
@@ -61,28 +64,33 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php
                         $summ_all = 0;
                         foreach ($values as $key => $value) { ?>
+
+                        <?php Pjax::begin(['id' => 'item-' . $value['id'], 'enablePushState' => false]) ?>
                         <!--<div class="user_order_block_dn">-->
+                            <?php $product = Product::findOne($value['product_id']); ?>
                             <tr>
-                                <td><?= $value['product_name'] ?></td>
-                                <td><?= $value['price'] ?> грн.</td>
+                                <td><?= $product->product_name ?></td>
+                                <td><?= $product->price ?> грн.</td>
                                 <td><?= $value['quantity'] ?> шт.</td>
-                                <td><?= $value['price']*$value['quantity'] ?> грн.</td>
-                                <td><?= Html::a(Service::findOne($value['serv_id'])->name, Url::to(Service::findOne($value['serv_id'])->link, true), ['target' => '_blank']); ?></td>
+                                <td><?= $product->price*$value['quantity'] ?> грн.</td>
+                                <td><?= Html::a(Service::findOne($product->serv_id)->name, Url::to(Service::findOne($value['serv_id'])->link, true), ['target' => '_blank']); ?></td>
                                 <td>
                                     <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['/user/admin/order-delete', 'id' => $value['id']], [
                                         'title' => 'Видалити',
                                         'data-confirm' => 'А ви впевнені що хочете видалити замовлення?',
                                         'data-method' => 'POST',
                                     ]) ?>
-                                    <?= Html::a('<span class="glyphicon glyphicon-retweet"></span>', ['/user/admin/order-update', 'id' => $value['id']], [
+                                    <?= Html::a('<span class="glyphicon glyphicon-retweet replace"></span>', ['/user/admin/order-update', 'id' => $value['id']], [
                                         'title' => 'Редагування замовлення',
+                                        //'class' => 'replace',
+                                        'data-order-id' => $value['id']
                                     ]) ?>
                                 </td>
                             </tr>
                                 <!--</div>-->
 
                         <?php
-                                $summ_all +=$value['price']*$value['quantity'];
+                                $summ_all +=$product->price*$value['quantity'];
                             }
                         ?>
                             <tfooter>
@@ -91,6 +99,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </tr>
                             </tfooter>
                         </table>
+                            <?php Pjax::end(); ?>
                         </div>
                     </li>
                     <?php } ?>
@@ -115,14 +124,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?php
                                         $summ_all = 0;
                                         foreach ($orders as $key => $value) { ?>
+                                            <?php $product = Product::findOne($value['product_id']); ?>
                                             <tr>
-                                                <td><?= $value['product_name'] ?></td>
+                                                <td><?= $product->product_name ?></td>
                                                 <td><?= $value['quantity_sum'] ?> шт.</td>
-                                                <td><?= $value['price'] ?> грн.</td>
-                                                <td><?= $value['price']*$value['quantity_sum'] ?> грн.</td>
-                                                <td><?= Html::a(Service::findOne($value['serv_id'])->name, Url::to(Service::findOne($value['serv_id'])->link, true), ['target' => '_blank']); ?></td>
+                                                <td><?= $product->price ?> грн.</td>
+                                                <td><?= $product->price*$value['quantity_sum'] ?> грн.</td>
+                                                <td><?= Html::a(Service::findOne($product->serv_id)->name, Url::to(Service::findOne($product->serv_id)->link, true), ['target' => '_blank']); ?></td>
                                             </tr>
-                                            <?php $summ_all += $value['price']*$value['quantity_sum']; ?>
+                                            <?php $summ_all += $product->price*$value['quantity_sum']; ?>
 
                                         <?php } ?>
                                     <tfooter>
@@ -141,70 +151,36 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
     </div>
-
-    <?php //debug($dataProvider); ?>
-    <?php  /*GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
-            //'id',
-            //'date',
-            [
-                'attribute' => 'user_id',
-                'value' => function($data) {
-                    return Html::a( $data->profile->name . ' / ID:' . $data->user_id,['/user/profile/show', 'id' => $data->user_id], ['target'=>'_blank'] );
-                    //return debug($data->user_id);
-                },
-                'format' => 'raw',
-            ],
-
-            [
-                'attribute' => 'product_id',
-                'value' => function($data) {
-                    return Html::a( '[' .$data->product->sub_category . '] ' . $data->product->product_name,['/product/view', 'id' => $data->product->id], ['target'=>'_blank'] );
-                },
-                'format' => 'raw',
-            ],
-
-
-
-            'product_name',
-
-            [
-                'attribute' => 'price',
-                'value' => function($data) {
-                    return $data->price  . ' грн.';
-                    //return debug($data->user_id);
-                },
-                'format' => 'html',
-            ],
-
-          //'serv_id',
-            [
-                'attribute' => 'quantity',
-                'value' => function($data) {
-                    return $data->quantity  . ' шт.';
-                },
-                'format' => 'html',
-            ],
-            [
-                'attribute' => 'summ',
-                'value' => function($data) {
-                    return ($data->quantity * $data->price) . ' грн.';
-                },
-                'format' => 'raw',
-            ],
-
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'urlCreator'=>function($action, $model){
-                    //return debug($action);
-                   return ['order-' . $action,'id'=>$model['id']];
-                },
-                'template'=>'{view} {update}  {delete}',
-
-            ]
-
-        ],
-    ]); */ ?>
 </div>
+
+<?php yii\bootstrap\Modal::begin(['id'=>'pModal']); ?>
+
+<?= isset($orders_per_user)?$this->render('_replace_form'):'' ?>
+
+
+<?php yii\bootstrap\Modal::end();?>
+
+<?php
+$this->registerJs("$(document).on('ready', function() {  // 'pjax:success' use if you have used pjax
+           var order_id = 0;
+            $('.replace').click(function(e) {
+               e.preventDefault();
+               $('#pModal').modal('show').find('.modal-content').load($(this).attr('href'));
+               var order_id = $(this).closest('a').attr('data-order-id');
+                $('#pModal').attr('data-order-id', order_id);
+
+            });
+            $('#pModal').on('replaceconfirm', function (e, obj) {
+                $.ajax({
+                    url:'/user/admin/order-update?id=' + obj.orderId + '&itemId=' + obj.itemId,
+                    success: function(result) {
+                        $.pjax.reload({container:'[data-key=' + obj.orderId + ']'}); 
+                    },
+                    error: function() {
+                    }
+                });
+            });
+        });
+    ");
+
+?>

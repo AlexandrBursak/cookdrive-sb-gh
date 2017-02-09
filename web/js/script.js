@@ -256,7 +256,7 @@ $(document).ready(function () {
         var top = $('.subcategori_title h2').filter(function() {
             return $(this).text() === id;
         }).offset().top - $('.navbar').height() - 15; 
-        
+
         $('html, body').animate({scrollTop: top}, 500);
     });
 

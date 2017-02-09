@@ -791,6 +791,48 @@ body {
     text-transform: uppercase;
 }
 
-.serv_wrap li:hover a{
-   box-shadow: 0px 0px 20px rgba(0, 0, 0, .2); 
+.serv_wrap li:hover a {
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, .2);
+}
+.ui-autocomplete {
+    z-index: 5000;
+}
+
+.contacts {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.search-field {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.contacts-list {
+    padding: 0;
+    width: 100%;
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+    font-family: sans-serif;
+    width: 100%;
+    padding: 5px;
+    border-bottom: 1px dotted grey;
+}
+
+.contact-image {
+    margin: 5px;
+}
+
+.contact-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.contact-number {
+    font-size: 18px;
+    color: grey;
 }

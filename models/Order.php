@@ -44,9 +44,6 @@ class Order extends \yii\db\ActiveRecord
             'user_id' => 'Користувач/ID користувача',
             'product_id' => 'Продукт/ID продукту',
             'quantity' => 'Кількість',
-            'product_name' => 'Назва продукту',
-            'price' => 'Ціна',
-            'serv_id' => 'Сервіс/Мережа',
             'summ' => 'Всьго'
         ];
     }
