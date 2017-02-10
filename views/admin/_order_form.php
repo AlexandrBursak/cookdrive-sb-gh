@@ -10,6 +10,9 @@ use yii\web\JsExpression;
 /* @var $this yii\web\View */
 /* @var $model app\models\Order */
 /* @var $form yii\widgets\ActiveForm */
+
+
+/*
 ?>
 
 <div class="order-form">
@@ -59,6 +62,6 @@ use yii\web\JsExpression;
         <?= Html::submitButton($model->isNewRecord ? 'Сторити' : 'Редагувати', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); */ ?>
 
 </div>

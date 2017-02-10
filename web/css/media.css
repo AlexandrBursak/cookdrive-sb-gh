@@ -171,4 +171,18 @@
         width: 240px;
         font-size: 16px;
     }
+
+    .contact {
+        text-align: center;
+    }
+
+    .contact-info {
+        width: 100%;
+        padding-left: 0;
+    }
+
+    .search-item {
+        width: 100px;
+        height: 80px;
+    }
 }

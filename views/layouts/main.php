@@ -126,7 +126,7 @@ AppAsset::register($this);
     <div class="container">
         <p class="pull-left">&copy; SoftBistro Food <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right"><?= date("d.m.Y") . 'р.' ?></p>
     </div>
 </footer>
 
