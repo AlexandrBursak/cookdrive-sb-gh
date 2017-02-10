@@ -252,7 +252,8 @@ body {
 }
 
 .catalog_product_img img,
-.one_order_item_img img {
+.one_order_item_img img,
+.search-item img{
     position: absolute;
     top: 0;
     left: 50%;
@@ -842,16 +843,11 @@ body {
 }
 
 .contact {
-    display: flex;
     align-items: center;
     font-family: sans-serif;
     width: 100%;
     padding: 5px;
     border-bottom: 1px dotted grey;
-}
-
-.contact-image {
-    margin: 5px;
 }
 
 .contact-name {
@@ -862,4 +858,39 @@ body {
 .contact-number {
     font-size: 18px;
     color: grey;
+}
+
+.contact-price {
+    font-size: 2em;
+}
+
+.contact-info {
+    width: 425px;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 20px;
+}
+
+.search-item {
+    width: 120px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    margin: 5px;
+    vertical-align: middle;
+}
+
+.setting {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.setting-part {
+    display: inline-block;
+}
+
+.setting-part .qty {
+    width: 125px;
+    margin-right: 20px;
 }

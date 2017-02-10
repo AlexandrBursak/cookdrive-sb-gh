@@ -52,6 +52,7 @@ use yii\bootstrap\Nav;
                 [
                     'label' => Yii::t('user', 'Новий користувач'),
                     'url' => ['/user/admin/create'],
+                    'visible' => false,
                 ],
                 [
                     'label' => Yii::t('user', 'Нова роль'),
@@ -69,6 +70,7 @@ use yii\bootstrap\Nav;
                     'visible' => isset(Yii::$app->extensions['dektrium/yii2-rbac']),
                 ]
             ],
+            'visible' => false,
         ],
     ],
 ]) ?>

@@ -81,15 +81,19 @@ class AdminController extends BaseAdminController
             $model = $this->findOrderModel($id);
 
             //if ($model->load(Yii::$app->request->post())) {
+            //TODO: model validation can be most inform.
 
-                $history_order = History::find()->where(['orders_id' => $id])->asArray()->one();
+                $history_order = History::find()->where(['orders_id' => $id])->orderBy([
+                    'id' => SORT_DESC   // Отримуємо данні останньої отриманої історії в одному екземплярі
+                ])->asArray()->one();   // по айді замовлення ( в зворотньому порядку HARDCODE: not bug - feature )
 
-                $history = new History();
-                $history->orders_id = $model->id;
-                $history->summa = $history_order['summa'] * (-1);
-                $history->operation = 2;  // операція возврата поповнення
-                $history->users_id = $history_order['users_id'];
-                $history->date = date("Y:m:d");
+                $qty = !$qty ? 1 : $qty;
+                $history = new History();           // створюємо новий запис в історії
+                $history->orders_id = $model->id;   //той же id замовлення який буде у новому записі в історії
+                $history->summa = $history_order['summa'] * (-1); // інвертуємо мінусову суму в (+) - поповнення
+                $history->operation = 2;            // операція поверненя - поповнення
+                $history->users_id = $history_order['users_id'];  // той же юзер в новій історії
+                $history->date = date("Y:m:d");     // сьогоднішня дата
                 $history->save();
 
                 $new_product = Product::find()->where(['id' => $itemId])->asArray()->one();
@@ -106,18 +110,6 @@ class AdminController extends BaseAdminController
                 $model->quantity = $qty;
                 $model->date = date("Y:m:d");
                 $model->save();
-
-
-
-
-
-
-                //return $this->redirect(['order-view', 'id' => $model->id]);
-           // } else {
-                //return $this->render('orderupdate', [
-                //    'model' => $model,
-                //]);
-            //}
         }
     }
 
@@ -150,6 +142,26 @@ class AdminController extends BaseAdminController
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+
+    /**
+     * @param integer $id
+     * @param integer $summ
+     */
+    public function actionMoney($id, $summ)
+    {
+        //TODO: admin can add money
+        if(Yii::$app->request->isAjax) {
+            $summ = !$summ ? 0 : $summ;
+            $history = new History();
+            $history->summa = $summ;
+            $history->operation = 3;
+            $history->users_id = $id;
+            $history->date = date("Y:m:d");
+            $history->save();
+        }
+
     }
 
 

@@ -203,6 +203,23 @@ function colorBalance() {
     }
 }
 
+var subscribeEvents = function() {
+    $(".replace-confirm").on("click", function() {
+        var orderID = $("#pModal").attr("data-order-id");
+        var qty = 0;
+        $("#pModal").trigger("replaceconfirm", {
+            orderId: orderID, itemId: $(this).attr("data-id"), qty: $(this).closest(".setting").find(".qty").val()
+        });
+        $("#pModal").modal("hide");
+    });
+};
+
+$("#search-form").on("pjax:end", function() {
+    subscribeEvents();
+});
+
+subscribeEvents();
+
 
 
 $(window).scroll(upPage);

@@ -18,11 +18,21 @@ use yii\db\ActiveRecord;
 
 class History extends ActiveRecord
 {
+    public function rules()
+    {
+        return [
+            // operation, summa, users_id are both required
+            [['operation','summa', 'users_id'], 'required'],
+            // summa is int TODO: summ can be int ?
+            ['summa', 'integer'],
+
+        ];
+    }
 
     public function myBalance($user_id)
     {
 
-        $data = History::find()->where(['users_id' => \Yii::$app->user->id])->sum('summa');
+        $data = History::find()->where(['users_id' => $user_id])->sum('summa');
         if(!$data) {
             return 0;
         }

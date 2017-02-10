@@ -100,7 +100,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         </div>
                     </li>
-                    <?php } ?>
+                        <?php } ?>
                     <?php } else if(isset($orders)) { ?>
                     <li class="admin_order_one active">
                         <div class="user_order_block_up">
@@ -151,10 +151,9 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-<?php yii\bootstrap\Modal::begin(['id'=>'pModal']); ?>
+<?php yii\bootstrap\Modal::begin(['id'=>'pModal','header' => '<h3>Заміна замовлення</h3>',]); ?>
 
 <?= isset($orders_per_user)?$this->render('_replace_form'):'' ?>
-
 
 <?php yii\bootstrap\Modal::end();?>
 
