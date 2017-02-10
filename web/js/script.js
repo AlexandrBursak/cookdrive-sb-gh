@@ -261,6 +261,8 @@ $(document).ready(function () {
     });
 
 
+     $('.product_user .admin_order_one:first').addClass('active');
+
     $('.user_order_block_up').click(function(e){
         e.preventDefault();
         if($(this).closest('.admin_order_one').hasClass('active')){

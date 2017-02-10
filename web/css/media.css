@@ -171,4 +171,7 @@
         width: 240px;
         font-size: 16px;
     }
+    .breadcrumb{
+        font-size: 12px;
+    }
 }
