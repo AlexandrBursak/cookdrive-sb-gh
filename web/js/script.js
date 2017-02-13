@@ -179,8 +179,6 @@ function confirm_order() {
             }
         });
 
-        console.log(arr_error);
-
         if (arr_error.length == 0) {
             $.ajax({
                 url: '/cart/confirm',
@@ -215,7 +213,7 @@ function confirm_order() {
         }
         else{
             $.fancybox({
-                content: '<div class="success active"><p>Не коректні данні</p><span>Замовлення<br> не приянято!</span></div>'
+                content: '<div class="success active"><p>Некоректні дані</p><span>Замовлення<br> не приянято!</span></div>'
             });
         }
     });
@@ -257,22 +255,34 @@ $(document).ready(function () {
         e.preventDefault();
         var id = $(this).data('id'),
             qty = $(this).closest(".catalog_product_footer").find(".qty").val();
-        $.ajax({
-            url: '/cart/add',
-            data: {id: id, qty: qty},
-            type: 'GET',
-            success: function (res) {
-                if (res) {
-                    res = JSON.parse(res);
-                    update_global_cart(res.cart_count);
-                } else {
-                    alert('Error! Error!');
+
+            qty = Number(qty); 
+        if (qty > 0 && qty % 1 == 0) {
+            $(this).closest(".catalog_product_footer").find(".qty").removeClass('active');
+
+            $.ajax({
+                url: '/cart/add',
+                data: {id: id, qty: qty},
+                type: 'GET',
+                success: function (res) {
+                    if (res) {
+                        res = JSON.parse(res);
+                        update_global_cart(res.cart_count);
+                    } else {
+                        alert('Error! Error!');
+                    }
+                },
+                error: function () {
+                    alert('Error!');
                 }
-            },
-            error: function () {
-                alert('Error!');
-            }
-        });
+            });
+        }
+        else{
+            $(this).closest(".catalog_product_footer").find(".qty").addClass('active');
+            $.fancybox({
+                content: '<div class="success active"><p>Некоректні дані</p><span>Замовлення<br> не приянято!</span></div>'
+            });
+        }
     });
 
 
