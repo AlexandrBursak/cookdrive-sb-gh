@@ -70,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <td><?= $product->price ?> грн.</td>
                                 <td><?= $value['quantity'] ?> шт.</td>
                                 <td><?= $product->price*$value['quantity'] ?> грн.</td>
-                                <td><?= Html::a(Service::findOne($product->serv_id)->name, Url::to(Service::findOne($value['serv_id'])->link, true), ['target' => '_blank']); ?></td>
+                                <td><?= Html::a(Service::findOne($product->serv_id)->name, Url::to(Service::findOne($product->serv_id)->link, true), ['target' => '_blank']); ?></td>
                                 <td>
                                     <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['/user/admin/order-delete', 'id' => $value['id']], [
                                         'title' => 'Видалити',
