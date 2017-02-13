@@ -20,7 +20,7 @@ use yii\helpers\ArrayHelper;
  * @var dektrium\user\models\Profile $model
  */
 
-$this->title = Yii::t('user', 'Profile settings');
+$this->title = "Налаштування профілю";
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
