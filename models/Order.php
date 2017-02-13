@@ -13,6 +13,14 @@ use app\models\Service;
 
 class Order extends \yii\db\ActiveRecord
 {
+
+    public function rules()
+    {
+        return [
+            ['quantity', 'integer', 'min' => 1]
+        ];
+    }
+
     public function getUser(){
         /*ToDo
 

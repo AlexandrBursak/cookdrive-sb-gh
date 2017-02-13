@@ -152,7 +152,7 @@ class AdminController extends BaseAdminController
     public function actionMoney($id, $summ)
     {
         //TODO: admin can add money
-        if(Yii::$app->request->isAjax) {
+        if(Yii::$app->request->isAjax && $summ !=0 && $summ > 0) {
             $summ = !$summ ? 0 : $summ;
             $history = new History();
             $history->summa = $summ;
@@ -160,6 +160,8 @@ class AdminController extends BaseAdminController
             $history->users_id = $id;
             $history->date = date("Y:m:d");
             $history->save();
+        } else {
+            return $this->redirect(['index']);
         }
 
     }

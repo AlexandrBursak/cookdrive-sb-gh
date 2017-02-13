@@ -21,7 +21,9 @@ class Profile extends BaseProfile
 
         $rules = parent::rules();
         $rules[] = ['photo_url', 'string'];
-
+        $rules[] = ['name', 'required'];
+        $rules[] = ['name', 'string', 'min' => 3];
+        $rules[] = ['name', 'filter', 'filter' => 'strip_tags'];
 
         return $rules;
     }
