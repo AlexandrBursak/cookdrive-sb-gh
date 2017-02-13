@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'format' => 'raw',
         ],
         [
-            'header' => 'Поповненя',
+            'header' => 'Поповнення',
             'value' => function ($model) {
                     return "<a class=\"btn btn-sm btn-success givemoney\" data-user-id=\"" . $model->id . "\">Поповнити</a>";
 
