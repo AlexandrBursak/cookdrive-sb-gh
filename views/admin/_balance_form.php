@@ -9,10 +9,10 @@ use yii\widgets\ActiveForm;
 
 <?php $form = ActiveForm::begin(); ?>
 
-    <label for="search">Сумма поповненя:</label>
+    <label for="search">Сумма поповненя(₴):</label>
 <div class="row">
         <div class="col-xs-6">
-            <input type="text" class="form-control input-sm money">
+            <input type="text" class="form-control input-sm money" maxlength="4" placeholder="0">
         </div>
         <div class="col-xs-6">
             <input type="button" value="Поповнити" class="btn btn-info money-confirm">
@@ -21,6 +21,11 @@ use yii\widgets\ActiveForm;
 <?php ActiveForm::end(); ?>
 <?php $this->registerJs(
     '$("document").ready(function(){
+        $(".money").keypress(function (e) {
+                if (e.which < 48 || e.which > 57) {
+                return false;
+             }
+       });
         $(".money-confirm").on("click", function() {
         var userID = $("#bModal").attr("data-user-id");
         var summ = 0;
