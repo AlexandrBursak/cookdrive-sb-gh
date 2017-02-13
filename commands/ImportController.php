@@ -45,17 +45,17 @@ class ImportController extends Controller
         $product->sub_category=$item["subcategory"];
         $service = ((new Query())->select('id')
             ->from('service')
-            ->where(['link'=>'http://cookdrive.com'])
+            ->where(['link'=>'http://cookdrive.com.ua'])
             ->one());
         if (empty($service["id"])){
             $serviceinsert = new Service();
             $serviceinsert->name = "CookDrive";
-            $serviceinsert->link = "http://cookdrive.com";
+            $serviceinsert->link = "http://cookdrive.com.ua";
             $serviceinsert->save();
         }
         $service = ((new Query())->select('id')
             ->from('service')
-            ->where(['link'=>'http://cookdrive.com'])
+            ->where(['link'=>'http://cookdrive.com.ua'])
             ->one());
         $product->serv_id=$service["id"];
         $product->link = $item['link'];
