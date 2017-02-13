@@ -22,6 +22,7 @@ class Profile extends BaseProfile
         $rules = parent::rules();
         $rules[] = ['photo_url', 'string'];
 
+
         return $rules;
     }
 
