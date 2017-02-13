@@ -650,7 +650,7 @@ body {
     padding: 10px;
     background: rgba(153,153,153,0.2);
     cursor: pointer;
-    border-top: 2px solid #f54a4a;
+    border-top: 2px solid #999;
 }
 .user_order_block_up:after{
     content: "\f078";
@@ -672,13 +672,29 @@ body {
     transform: rotate(-180deg);
     color: #f54a4a;
 }
+.product_user .admin_order_one.active .user_order_block_up{
+    border-top: 2px solid #f54a4a;
+    color: #f54a4a;
+}
 .user_order_block_dn{
     display: table;
 }
+.product_user .user_order_block_dn{
+    display: block;
+    display: none;
+}
+.product_user .admin_order_one:first-child .user_order_block_dn{
+    display: block;
+}
+.product_user .admin_order_one:first-child .user_name{
+    font-family: 'OpenSansSemibold';
+    font-size: 16px;
+}
+
 .admin_order_wrap{
     padding: 15px 0;
 }
-.admin_order_wrap ul{
+.admin_order_wrap ul, ul{
     list-style: none;
     padding: 0;
 }

@@ -140,36 +140,48 @@
     .categori_wrap {
         width: 94px;
     }
+
     .categori_wrap div {
         height: 60px;
     }
+
     .categori_wrap a {
         padding: 5px;
     }
+
     .categori_wrap span {
         font-size: 8px;
     }
+
     .one_order_item_img {
         width: 70px;
         height: 70px;
         float: none;
         display: inline-block;
     }
-    .one_order_item_name{
+
+    .one_order_item_name {
         margin-left: 0px;
         display: inline-block;
         max-width: 205px;
         font-size: 14px;
     }
-    .one_order_item_name span{
+
+    .one_order_item_name span {
         display: none;
     }
+
     .one_order_item_price, .one_order_item_price_all {
         font-size: 12px;
     }
-    .success{
+
+    .success {
         width: 240px;
         font-size: 16px;
+    }
+
+    .breadcrumb {
+        font-size: 12px;
     }
 
     .contact {
