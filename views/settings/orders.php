@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	            <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
 	        </div>
 	        <div class="panel-body">
+                <?php if(isset($product_user_in_date)) { ?>
 	        	<div class="clearfix">
                     <div class="all_user_order_block_slide">
                         <span>Розгорнути всі</span>
@@ -68,6 +69,9 @@ $this->params['breadcrumbs'][] = $this->title;
 	                </li>
 	            	<?php endforeach;?>
                 </ul>
+                <?php }  else { ?>
+                    <h1>Замовлення відсутні</h1>
+                <?php }?>
 	        </div>
 	    </div>
     </div>

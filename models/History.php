@@ -24,7 +24,7 @@ class History extends ActiveRecord
             // operation, summa, users_id are both required
             [['operation','summa', 'users_id'], 'required'],
             // summa is int TODO: summ can be int ?
-            ['summa', 'integer']
+            ['summa', 'integer', 'max' => 1000]
 
         ];
     }

@@ -126,7 +126,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ],
 ]); ?>
 <?php Pjax::end() ?>
-<?php yii\bootstrap\Modal::begin(['id'=>'bModal','header' => '<h3>Поповнення балансу</h3>', 'size' => 'modal-sm']); ?>
+<?php yii\bootstrap\Modal::begin(['id'=>'bModal','header' => '<h3>Поповненя балансу</h3>', 'size' => 'modal-sm']); ?>
 <?= $this->render('_balance_form'); ?>
 <?php yii\bootstrap\Modal::end();?>
 
