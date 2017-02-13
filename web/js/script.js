@@ -155,42 +155,69 @@ function cart_res() {
 
     confirm_order();
     colorBalance();
+
+    $(".catalog_product_quantity input").keypress(function (e) {
+        if (e.which < 48 || e.which > 57) {
+            return false;
+        }
+    });
 }
 
 
 function confirm_order() {
     $('#to_order').on("click", function (e) {
         e.preventDefault();
-        $.ajax({
-            url: '/cart/confirm',
-            type: 'POST',
-            success: function (res) {
-                if (res) {
-                    res = JSON.parse(res);
-                    if (res['balance']) {
-                        $.fancybox({
-                            content: '<div class="success active"><p>Ваше замовлення не прийнято.</p><span>Поповніть рахунок!</span></div>'
-                        });
-                    }
-                    else{
-                        update_global_cart(res.cart_count);
-                        update_cart(res);
-                        colorBalance();
-                        $.fancybox({
-                            content: '<div class="success"><p>Ваше замовлення успішно оформлено.</p><span>СМАЧНОГО!</span></div>'
-                        });
-                        setTimeout(function () {
-                            $.fancybox.close();
-                        }, 3000);
-                    }
-                } else {
-                    $('.google.auth-link').click();
-                }
-            },
-            error: function () {
-                alert('Error!');
+        var arr_error = [];
+        $(".one_order_item .catalog_product_quantity input").each(function(){
+            var value = Number($(this).val());  
+            if (value > 0 && value % 1 == 0) {
+                $(this).removeClass('active');
+            }
+            else{
+                arr_error.push(value);
+                $(this).addClass('active');
             }
         });
+
+        console.log(arr_error);
+
+        if (arr_error.length == 0) {
+            $.ajax({
+                url: '/cart/confirm',
+                type: 'POST',
+                success: function (res) {
+                    if (res) {
+                        res = JSON.parse(res);
+                        if (res['balance']) {
+                            $.fancybox({
+                                content: '<div class="success active"><p>Ваше замовлення не прийнято.</p><span>Поповніть рахунок!</span></div>'
+                            });
+                        }
+                        else{
+                            update_global_cart(res.cart_count);
+                            update_cart(res);
+                            colorBalance();
+                            $.fancybox({
+                                content: '<div class="success"><p>Ваше замовлення успішно оформлено.</p><span>СМАЧНОГО!</span></div>'
+                            });
+                            setTimeout(function () {
+                                $.fancybox.close();
+                            }, 3000);
+                        }
+                    } else {
+                        $('.google.auth-link').click();
+                    }
+                },
+                error: function () {
+                    alert('Error!');
+                }
+            });
+        }
+        else{
+            $.fancybox({
+                content: '<div class="success active"><p>Не коректні данні</p><span>Замовлення<br> не приянято!</span></div>'
+            });
+        }
     });
 }
 

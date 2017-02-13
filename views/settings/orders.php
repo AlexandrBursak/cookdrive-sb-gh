@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	        <div class="panel-body">
 	        	<div class="clearfix">
                     <div class="all_user_order_block_slide">
-                        <span>Згорнути всі</span>
+                        <span>Розгорнути всі</span>
                     </div>
                 </div>
                 <ul class='product_user'>

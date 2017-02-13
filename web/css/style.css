@@ -894,3 +894,7 @@ body {
     width: 125px;
     margin-right: 20px;
 }
+.one_order_item .catalog_product_quantity input.active{
+    background: rgba(255,0,0,0.5);
+
+}

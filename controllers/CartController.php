@@ -22,21 +22,24 @@ class CartController extends Controller {
 
 		if (Yii::$app->request->isAjax){
 			$id = Yii::$app->request->get('id');
-			$qty = (int)Yii::$app->request->get('qty');
-			$qty = !$qty ? 1 : $qty;
-			$product = Product::findOne($id);
-			$session = Yii::$app->session;
-			$session->open();
-			$cart = new Cart();
-			if(!empty($product)) {
-				$cart->addToCart($product, $qty);
+			if (Product::findOne($id)) {
+				$qty = (int)Yii::$app->request->get('qty');
+				if (($qty = intval($qty)) && ($qty > 0)) {
+					$product = Product::findOne($id);
+					$session = Yii::$app->session;
+					$session->open();
+					$cart = new Cart();
+					if(!empty($product)) {
+						$cart->addToCart($product, $qty);
+					}
+					$this->layout = false;
+					$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
+					return json_encode(array(
+						'cart_count'=> $qty,
+						'cart_html'=> $this->render('index', compact('session'))
+					));
+				}
 			}
-			$this->layout = false;
-			$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
-			return json_encode(array(
-				'cart_count'=> $qty,
-				'cart_html'=> $this->render('index', compact('session'))
-			));
 		}
 		else{
 			return $this->redirect(['site/error']);
@@ -66,16 +69,18 @@ class CartController extends Controller {
 
 		if (Yii::$app->request->isAjax){
 			$id = Yii::$app->request->get('id');
-			$session = Yii::$app->session;
-			$session->open();
-			$cart = new Cart();
-			$cart->recalc($id);
-			$this->layout = false;
-			$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
-			return json_encode(array(
-				'cart_count'=> $qty,
-				'cart_html'=> $this->render('index', compact('session'))
-			));
+			if (Product::findOne($id)) {
+				$session = Yii::$app->session;
+				$session->open();
+				$cart = new Cart();
+				$cart->recalc($id);
+				$this->layout = false;
+				$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
+				return json_encode(array(
+					'cart_count'=> $qty,
+					'cart_html'=> $this->render('index', compact('session'))
+				));
+			}
 		}
 		else{
 			return $this->redirect(['site/error']);
@@ -85,21 +90,28 @@ class CartController extends Controller {
 	public function actionChange(){
 		if (Yii::$app->request->isAjax){
 			$id = Yii::$app->request->get('id');
-			$qty = (int)Yii::$app->request->get('qty');
-			$qty = !$qty ? 1 : $qty;
-			$product = Product::findOne($id);
-			$session = Yii::$app->session;
-			$session->open();
-			$cart = new Cart();
-			if(!empty($product)) {
-				$cart->changeToCart($product, $qty);
-			}
-			$this->layout = false;
-			$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
-			return json_encode(array(
-				'cart_count'=> $qty,
-				'cart_html'=> $this->render('index', compact('session'))
-			));
+			if (Product::findOne($id)) {
+				$qty = (int)Yii::$app->request->get('qty');
+				if ((($qty = intval($qty)) && ($qty > 0))) {
+					$qty = $qty;
+				}
+				else{
+					$qty = 1;
+				}
+				$product = Product::findOne($id);
+				$session = Yii::$app->session;
+				$session->open();
+				$cart = new Cart();
+				if(!empty($product)) {
+					$cart->changeToCart($product, $qty);
+				}
+				$this->layout = false;
+				$qty = empty($session['cart.qty']) ? 0 : $session['cart.qty'];
+				return json_encode(array(
+					'cart_count'=> $qty,
+					'cart_html'=> $this->render('index', compact('session'))
+				));
+			}		
 		}
 		else{
 			return $this->redirect(['site/error']);
@@ -118,7 +130,8 @@ class CartController extends Controller {
 	    			if (isset($session['cart'])) {
 
 	     				foreach ($session['cart'] as $key => $value) {
-						    $order = new Order();
+	     					
+	     					$order = new Order();
 						    $order->date = date("Y:m:d");
 						    $order->user_id = \Yii::$app->user->id;
 						    $order->product_id = $key;
@@ -132,6 +145,7 @@ class CartController extends Controller {
 	                        $history->users_id = $order->user_id;
 	                        $history->date = date("Y:m:d");
 	                        $history->save();
+	    
 	     				}
 
 						$session->open();
