@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 
 <?php $form = ActiveForm::begin(); ?>
 
-    <label for="search">Сумма поповненя(₴):</label>
+    <label for="search">Сума поповнення(₴):</label>
 <div class="row">
         <div class="col-xs-6">
             <input type="text" class="form-control input-sm money" maxlength="4" placeholder="0">

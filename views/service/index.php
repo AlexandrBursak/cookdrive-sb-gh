@@ -3,7 +3,7 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-
+$this->title = "Сервіси";
 ?>
 
     <div class="row">

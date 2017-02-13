@@ -17,7 +17,7 @@ use yii\helpers\Html;
  * @var $form yii\widgets\ActiveForm
  */
 
-$this->title = Yii::t('user', 'Networks');
+$this->title = "Соціальні мережі";
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

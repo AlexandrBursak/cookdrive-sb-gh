@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use app\models\History;
 use yii\helpers\ArrayHelper;
+$this->title = 'Корзина';
+
 ?>
 <?php if (!empty($session['cart'])) : ?>
 <div id="response">
