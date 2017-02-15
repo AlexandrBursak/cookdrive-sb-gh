@@ -10,7 +10,7 @@ use yii\jui\AutoComplete;
 use yii\web\JsExpression;
 use yii\widgets\ActiveForm;
 
-$data = Product::find()->select(['concat(sub_category," ",product_name) as value', 'concat("[",sub_category,"] ",product_name) as  label', 'id as id', 'photo_url', 'sub_category', 'price', 'product_name'])->asArray()->all();
+$data = Product::find()->where(['date' => date("Y:m:d")])->select(['concat(sub_category," ",product_name) as value', 'concat("[",sub_category,"] ",product_name) as  label', 'id as id', 'photo_url', 'sub_category', 'price', 'product_name'])->asArray()->all();
 
 ?>
 

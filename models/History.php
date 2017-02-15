@@ -24,20 +24,18 @@ class History extends ActiveRecord
             // operation, summa, users_id are both required
             [['operation','summa', 'users_id'], 'required'],
             // summa is int TODO: summ can be int ?
-            ['summa', 'integer', 'max' => 1000]
+            ['summa', 'integer']
 
         ];
     }
 
     public function myBalance($user_id)
     {
-
         $data = History::find()->where(['users_id' => $user_id])->sum('summa');
         if(!$data) {
             return 0;
         }
         return $data;
-
     }
 
 }
