@@ -28,7 +28,7 @@ $productsArray = array();
 
 foreach ($html->find('div.motopress-clmn div.bg') as $outter){
     $category = $outter->prev_sibling()->prev_sibling();
-    $categoryName = $category->find('div.menu_padding h5 span', 0)->plaintext;
+    $categoryName = trim($category->find('div.menu_padding h5 span', 0)->plaintext);
     $items = array();
 
     foreach ($outter->find('div.span4 div.svbox_price div.service-box_body') as $element) {
@@ -36,7 +36,7 @@ foreach ($html->find('div.motopress-clmn div.bg') as $outter){
 
 
         $nameElement = $element->find('h2.title', 0)->plaintext;
-        $description =trim($element->find('div.service-box_txt', 0)->plaintext);
+        $description = rtrim($element->find('div.service-box_txt', 0)->plaintext, '.');
         $price = trim($element->find('h5.sub-title', 0)->plaintext);
         $link = hash("md5", $nameElement.$description.$price.$categoryName);
     if (!empty(trim($nameElement))) {
