@@ -38,12 +38,13 @@ foreach ($html->find('div.motopress-clmn div.bg') as $outter){
         $nameElement = $element->find('h2.title', 0)->plaintext;
         $description =trim($element->find('div.service-box_txt', 0)->plaintext);
         $price = trim($element->find('h5.sub-title', 0)->plaintext);
+        $link = hash("md5", $nameElement.$description.$price.$categoryName);
     if (!empty(trim($nameElement))) {
         $items[] = array(
             'product_name' => $nameElement,
             'description' => $description,
             'price' => $price,
-            'link'=>hash("md5", $nameElement.$description.$price.$categoryName),
+            'link'=>$link,
         );
     }
 }
@@ -51,7 +52,6 @@ foreach ($html->find('div.motopress-clmn div.bg') as $outter){
  $productsArray[$categoryName] = $items;
 
 }
-//print_r($productsArray);
 fwrite($file, json_encode($productsArray, JSON_UNESCAPED_UNICODE));
 fclose($file);
 ?>

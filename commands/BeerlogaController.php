@@ -25,7 +25,7 @@ class BeerlogaController extends Controller
 
         $product = Product::find()->where(['link' => $str])
            ->one();
-            if (!isset($product))
+        if (!isset($product))
                 $product = new Product();
 
         $product->product_name = $item['product_name'];
@@ -33,6 +33,7 @@ class BeerlogaController extends Controller
         $product->price = $item["price"];
         $product->date_add = date("Y:m:d");
         $product->category = $categoryName;
+        $product->link=$str;
         $service = ((new Query())->select('id')
             ->from('service')
             ->where(['link' => 'http://beerlogapub.com.ua'])
