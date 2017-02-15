@@ -203,7 +203,7 @@ function confirm_order() {
                             }, 3000);
                         }
                     } else {
-                        $('.google.auth-link').click();
+                        $('#authModal').modal('show');
                     }
                 },
                 error: function () {
