@@ -8,19 +8,17 @@ class m170116_110747_order extends Migration
     public function up()
     {
         $this->createTable('order', [
-            'id' => Schema::TYPE_PK, 
+            'id' => Schema::TYPE_PK,
             'date' => Schema::TYPE_DATE,
-            'user-id' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'product-id' => Schema::TYPE_INTEGER . ' NOT NULL',
-            'number' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'product_id' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'quantity' => Schema::TYPE_INTEGER . ' NOT NULL',
         ]);
     }
 
     public function down()
     {
-        echo "m170116_110747_order cannot be reverted.\n";
         $this->dropTable('order');
-        return false;
     }
 
     /*

@@ -16,9 +16,7 @@ class m170116_110500_create_table_services extends Migration
 
     public function down()
     {
-        echo "m170116_110500_create_table_services cannot be reverted.\n";
-
-        return false;
+        $this->dropTable('service');
     }
 
     /*
