@@ -29,8 +29,6 @@ class ImportController extends Controller
 
         $product = Product::find()->where(['link' => $item['link']])
             ->one();
-      //  echo $products;
-      //  var_dump($products);
        if (!isset($product)){
             $product = new Product();
         }
