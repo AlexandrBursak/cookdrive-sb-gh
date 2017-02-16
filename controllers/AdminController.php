@@ -15,9 +15,17 @@ class AdminController extends BaseAdminController
 {
     public function actionOrders()
     {
-        $orders = Order::find()->select('id, product_id, SUM(quantity) AS quantity_sum')->groupBy(['id', 'product_id'])->asArray()->where(['date' => date("Y:m:d")])->all();
+        $orders = Order::find()->select('product_id, SUM(quantity) AS quantity_sum')->groupBy(['product_id'])->asArray()->where(['date' => date("Y:m:d")])->all();
+        //debug($orders);exit();
+        $orders_per_service = [];
+        foreach ($orders as $key => $value) {
+            if (($service_id = Product::findOne($value['product_id'])->serv_id) !== null) {
+                $orders_per_service[$service_id][]=$value;
+            }
+        }
 
-        return $this->render('orderindex', ['orders' => $orders]);
+        //debug($orders_per_service);
+        return $this->render('orderindex', ['orders_per_service' => $orders_per_service]);
     }
 
     public function actionUserOrders()
@@ -36,6 +44,7 @@ class AdminController extends BaseAdminController
             'orders' => $orders,
         ]);
     }
+
 
     /**
      * Displays a single Order model.
@@ -151,7 +160,6 @@ class AdminController extends BaseAdminController
      */
     public function actionMoney($id, $summ)
     {
-        //TODO: admin can add money
         if(Yii::$app->request->isAjax && $summ !=0 && $summ > 0) {
             $summ = !$summ ? 0 : $summ;
             $history = new History();
@@ -166,6 +174,10 @@ class AdminController extends BaseAdminController
 
     }
 
+    /**
+     * return autocomplate data
+     * @return mixed
+     */
     public function actionAutocomplate()
     {
         if(Yii::$app->request->isAjax) {
@@ -175,7 +187,6 @@ class AdminController extends BaseAdminController
                 ->orFilterWhere(['like', 'sub_category', $term])
                 ->andFilterWhere(['date_add' => date("Y:m:d")])
                 ->asArray()->all();
-            //debug($data);
             return json_encode($data);
         } else {
             return $this->redirect(['index']);
