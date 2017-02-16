@@ -3,6 +3,7 @@
 use dektrium\user\widgets\Connect;
 use yii\helpers\Html;
 use app\models\History;
+use app\models\Service;
 use yii\helpers\ArrayHelper;
 $this->title = 'Корзина';
 
@@ -30,10 +31,17 @@ $this->title = 'Корзина';
                     <div class="one_order_item  clearfix">
                         <div class="one_order_img_name clearfix">
                             <div class="one_order_item_img">
-                                <img src="<?php echo $item['img']?>" alt="img">
+                                <img src="<?php 
+                                if (!empty($item['img'])){
+                                    echo $item['img']; 
+                                }
+                                else {  
+                                    echo "/images/no_img.png";
+                                }
+                                ?>" alt="<?php echo $item['name']?>">
                             </div>
                             <div class="one_order_item_name">
-                                <p><a href="<?= \yii\helpers\Url::to(['product/view', 'id'=>$id])?>"><?php echo $item['name']?><span><?php echo $item['description']?></span></a></p>
+                                <p><a href="<?= \yii\helpers\Url::to(['product/view', 'id'=>$id])?>"><?php echo $item['name']?><span class="service_id">(<?= Service::findOne($item['service_id'])->name ?>)</span><span><?php echo $item['description']?></span></a></p>
                             </div>
                         </div>
                         <div class="one_order_item_info">

@@ -197,4 +197,9 @@
         width: 100px;
         height: 80px;
     }
+
+    .one_order_item_name span.service_id{
+        display: block;
+        padding-left: 0;
+    }
 }
