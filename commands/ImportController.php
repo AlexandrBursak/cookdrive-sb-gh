@@ -34,6 +34,9 @@ class ImportController extends Controller
        if (!isset($product)){
             $product = new Product();
         }
+        //TODO: якщо продукт не знайдено по лінку, то створюємо новий,
+        //TODO: якщо товар знайдено, але хеш-сумма не збігається, то оновлюємо товару всі поля,
+        //TODO: якщо хеш-сума збігається, то оновлюємо дату
 
         $product->product_name = $item['product_name'];
         $product->description=$item["description"];

@@ -3,7 +3,7 @@
 use yii\db\Migration;
 use yii\db\Schema;
 
-class m170116_110747_order extends Migration
+class m170116_110747_create_table_order extends Migration
 {
     public function up()
     {

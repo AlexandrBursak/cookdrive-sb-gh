@@ -6,11 +6,12 @@
  * Time: 10:49
  */
 use app\models\Product;
+use yii\helpers\Url;
 use yii\jui\AutoComplete;
 use yii\web\JsExpression;
 use yii\widgets\ActiveForm;
 
-$data = Product::find()->where(['date' => date("Y:m:d")])->select(['concat(sub_category," ",product_name) as value', 'concat("[",sub_category,"] ",product_name) as  label', 'id as id', 'photo_url', 'sub_category', 'price', 'product_name'])->asArray()->all();
+//$data = Product::find()->where(['date' => date("Y:m:d")])->select(['concat(sub_category," ",product_name) as value', 'concat("[",sub_category,"] ",product_name) as  label', 'id as id', 'photo_url', 'sub_category', 'price', 'product_name'])->asArray()->all();
 
 ?>
 
@@ -21,8 +22,9 @@ $data = Product::find()->where(['date' => date("Y:m:d")])->select(['concat(sub_c
         <?php echo AutoComplete::widget([
             'id' => 'search',
             'clientOptions' => [
-                'source' => $data,
-                'autoFill' => true,
+                'source' =>  Url::toRoute(['/user/admin/autocomplate']),
+                'dataType'=>'json',
+                'autoFill'=>true,
                 'minLength' => 3,
                 'open' => new JsExpression('function( event, ui ) {
                     $(".ui-autocomplete").hide();
@@ -33,7 +35,12 @@ $data = Product::find()->where(['date' => date("Y:m:d")])->select(['concat(sub_c
                     var products = \'\';
                     var len_size = ui.content.length;
                     for(var product of ui.content){
+                        if(product.sub_category === null && product.photo_url == null) {
+                            products += \'<li class="contact"><div class="search-item"><img class="contact-image" src="/images/2.png" /></div><div class="contact-info"><div class="contact-number"> \' + product.product_name +\' </div><div class="contact-price">\' + product.price +\' грн.</div></div><div class="setting"><div class="setting-part"> <label for="qty" id="qty-label" >Кількість:</label><input type="text" maxlength="3" class="form-control qty" value="1"></div><div class="setting-part"> <input type="button" class="btn btn-info replace-confirm confirm-\' + product.id +\'"  data-id="\' + product.id +\'" value="Замінити"></div></div></div></li>\';
+                        
+                        } else {
                         products += \'<li class="contact"><div class="search-item"><img class="contact-image" src="\'+ product.photo_url +\'" /></div><div class="contact-info"><div class="contact-name"> \' + product.sub_category + \' </div><div class="contact-number"> \' + product.product_name +\' </div><div class="contact-price">\' + product.price +\' грн.</div></div><div class="setting"><div class="setting-part"> <label for="qty" id="qty-label" >Кількість:</label><input type="text" maxlength="3" class="form-control qty" value="1"></div><div class="setting-part"> <input type="button" class="btn btn-info replace-confirm confirm-\' + product.id +\'"  data-id="\' + product.id +\'" value="Замінити"></div></div></div></li>\';
+                        }
                         $(".media-list").html(products);
                      }
                      subscribeEvents();

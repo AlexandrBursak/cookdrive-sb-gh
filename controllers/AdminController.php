@@ -166,5 +166,22 @@ class AdminController extends BaseAdminController
 
     }
 
+    public function actionAutocomplate()
+    {
+        if(Yii::$app->request->isAjax) {
+            $term = strip_tags(Yii::$app->request->get('term'));
+            $data = Product::find()->select(['concat(sub_category," ",product_name) as value', 'concat("[",sub_category,"] ",product_name) as  label', 'id as id', 'photo_url', 'sub_category', 'price', 'product_name'])
+                ->where(['like', 'product_name', $term])
+                ->orFilterWhere(['like', 'sub_category', $term])
+                ->andFilterWhere(['date_add' => date("Y:m:d")])
+                ->asArray()->all();
+            //debug($data);
+            return json_encode($data);
+        } else {
+            return $this->redirect(['index']);
+        }
+
+    }
+
 
 }
