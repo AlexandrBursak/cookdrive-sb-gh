@@ -33,7 +33,7 @@ foreach ($html->find('div.motopress-clmn div.bg') as $outter){
 
     foreach ($outter->find('div.span4 div.svbox_price div.service-box_body') as $element) {
 
-        $nameElement = trim(str_replace("\xe2\x80\xa9", '\\u2029', $element->find('h2.title', 0)->plaintext));
+        $nameElement = trim(str_replace("\xe2\x80\xa9", '', $element->find('h2.title', 0)->plaintext));
         $description = trim($element->find('div.service-box_txt', 0)->plaintext, '.');
         $price = trim($element->find('h5.sub-title', 0)->plaintext);
         $link = hash("md5", $nameElement.$description.$price.$categoryName);
