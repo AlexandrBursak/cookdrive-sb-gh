@@ -64,31 +64,35 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php
                         $summ_all = 0;
                         foreach ($values as $key => $value) { ?>
-                            <?php $product = Product::findOne($value['product_id']); ?>
-                            <tr>
-                                <td><?= $product->product_name ?></td>
-                                <td><?= $product->price ?> грн.</td>
-                                <td><?= $value['quantity'] ?> шт.</td>
-                                <td><?= $product->price*$value['quantity'] ?> грн.</td>
-                                <td><?= Html::a(Service::findOne($product->serv_id)->name, Url::to(Service::findOne($product->serv_id)->link, true), ['target' => '_blank']); ?></td>
-                                <td>
-                                    <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['/user/admin/order-delete', 'id' => $value['id']], [
-                                        'title' => 'Видалити',
-                                        'data-confirm' => 'А ви впевнені що хочете видалити замовлення?',
-                                        'data-method' => 'POST',
-                                    ]) ?>
-                                    <?= Html::a('<span class="glyphicon glyphicon-retweet replace"></span>', ['/user/admin/order-update', 'id' => $value['id']], [
-                                        'title' => 'Редагування замовлення',
-                                        //'class' => 'replace',
-                                        'data-order-id' => $value['id']
-                                    ]) ?>
-                                </td>
-                            </tr>
+                            <?php $product = Product::findOne($value['product_id']);
+                            //modified
+                            if (isset($product)) {
+                                ?>
+                                <tr>
+                                    <td><?= $product->product_name ?></td>
+                                    <td><?= $product->price ?> грн.</td>
+                                    <td><?= $value['quantity'] ?> шт.</td>
+                                    <td><?= $product->price * $value['quantity'] ?> грн.</td>
+                                    <td><?= Html::a(Service::findOne($product->serv_id)->name, Url::to(Service::findOne($product->serv_id)->link, true), ['target' => '_blank']); ?></td>
+                                    <td>
+                                        <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['/user/admin/order-delete', 'id' => $value['id']], [
+                                            'title' => 'Видалити',
+                                            'data-confirm' => 'А ви впевнені що хочете видалити замовлення?',
+                                            'data-method' => 'POST',
+                                        ]) ?>
+                                        <?= Html::a('<span class="glyphicon glyphicon-retweet replace"></span>', ['/user/admin/order-update', 'id' => $value['id']], [
+                                            'title' => 'Редагування замовлення',
+                                            //'class' => 'replace',
+                                            'data-order-id' => $value['id']
+                                        ]) ?>
+                                    </td>
+                                </tr>
 
 
-                        <?php
-                                $summ_all +=$product->price*$value['quantity'];
+                                <?php
+                                $summ_all += $product->price * $value['quantity'];
                             }
+                        } //modified if(isset(product))
                         ?>
                             <tfooter>
                                 <tr>
@@ -122,17 +126,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?php
                                         $summ_all = 0;
                                         foreach ($orders as $key => $value) { ?>
-                                            <?php $product = Product::findOne($value['product_id']); ?>
-                                            <tr>
-                                                <td><?= $product->product_name ?></td>
-                                                <td><?= $value['quantity_sum'] ?> шт.</td>
-                                                <td><?= $product->price ?> грн.</td>
-                                                <td><?= $product->price*$value['quantity_sum'] ?> грн.</td>
-                                                <td><?= Html::a(Service::findOne($product->serv_id)->name, Url::to(Service::findOne($product->serv_id)->link, true), ['target' => '_blank']); ?></td>
-                                            </tr>
-                                            <?php $summ_all += $product->price*$value['quantity_sum']; ?>
+                                            <?php $product = Product::findOne($value['product_id']);
+                                            if (isset($product)) { //modified
+                                                ?>
+                                                <tr>
+                                                    <td><?= $product->product_name ?></td>
+                                                    <td><?= $value['quantity_sum'] ?> шт.</td>
+                                                    <td><?= $product->price ?> грн.</td>
+                                                    <td><?= $product->price * $value['quantity_sum'] ?> грн.</td>
+                                                    <td><?= Html::a(Service::findOne($product->serv_id)->name, Url::to(Service::findOne($product->serv_id)->link, true), ['target' => '_blank']); ?></td>
+                                                </tr>
+                                                <?php $summ_all += $product->price * $value['quantity_sum']; ?>
 
-                                        <?php } ?>
+                                            <?php }
+                                        } //if(isset)
+                                        ?>
                                     <tfooter>
                                         <tr>
                                             <th colspan="6">Загальна сума: <?=$summ_all?> грн. </th>
