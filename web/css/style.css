@@ -189,10 +189,12 @@ body {
 
 .categori_title {
     border-bottom: 3px solid #f56a48;
+    margin-bottom: 10px;
 }
 
 .subcategori_title {
     text-align: center;
+    margin-bottom: 10px;
 }
 
 .subcategori_title h2 {
@@ -204,6 +206,7 @@ body {
     display: inline-block;
     width: 100%;
     text-transform: uppercase;
+    margin: 0;
 }
 
 .categori_title h1 {
@@ -897,5 +900,20 @@ body {
 .one_order_item .catalog_product_quantity input.active,
 .catalog_product_wrap .catalog_product_quantity input.active{
     background: rgba(255,0,0,0.5);
+}
 
+.one_order_item_name span.service_id{
+    font-family: 'OpenSansSemibold';
+    font-size: 12px;
+    color: #999;
+    display: inline;
+    padding-left: 5px;
+}
+.one_order_item_name span.service_id{
+    font-family: 'OpenSansSemibold';
+    font-size: 12px;
+    color: #999;
+    display: inline;
+    padding-left: 5px;
+    text-transform: uppercase;
 }

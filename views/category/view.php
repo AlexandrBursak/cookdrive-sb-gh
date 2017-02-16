@@ -4,8 +4,8 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 
 $this->title = 'Каталог';
-//$this->params['breadcrumbs'][] = ['label' => 'Категорії', 'url' => ['category/index', 'id' => $id_service['serv_id']]];
-$this->params['breadcrumbs'][] = ['label' => 'Категорії', 'url' => ['category/index']];
+$this->params['breadcrumbs'][] = ['label' => 'Категорії', 'url' => ['category/index', 'id' => $id_service['serv_id']]];
+// $this->params['breadcrumbs'][] = ['label' => 'Категорії', 'url' => ['category/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
     <div class="row">
@@ -24,15 +24,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="subcategori_list">
         <ul class="clearfix">
             <?php foreach ($new_arr as $key => $value):?>
+                <?php if (!empty($key)) : ?>
                 <li><a href="#"><?php echo $key?></a></li>
+                <?php endif;?>
             <?php endforeach;?>
         </ul>
     </div>
 <?php foreach ($new_arr as $key => $value):?>
                 <div class="subcategori_content_wrap">
+                    <?php if (!empty($key)) : ?>
                     <div class="subcategori_title">
                         <h2><?php echo $key?></h2>
                     </div>
+                    <?php endif;?>
                     <div class="categori_content">
                         <ul>
     <?php foreach ($value as $key => $value):?>
@@ -40,7 +44,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="catalog_product_wrap">
                                     <a href="<?= \yii\helpers\Url::to(['product/view', 'id'=>$value['id']])?>">
                                         <div class="catalog_product_img">
-                                            <img src="<?php echo $value['photo_url'] ?>" alt="<?php echo $value['product_name']?>">
+                                            <img src="<?php 
+                                            if (!empty($value['photo_url'])){
+                                                echo $value['photo_url']; 
+                                            }
+                                            else {  
+                                                echo "/images/no_img.png";
+                                            }
+                                            ?>" alt="<?php echo $value['product_name']?>">
                                             <div class="hidden_info">
                                                 <p><?php echo $value['description']?></p>
                                             </div>

@@ -24,7 +24,11 @@ class SettingsController extends BaseSettingsController
     	foreach ($product_user as $key => $value) {
 			$product_user_in_date[$value['date']][]=$value;
 		}
-		// debug($product_user_in_date);
+        
+        if (!empty($product_user_in_date)) {
+            array_multisort($product_user_in_date);
+        }
+        
     	return $this->render('orders', compact('product_user_in_date'));
     }
 

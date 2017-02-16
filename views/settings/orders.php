@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	                <li class="admin_order_one">
                         <div class="user_order_block_up">
                             <div class="user_name">
-                                <p><?=  $keys?></p>
+                                <p><?=  $keys ?></p>
                             </div>
                         </div>
                         <div class="table-responsive user_order_block_dn">

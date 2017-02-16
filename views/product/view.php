@@ -16,12 +16,21 @@ $this->params['breadcrumbs'][] = $this->title;
                     <h1><?php echo $product->category?></h1>
                 </div>
                 <div class="subcategori_content_wrap">
+                    <?php if (!empty($product->sub_category)) : ?>
                     <div class="subcategori_title">
                         <h2><?php echo $product->sub_category?></h2>
                     </div>
+                    <?php endif;?>
                     <div class="catalog_product_wrap  product_content_wrap clearfix">
                         <div class="catalog_product_img">
-                            <img src="<?php echo $product->photo_url ?>" alt="<?php echo $product->product_name?>">
+                            <img src="<?php 
+                            if (!empty($product->photo_url)){
+                                echo $product->photo_url; 
+                            }
+                            else {  
+                                echo "/images/no_img.png";
+                            }
+                            ?>" alt="<?php echo $product->product_name?>">
                         </div>
                         <div class="product_content">
                             <div class="catalog_product_info_wrap">
