@@ -39,8 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <thead>
                                 <tr>
                                     <th>Назва товару</th>
-                                    <th>Кількість</th>
                                     <th>Ціна</th>
+                                    <th>Кількість</th>
                                     <th>Всього</th>
                                     <th>Сервіс</th>
                                 </tr>
