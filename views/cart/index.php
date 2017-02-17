@@ -1,5 +1,6 @@
 <?php
 
+use dektrium\user\widgets\Connect;
 use yii\helpers\Html;
 use app\models\History;
 use app\models\Service;
@@ -73,7 +74,11 @@ $this->title = 'Корзина';
                     </div>
                 </div>
                 <div class="order_enter">
+                    <?php if(!(\Yii::$app->user->isGuest)) { ?>
                     <a id='to_order' href="#">Замовити</a>
+                    <?php } else {?>
+                        <a id='to_order' class="google auth-link" href="#">Замовити</a>
+                    <?php } ?>
                 </div>
             </div>           
         </div>
@@ -105,3 +110,7 @@ $this->title = 'Корзина';
         </div>
     </div>
     <?php endif; ?>
+
+<?php yii\bootstrap\Modal::begin(['id'=>'authModal','header' => '<h3>Авторизація</h3>', 'size' => 'modal-sm']); ?>
+<?= Connect::widget([ 'baseAuthUrl' => ['/user/security/auth']]) ?>
+<?php yii\bootstrap\Modal::end();?>

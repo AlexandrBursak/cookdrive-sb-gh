@@ -18,9 +18,7 @@ class m170116_100245_create_table_history extends Migration
 
     public function down()
     {
-        echo "m170116_100245_create_table_history cannot be reverted.\n";
-        $this->dropTable(history);
-        return false;
+        $this->dropTable('history');
     }
 
     /*

@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </div>
                 </div>
                 <ul>
-                    <?php if(isset($orders_per_user)) { ?>
+                    <?php if(!empty($orders_per_user)) { ?>
                     <?php foreach($orders_per_user as $keys => $values) { ?>
                     <li class="admin_order_one active">
                         <div class="user_order_block_up">
@@ -64,12 +64,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php
                         $summ_all = 0;
                         foreach ($values as $key => $value) { ?>
-                            <?php $product = Product::findOne($value['product_id']); ?>
+                            <?php if (($product = Product::findOne($value['product_id'])) !== null) { ?>
                             <tr>
                                 <td><?= $product->product_name ?></td>
                                 <td><?= $product->price ?> грн.</td>
                                 <td><?= $value['quantity'] ?> шт.</td>
-                                <td><?= $product->price*$value['quantity'] ?> грн.</td>
+                                <td><?= $product->price * $value['quantity'] ?> грн.</td>
                                 <td><?= Html::a(Service::findOne($product->serv_id)->name, Url::to(Service::findOne($product->serv_id)->link, true), ['target' => '_blank']); ?></td>
                                 <td>
                                     <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['/user/admin/order-delete', 'id' => $value['id']], [
@@ -86,8 +86,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             </tr>
 
 
-                        <?php
-                                $summ_all +=$product->price*$value['quantity'];
+                            <?php
+                                    $summ_all += $product->price * $value['quantity'];
+                                 }
                             }
                         ?>
                             <tfooter>
@@ -101,47 +102,52 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </li>
                         <?php } ?>
-                    <?php } else if(isset($orders)) { ?>
-                    <li class="admin_order_one active">
-                        <div class="user_order_block_up">
-                            <div class="user_name">
-                                Загальний чек замовлення
-                            </div>
-                        </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover user_order_block_dn">
-                                    <thead>
-                                    <tr>
-                                        <th>Назва товару</th>
-                                        <th>Кількість</th>
-                                        <th>Ціна</th>
-                                        <th>Всього</th>
-                                        <th>Сервіс</th>
-                                    </tr>
-                                    </thead>
-                                    <?php
+                    <?php } else if(!empty($orders_per_service)) { ?>
+                        <?php foreach($orders_per_service as $keys => $values) { ?>
+                            <li class="admin_order_one active">
+                                <div class="user_order_block_up">
+                                    <div class="user_name">
+                                        Сервіс: <?php echo Service::findOne($keys)->name ; ?>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <?php Pjax::begin(['id' => 'items', 'enablePushState' => false]) ?>
+                                    <table class="table table-hover user_order_block_dn">
+                                        <thead>
+                                        <tr>
+                                            <th>Назва продукту</th>
+                                            <th>Ціна</th>
+                                            <th>Кількість</th>
+                                            <th>Загальна вартість</th>
+                                        </tr>
+                                        </thead>
+                                        <?php
                                         $summ_all = 0;
-                                        foreach ($orders as $key => $value) { ?>
+                                        foreach ($values as $key => $value) { ?>
                                             <?php $product = Product::findOne($value['product_id']); ?>
                                             <tr>
                                                 <td><?= $product->product_name ?></td>
-                                                <td><?= $value['quantity_sum'] ?> шт.</td>
                                                 <td><?= $product->price ?> грн.</td>
+                                                <td><?= $value['quantity_sum'] ?> шт.</td>
                                                 <td><?= $product->price*$value['quantity_sum'] ?> грн.</td>
-                                                <td><?= Html::a(Service::findOne($product->serv_id)->name, Url::to(Service::findOne($product->serv_id)->link, true), ['target' => '_blank']); ?></td>
                                             </tr>
-                                            <?php $summ_all += $product->price*$value['quantity_sum']; ?>
 
-                                        <?php } ?>
-                                    <tfooter>
-                                        <tr>
-                                            <th colspan="6">Загальна сума: <?=$summ_all?> грн. </th>
-                                        </tr>
-                                    </tfooter>
-                                </table>
-                        </div>
-                    </li>
 
+                                            <?php
+                                            $summ_all +=$product->price*$value['quantity_sum'];
+                                        }
+                                        ?>
+                                        <tfooter>
+                                            <tr>
+                                                <th colspan="6">Все замовлення сервісу на суму: <?=$summ_all?> грн. </th>
+                                            </tr>
+                                        </tfooter>
+                                    </table>
+                                    <?php Pjax::end(); ?>
+
+                                </div>
+                            </li>
+                        <?php } ?>
                     <?php } else {?>
                         <h1>Замовлення відсутні</h1>
                     <?php } ?>

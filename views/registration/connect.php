@@ -31,10 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="panel-body">
                 <div class="alert alert-info">
                     <p>
-                        <?= Yii::t(
-                            'user',
-                            'Для закінчення вашої реєстрації, ви повинні заповнити відповідні поля нижще'
-                        ) ?>:
+                        Для закінчення вашої реєстрації, ви повинні заповнити відповідні поля нижще
                     </p>
                 </div>
                 <?php $form = ActiveForm::begin([
@@ -45,19 +42,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'username') ?>
 
-                <?= Html::submitButton(Yii::t('user', 'Продовжити'), ['class' => 'btn btn-success btn-block']) ?>
+                <?= Html::submitButton('Продовжити', ['class' => 'btn btn-success btn-block']) ?>
 
                 <?php ActiveForm::end(); ?>
             </div>
         </div>
         <p class="text-center">
-            <?= Html::a(
-                Yii::t(
-                    'user',
-                    'Якщо ви вже зареєстровані, увійдіть та підключіть акаунт в налаштуваннях'
-                ),
-                ['/user/settings/networks']
-            ) ?>.
+            <?= Html::a('Якщо ви вже зареєстровані, увійдіть та підключіть акаунт в налаштуваннях', ['/user/settings/networks']) ?>.
         </p>
     </div>
 </div>
