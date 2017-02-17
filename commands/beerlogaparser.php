@@ -28,15 +28,16 @@ $productsArray = array();
 
 foreach ($html->find('div.motopress-clmn div.bg') as $outter){
     $category = $outter->prev_sibling()->prev_sibling();
-    $categoryName = $category->find('div.menu_padding h5 span', 0)->plaintext;
+    $categoryName = trim(str_replace("\xe2\x80\xa9", '', str_replace("&amp;", '&',$category->find('div.menu_padding h5 span', 0)->plaintext)));
+    $string = htmlentities($categoryName, null, 'utf-8');
+    $categoryName = str_replace("&nbsp;", " ", $string);
+    $categoryName = html_entity_decode($categoryName);
     $items = array();
 
     foreach ($outter->find('div.span4 div.svbox_price div.service-box_body') as $element) {
 
-
-
-        $nameElement = $element->find('h2.title', 0)->plaintext;
-        $description =trim($element->find('div.service-box_txt', 0)->plaintext);
+        $nameElement = trim(str_replace("\xe2\x80\xa9", '', $element->find('h2.title', 0)->plaintext));
+        $description = trim($element->find('div.service-box_txt', 0)->plaintext, '.');
         $price = trim($element->find('h5.sub-title', 0)->plaintext);
         $link = hash("md5", $nameElement.$description.$price.$categoryName);
     if (!empty(trim($nameElement))) {

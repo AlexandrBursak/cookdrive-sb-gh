@@ -89,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?php
                                     $summ_all += $product->price * $value['quantity'];
                                  }
-                            }
+                        } //modified if(isset(product))
                         ?>
                             <tfooter>
                                 <tr>
@@ -131,7 +131,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <td><?= $value['quantity_sum'] ?> шт.</td>
                                                 <td><?= $product->price*$value['quantity_sum'] ?> грн.</td>
                                             </tr>
-
 
                                             <?php
                                             $summ_all +=$product->price*$value['quantity_sum'];

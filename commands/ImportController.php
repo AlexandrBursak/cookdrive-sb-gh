@@ -29,9 +29,7 @@ class ImportController extends Controller
 
         $product = Product::find()->where(['link' => $item['link']])
             ->one();
-      //  echo $products;
-      //  var_dump($products);
-       if (!isset($product)){
+       if (empty($product)){
             $product = new Product();
         }
         //TODO: якщо продукт не знайдено по лінку, то створюємо новий,

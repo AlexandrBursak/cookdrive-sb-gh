@@ -25,7 +25,7 @@ class BeerlogaController extends Controller
 
         $product = Product::find()->where(['link' => $str])
            ->one();
-        if (!isset($product))
+        if (empty($product))
                 $product = new Product();
 
         $product->product_name = $item['product_name'];
