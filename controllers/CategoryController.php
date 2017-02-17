@@ -9,9 +9,9 @@ use yii\web\Controller;
 class CategoryController extends Controller {
 
 	public function actionIndex($id) {
-		$top = Product::find()->asArray()->select('category')->where(['serv_id' => $id])->distinct()->all();
+		$top = Product::find()->asArray()->select('category')->where(['serv_id' => $id, 'date_add' => date("Y-m-d")])->distinct()->all();
 		$category = $top[0]['category'];
-		$products = Product::find()->asArray()->where(['category' => $category])->all();
+		$products = Product::find()->asArray()->where(['category' => $category, 'date_add' => date("Y-m-d")])->all();
 		foreach ($products as $key => $value) {
 			$new_arr[$value['sub_category']][]=$value;
 		}
@@ -21,7 +21,7 @@ class CategoryController extends Controller {
 	public function actionView($category) {
 		$category = Yii::$app->request->get('category');
 		$id_service = Product::find()->select('serv_id')->where(['category' => $category])->distinct()->one();
-		$products = Product::find()->asArray()->where(['category' => $category])->all();
+		$products = Product::find()->asArray()->where(['category' => $category, 'date_add' => date("Y-m-d")])->all();
 		foreach ($products as $key => $value) {
 			$new_arr[$value['sub_category']][]=$value;
 		}
