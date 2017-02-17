@@ -12,7 +12,7 @@ class m170116_095557_create_table_product extends Migration
             'id' => Schema::TYPE_PK,
             'product_name' => Schema::TYPE_STRING . ' NOT NULL',
             'description' => Schema::TYPE_TEXT,
-            'weight' => Schema::TYPE_DOUBLE,
+            'weight' => Schema::TYPE_TEXT,
             'ingredients' => Schema::TYPE_TEXT,
             'price' => Schema::TYPE_DOUBLE,
             'photo_url' => Schema::TYPE_STRING . '(255)',
