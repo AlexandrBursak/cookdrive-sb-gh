@@ -20,14 +20,11 @@ class SettingsController extends BaseSettingsController
 
     public function actionOrders() {
     	$authorized_user_id = Yii::$app->user->id;
-    	$product_user = Order::find()->asArray()->where(['user_id' => $authorized_user_id])->distinct()->all();
+    	$product_user = Order::find()->select('id, date, user_id, product_id, SUM(quantity) AS quantity')->groupBy(['date', 'user_id', 'product_id'])->asArray()->where(['user_id' => $authorized_user_id])->orderBy(['date' => SORT_DESC])->all();
+
     	foreach ($product_user as $key => $value) {
 			$product_user_in_date[$value['date']][]=$value;
 		}
-        
-        if (!empty($product_user_in_date)) {
-            array_multisort($product_user_in_date);
-        }
         
     	return $this->render('orders', compact('product_user_in_date'));
     }
