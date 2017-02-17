@@ -18,7 +18,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 <li class="categori_wrap">
                     <a href="<?php echo \yii\helpers\Url::to(['category/view', 'category' => $value['category']])?> ">
                         <div>
-                            <img src="/images/<?php echo $value['category'] ?>.png" alt="<?php echo $value['category'] ?>">
+                            <?php
+                                $img_name = 'images/'.$value['category'].'.png';
+                                $img_name = mb_convert_encoding($img_name, 'Windows-1251', 'UTF-8');
+
+                                if (is_file($img_name)) {
+                                    ?>
+                                    <img src="/images/<?php echo $value['category'] ?>.png" alt="<?php echo $value['category'] ?>">
+                                    <?php
+                                } else {
+                                     ?>
+                                    <img src="/images/new.png" alt="<?php echo $value['category'] ?>">
+                                    <?php
+                                }
+                            ?>
                         </div>
                         <span><?php echo $value['category'] ?></span>
                     </a>
