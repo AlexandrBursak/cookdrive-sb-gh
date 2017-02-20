@@ -47,17 +47,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                 </thead>
                                 <?php
                                     $summ_all = 0;
-                                    foreach ($values as $key => $value):
-                                    	?>
-                                        <?php $product = Product::findOne($value['product_id']); ?>
+                                    foreach ($values as $key => $value): ?>
+
 		                            <tr>
-		                                <td><?= $product->product_name ?></td>
-		                                <td><?= $product->price ?> грн.</td>
+		                                <td><?= $value['product_name'] ?></td>
+		                                <td><?= $value['product_price'] ?> грн.</td>
 		                                <td><?= $value['quantity'] ?> шт.</td>
-		                                <td><?= $product->price*$value['quantity'] ?> грн.</td>
-		                                <td><?= Html::a(Service::findOne($product->serv_id)->name, Url::to(Service::findOne($value['serv_id'])->link, true), ['target' => '_blank']); ?></td>
+		                                <td><?= $value['product_price'] * $value['quantity'] ?> грн.</td>
+		                                <td><?= Html::a(Service::findOne($value['product_serv_id'])->name, Url::to(Service::findOne($value['product_serv_id'])->link, true), ['target' => '_blank']); ?></td>
 		                            </tr>
-                                        <?php $summ_all += $product->price*$value['quantity']; ?> 
+                                        <?php $summ_all += $value['product_price'] * $value['quantity']; ?>
                                     <?php endforeach;?>
                                 <tfooter>
                                     <tr>

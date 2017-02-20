@@ -13,6 +13,9 @@ class m170116_110747_create_table_order extends Migration
             'user_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'product_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'quantity' => Schema::TYPE_INTEGER . ' NOT NULL',
+            'product_name' => Schema::TYPE_STRING . '(255)',
+            'product_price' => Schema::TYPE_DOUBLE ,
+            'product_serv_id' => Schema::TYPE_INTEGER ,
         ]);
     }
 

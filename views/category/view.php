@@ -5,6 +5,7 @@ use yii\helpers\ArrayHelper;
 
 $this->title = 'Каталог';
 $this->params['breadcrumbs'][] = ['label' => 'Категорії', 'url' => ['category/index', 'service_id' => Yii::$app->request->get('service_id')]];
+
 // $this->params['breadcrumbs'][] = ['label' => 'Категорії', 'url' => ['category/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
