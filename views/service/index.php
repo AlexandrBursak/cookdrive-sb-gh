@@ -12,7 +12,7 @@ $this->title = "Сервіси";
                 <ul>
                 <?php foreach ($service as $key => $value):?>
                     <li>
-                        <a href="<?= \yii\helpers\Url::to(['category/index', 'id'=>$value['id']])?>">
+                        <a href="<?= \yii\helpers\Url::to(['category/index', 'service_id'=>$value['id']])?>">
                             <div class="serv_img">
                                 <img src="/images/<?php echo $value['id'] ?>.png" alt="<?php echo $value['name']?>">
                             </div>

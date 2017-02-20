@@ -4,13 +4,14 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 
 $this->title = 'Каталог';
-$this->params['breadcrumbs'][] = ['label' => 'Категорії', 'url' => ['category/index', 'id' => $id_service['serv_id']]];
+$this->params['breadcrumbs'][] = ['label' => 'Категорії', 'url' => ['category/index', 'service_id' => Yii::$app->request->get('service_id')]];
 // $this->params['breadcrumbs'][] = ['label' => 'Категорії', 'url' => ['category/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
     <div class="row">
         <div class="col-lg-12">
             <form method="get" action="<?=\yii\helpers\Url::to(['category/search']) ?>" class="input-group">
+                <input type="hidden" class="form-control" name="service_id" value="<?=Yii::$app->request->get('service_id')?>">
                 <input type="text" class="form-control" name="query" placeholder="Введіть дані для пошуку">
                 <span class="input-group-btn">
                         <input class="btn btn-default" type="submit" value="Шукати">
@@ -42,7 +43,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php foreach ($value as $key => $value):?>
                             <li>
                                 <div class="catalog_product_wrap">
-                                    <a href="<?= \yii\helpers\Url::to(['product/view', 'id'=>$value['id']])?>">
+                                    <a href="<?= \yii\helpers\Url::to(['product/view',
+                                        'service_id'=>Yii::$app->request->get('service_id'), 'category' => Yii::$app->request->get('category'),
+                                        'id'=>$value['id']])?>">
                                         <div class="catalog_product_img">
                                             <img src="<?php 
                                             if (!empty($value['photo_url'])){
