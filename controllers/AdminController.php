@@ -117,6 +117,9 @@ class AdminController extends BaseAdminController
 
                 $model->product_id = $itemId;
                 $model->quantity = $qty;
+                $model->product_name = $new_product['product_name'];
+                $model->product_price = $new_product['price'];
+                $model->product_serv_id = $new_product['serv_id'];
                 $model->date = date("Y:m:d");
                 $model->save();
         }

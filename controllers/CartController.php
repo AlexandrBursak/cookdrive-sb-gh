@@ -136,6 +136,9 @@ class CartController extends Controller {
 						    $order->user_id = \Yii::$app->user->id;
 						    $order->product_id = $key;
 						    $order->quantity = $value['qty'];
+						    $order->product_name = $value['name'];
+						    $order->product_price = $value['price'];
+						    $order->product_serv_id = $value['service_id'];
 						    $order->save();
 
 	                        $history = new History();
