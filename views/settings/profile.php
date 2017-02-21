@@ -54,9 +54,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'website')->label('Веб сторінка') ?>
 
-                <?= $form->field($model, 'location')->label('Місце знаходження') ?>
+                <?php /* $form->field($model, 'location')->label('Місце знаходження') */?>
 
-                <?= $form
+                <?php /*$form
                     ->field($model, 'timezone')
                     ->dropDownList(
                         ArrayHelper::map(
@@ -64,13 +64,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             'timezone',
                             'name'
                         )
-                    ); ?>
+                    ); */ ?>
 
                 <?= $form->field($model, 'bio')->textarea()->label('Інформація про себе') ?>
 
                 <div class="form-group">
                     <div class="col-lg-offset-3 col-lg-9">
-                        <?= Html::submitButton(Yii::t('user', 'Save'), ['class' => 'btn btn-block btn-success']) ?>
+                        <?= Html::submitButton('Зберегти', ['class' => 'btn btn-block btn-success']) ?>
                         <br>
                     </div>
                 </div>

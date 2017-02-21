@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div>
                             <?php
                                 $img_name = 'images/'.$value['category'].'.png';
-                                $img_name = mb_convert_encoding($img_name, 'Windows-1251', 'UTF-8');
+                                $img_name = mb_convert_encoding($img_name, 'UTF-8');
 
                                 if (is_file($img_name)) {
                                     ?>

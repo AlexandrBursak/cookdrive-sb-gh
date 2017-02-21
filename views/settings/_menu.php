@@ -38,7 +38,7 @@ $networksVisible = count(Yii::$app->authClientCollection->clients) > 0;
                 ['label' => Yii::t('user', 'Мої замовлення'), 'url' => ['/user/settings/orders']],
                 //['label' => Yii::t('user', 'Мої замовлення'), 'url' => ['/user/settings/orders']],
                 ['label' => Yii::t('user', 'Профіль'), 'url' => ['/user/settings/profile']],
-                ['label' => Yii::t('user', 'Акаунт'), 'url' => ['/user/settings/account']],
+                ['label' => Yii::t('user', 'Аккаунт'), 'url' => ['/user/settings/account']],
                 [
                     'label' => Yii::t('user', 'Соціальні мережі'),
                     'url' => ['/user/settings/networks'],

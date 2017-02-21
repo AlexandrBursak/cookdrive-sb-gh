@@ -100,7 +100,7 @@ class AdminController extends BaseAdminController
                 $history = new History();           // створюємо новий запис в історії
                 $history->orders_id = $model->id;   //той же id замовлення який буде у новому записі в історії
                 $history->summa = $history_order['summa'] * (-1); // інвертуємо мінусову суму в (+) - поповнення
-                $history->operation = 2;            // операція поверненя - поповнення
+                $history->operation = 4;                          // 4 - повернення коштів (заміну товару адміністратором)
                 $history->users_id = $history_order['users_id'];  // той же юзер в новій історії
                 $history->date = date("Y:m:d");     // сьогоднішня дата
                 $history->save();
@@ -110,7 +110,7 @@ class AdminController extends BaseAdminController
                 $history = new History();
                 $history->orders_id = $model->id;
                 $history->summa = -($new_product['price'] * $qty);
-                $history->operation = 1;  // операция зняття грошей
+                $history->operation = 1;  //1 - замовленя, зняття грошей за замовлення
                 $history->users_id = $history_order['users_id'];
                 $history->date = date("Y:m:d");
                 $history->save();
@@ -163,11 +163,16 @@ class AdminController extends BaseAdminController
      */
     public function actionMoney($id, $summ)
     {
-        if(Yii::$app->request->isAjax && $summ !=0 && $summ > 0) {
+        if(Yii::$app->request->isAjax && $summ !=0) {
             $summ = !$summ ? 0 : $summ;
             $history = new History();
             $history->summa = $summ;
-            $history->operation = 3;
+            if($summ > 0) {
+                $history->operation = 2; //2 - поповнення балансу адміністратором
+            } elseif($summ < 0) {
+                $history->operation = 3; //3 - зняття коштів з балансу адміністратором
+            }
+
             $history->users_id = $id;
             $history->date = date("Y:m:d");
             $history->save();

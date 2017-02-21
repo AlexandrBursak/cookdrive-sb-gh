@@ -22,16 +22,18 @@ $this->params['breadcrumbs'][] = $this->title;
 	        <div class="panel-body">
                 <?php if(isset($product_user_in_date)) { ?>
 	        	<div class="clearfix">
+                    <?php if( count($product_user_in_date) > 1 ) { ?>
                     <div class="all_user_order_block_slide">
                         <span>Розгорнути всі</span>
                     </div>
+                    <?php } ?>
                 </div>
                 <ul class='product_user'>
                 	<?php foreach($product_user_in_date as $keys => $values): ?>
 	                <li class="admin_order_one">
                         <div class="user_order_block_up">
                             <div class="user_name">
-                                <p><?=  $keys ?></p>
+                                <p><?=  date("d.m.Y", strtotime($keys)) ?></p>
                             </div>
                         </div>
                         <div class="table-responsive user_order_block_dn">

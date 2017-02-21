@@ -93,9 +93,9 @@ $this->params['breadcrumbs'][] = $this->title;
             'format' => 'raw',
         ],
         [
-            'header' => 'Поповнення',
+            'header' => 'Редагування балансу',
             'value' => function ($model) {
-                    return "<a class=\"btn btn-sm btn-success givemoney\" data-user-id=\"" . $model->id . "\">Поповнити</a>";
+                    return "<a class=\"btn btn-sm btn-success givemoney\" data-user-id=\"" . $model->id . "\">Редагувати баланс</a>";
 
             },
             'format' => 'raw',
@@ -126,7 +126,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ],
 ]); ?>
 <?php Pjax::end() ?>
-<?php yii\bootstrap\Modal::begin(['id'=>'bModal','header' => '<h3>Поповнення балансу</h3>', 'size' => 'modal-sm']); ?>
+<?php yii\bootstrap\Modal::begin(['id'=>'bModal','header' => '<h3>Редагування балансу</h3>', 'size' => 'modal-sm']); ?>
 <?= $this->render('_balance_form'); ?>
 <?php yii\bootstrap\Modal::end();?>
 

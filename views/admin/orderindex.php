@@ -31,9 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-12">
             <div class="admin_order_wrap">
                 <div class="clearfix">
-                    <div class="all_user_order_block_slide active">
-                        <span>Згорнути всі</span>
-                    </div>
+                    <?php if( isset($orders_per_user) && count($orders_per_user) > 0 ) { ?>
+                        <div class="all_user_order_block_slide active">
+                            <span>Згорнути всі</span>
+                        </div>
+                    <?php } ?>
                 </div>
                 <ul>
                     <?php if(!empty($orders_per_user)) { ?>

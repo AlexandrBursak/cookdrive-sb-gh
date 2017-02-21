@@ -215,6 +215,7 @@ function confirm_order() {
                             });
                             setTimeout(function () {
                                 $.fancybox.close();
+                                window.location.href = '/';
                             }, 3000);
                         }
                     } else {

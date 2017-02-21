@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="panel-body">
                 <div class="alert alert-info">
                     <p>
-                        Для закінчення вашої реєстрації, ви повинні заповнити відповідні поля нижще
+                        Для закінчення вашої реєстрації, ви повинні заповнити відповідні поля нижче
                     </p>
                 </div>
                 <?php $form = ActiveForm::begin([

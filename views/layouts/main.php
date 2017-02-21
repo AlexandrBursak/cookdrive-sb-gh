@@ -47,7 +47,7 @@ AppAsset::register($this);
     } else {
 
         $subitems = [];
-        if(Yii::$app->user->identity->username == 'admin')
+        if(Yii::$app->user->identity->isAdmin)
         {
             $subitems[] = [
                 'label' => 'Користувачі',
