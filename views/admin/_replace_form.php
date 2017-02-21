@@ -31,14 +31,18 @@ use yii\widgets\ActiveForm;
                     function( event, ui ) {
                     var products = \'\';
                     var len_size = ui.content.length;
-                    for(var product of ui.content){
-                        if(product.sub_category === null && product.photo_url == null) {
-                            products += \'<li class="contact"><div class="search-item"><img class="contact-image" src="/images/2.png" /></div><div class="contact-info"><div class="contact-number"> \' + product.product_name +\' </div><div class="contact-price">\' + product.price +\' грн.</div></div><div class="setting"><div class="setting-part"> <label for="qty" id="qty-label" >Кількість:</label><input type="text" maxlength="3" class="form-control qty" value="1"></div><div class="setting-part"> <input type="button" class="btn btn-info replace-confirm confirm-\' + product.id +\'"  data-id="\' + product.id +\'" value="Замінити"></div></div></div></li>\';
-                        
-                        } else {
-                        products += \'<li class="contact"><div class="search-item"><img class="contact-image" src="\'+ product.photo_url +\'" /></div><div class="contact-info"><div class="contact-name"> \' + product.sub_category + \' </div><div class="contact-number"> \' + product.product_name +\' </div><div class="contact-price">\' + product.price +\' грн.</div></div><div class="setting"><div class="setting-part"> <label for="qty" id="qty-label" >Кількість:</label><input type="text" maxlength="3" class="form-control qty" value="1"></div><div class="setting-part"> <input type="button" class="btn btn-info replace-confirm confirm-\' + product.id +\'"  data-id="\' + product.id +\'" value="Замінити"></div></div></div></li>\';
-                        }
-                        $(".media-list").html(products);
+                    if(len_size) {
+                        for(var product of ui.content){
+                                if(product.sub_category === null || product.photo_url === null) {
+                                    products += \'<li class="contact"><div class="search-item"><img class="contact-image" src="/images/no_img.png" /></div><div class="contact-info"><div class="contact-number"> \' + product.product_name +\' </div><div class="contact-price">\' + product.price +\' грн.</div></div><div class="setting"><div class="setting-part"> <label for="qty" id="qty-label" >Кількість:</label><input type="text" maxlength="3" class="form-control qty" value="1"></div><div class="setting-part"> <input type="button" class="btn btn-info replace-confirm confirm-\' + product.id +\'"  data-id="\' + product.id +\'" value="Замінити"></div></div></div></li>\';
+                                
+                                } else {
+                                products += \'<li class="contact"><div class="search-item"><img class="contact-image" src="\'+ product.photo_url +\'" /></div><div class="contact-info"><div class="contact-name"> \' + product.sub_category + \' </div><div class="contact-number"> \' + product.product_name +\' </div><div class="contact-price">\' + product.price +\' грн.</div></div><div class="setting"><div class="setting-part"> <label for="qty" id="qty-label" >Кількість:</label><input type="text" maxlength="3" class="form-control qty" value="1"></div><div class="setting-part"> <input type="button" class="btn btn-info replace-confirm confirm-\' + product.id +\'"  data-id="\' + product.id +\'" value="Замінити"></div></div></div></li>\';
+                                }
+                                $(".media-list").html(products);
+                             }
+                     } else {
+                        $(".media-list").html("<li class=\"contact\">Нічого не знайдено!</li>");
                      }
                      subscribeEvents();
                      $(".qty").keypress(function (e) {

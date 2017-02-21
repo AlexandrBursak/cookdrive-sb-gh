@@ -32,6 +32,7 @@ foreach ($html->find('div.motopress-clmn div.bg') as $outter){
     $string = htmlentities($categoryName, null, 'utf-8');
     $categoryName = str_replace("&nbsp;", " ", $string);
     $categoryName = html_entity_decode($categoryName);
+
     $items = array();
 
     foreach ($outter->find('div.span4 div.svbox_price div.service-box_body') as $element) {

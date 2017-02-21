@@ -44,8 +44,8 @@ class RegistrationController extends  BaseRegistrationController
             'name' => $account_json['name']['familyName'] . ' ' . $account_json['name']['givenName'],
             'public_email' => $account->email,
             'gravatar_email' => $account->email,
-            'website' => $account_json['url'],
-            'photo_url' => substr($account_json['image']['url'],0, -6),
+            'website' => isset($account_json['url'])?$account_json['url']:'',
+            'photo_url' => isset($account_json['image']['url'])?substr($account_json['image']['url'],0, -6):'',
         ]);
 
         $user->profile = $profile;
