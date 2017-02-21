@@ -28,24 +28,24 @@ class CategoryController extends Controller {
 		return $this->render('view', compact('new_arr', 'category', 'service_id'));
 	}
 
-	public function actionSearch($id_service){
+	public function actionSearch($service_id){
         $params = trim(Yii::$app->request->get('query'));
         //$id_service = trim(Yii::$app->request->get('id'));
         $params=strip_tags($params);
-        $id_service = strip_tags($id_service);
+        $service_id = strip_tags($service_id);
         if (Yii::$app->request->get('query') != $params){
-            $this->redirect(\yii\helpers\Url::to(['category/search', ['service_id'=>$id_service, 'query'=>$params]]));
+            $this->redirect(\yii\helpers\Url::to(['category/search', ['service_id'=>$service_id, 'query'=>$params]]));
         }
 
         if ($params!='') {
             $products = Product::find()->asArray()->where(['like', 'sub_category', $params])
                 ->orWhere(['like', 'product_name', $params])
-                ->andWhere(['serv_id' => $id_service])
+                ->andWhere(['serv_id' => $service_id])
                 ->all();
             foreach ($products as $key => $value) {
                 $new_arr[$value['sub_category']][] = $value;
             }
-            return $this->render('view', compact('new_arr', 'id_service'));
+            return $this->render('view', compact('new_arr', 'service_id'));
         }
         else $this->redirect(\yii\helpers\Url::to(['@web/index.php']));
 
