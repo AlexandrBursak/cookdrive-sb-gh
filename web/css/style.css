@@ -917,3 +917,34 @@ body {
     padding-left: 5px;
     text-transform: uppercase;
 }
+
+.message_category_wrap{
+    text-align: center;
+    padding: 20px 0;
+}
+
+.message_category{
+    margin: 0 auto;
+    padding: 20px;
+    display: inline-block;
+    border: 1px solid #f56a48;
+}
+
+.message_category p:first-child{
+    font-size: 40px;
+    font-family: 'OpenSansSemibold';
+    display: inline-block;
+    color: #f56a48;
+    padding-bottom: 20px;
+}
+
+.message_category p{
+    font-size: 20px;
+    font-family: 'OpenSansSemibold';
+}
+
+.message_category span{
+    font-size: 25px;
+    font-family: 'OpenSansSemibold';
+    color: #f56a48;
+}

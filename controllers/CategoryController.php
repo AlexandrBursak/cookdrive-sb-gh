@@ -12,6 +12,9 @@ class CategoryController extends Controller {
 		$top = Product::find()->asArray()->select('category')->where(['serv_id' => $service_id, 'date_add' => date("Y-m-d")])->distinct()->all();
 		$category = $top[0]['category'];
 		$products = Product::find()->asArray()->where(['category' => $category, 'date_add' => date("Y-m-d")])->all();
+		if (!isset($products[0])) {
+			return $this->render('message');
+		}
 		foreach ($products as $key => $value) {
 			$new_arr[$value['sub_category']][]=$value;
 		}
