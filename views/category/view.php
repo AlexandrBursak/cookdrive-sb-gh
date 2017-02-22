@@ -18,6 +18,33 @@ $this->params['breadcrumbs'][] = $this->title;
                         <input class="btn btn-default" type="submit" value="Шукати">
                     </span>
             </form>
+            <?php if(isset($top)){ ?>
+            <ul class="categories_wrap">
+                <?php foreach ($top as $key => $value):?>
+                    <li class="categori_wrap">
+                        <a href="<?php echo \yii\helpers\Url::to(['category/view','service_id'=>Yii::$app->request->get('service_id'), 'category' => $value['category']])?> ">
+                            <div>
+                                <?php
+                                $img_name = 'images/'.$value['category'].'.png';
+                                $img_name = mb_convert_encoding($img_name, 'UTF-8');
+
+                                if (is_file($img_name)) {
+                                    ?>
+                                    <img src="/images/<?php echo $value['category'] ?>.png" alt="<?php echo $value['category'] ?>">
+                                    <?php
+                                } else {
+                                    ?>
+                                    <img src="/images/new.png" alt="<?php echo $value['category'] ?>">
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                            <span><?php echo $value['category'] ?></span>
+                        </a>
+                    </li>
+                <?php endforeach;?>
+            </ul>
+            <?php } ?>
             <div class="categori_content_wrap">
 <?php if(!empty($new_arr)){?>
                 <div class="categori_title">
