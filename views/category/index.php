@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     </span>
             </form>
             <ul class="categories_wrap">
+            <?php if(isset($top)){ ?>
             <?php foreach ($top as $key => $value):?>
                 <li class="categori_wrap">
                     <a href="<?php echo \yii\helpers\Url::to(['category/view','service_id'=>Yii::$app->request->get('service_id'), 'category' => $value['category']])?> ">
@@ -40,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </li>
             <?php endforeach;?>
             </ul>
+            <?php } ?>
         </div>
     </div>
     <div class="row">
