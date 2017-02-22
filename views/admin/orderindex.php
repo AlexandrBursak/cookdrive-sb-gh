@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Замовлення на ' . date("Y:m:d");
+$this->title = 'Замовлення на ' . date("d.m.Y");
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
