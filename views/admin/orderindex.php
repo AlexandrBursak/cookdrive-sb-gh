@@ -7,6 +7,7 @@ use app\models\Service;
 use yii\helpers\Url;
 use app\models\Product;
 use yii\widgets\Pjax;
+use app\models\Order;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -124,13 +125,23 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </tr>
                                         </thead>
                                         <?php
+
                                         $summ_all = 0;
                                         foreach ($values as $key => $value) { ?>
+
+                                        <?php
+
+                                            $users_id = explode(',',$value['users_id']);
+                                            $users_name = '';
+                                            foreach ($users_id as $ids) {
+                                                $users_name.=Profile::findOne(intval($ids))->name . ' - ' . Order::find()->select('SUM(quantity) AS quantity')->where(['date' => date("Y:m:d"), 'user_id' => intval($ids), 'product_id' => $value['product_id']])->one()->quantity.  '<br />';
+                                            }
+                                        ?>
                                             <?php $product = Product::findOne($value['product_id']); ?>
                                             <tr>
-                                                <td><?= $product->product_name ?></td>
+                                                <td><a href="<?= $product->link ?>"><?= '[' . $product->category . '|' . $product->sub_category . '] ' . $product->product_name ?></a></td>
                                                 <td><?= $product->price ?> грн.</td>
-                                                <td><?= $value['quantity_sum'] ?> шт.</td>
+                                                <td><span data-toggle="tooltip" title="<?= $users_name ?>"><?= $value['quantity_sum'] ?> шт.</span></td>
                                                 <td><?= $product->price*$value['quantity_sum'] ?> грн.</td>
                                             </tr>
 
@@ -165,7 +176,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php yii\bootstrap\Modal::end();?>
 
 <?php
-$this->registerJs("$(document).on('ready', function() {  // 'pjax:success' use if you have used pjax
+$this->registerJs("
+    $(document).ready(function(){
+        $('[data-toggle=\"tooltip\"]').tooltip({html: true}); 
+    });
+    $(document).on('ready', function() {  // 'pjax:success' use if you have used pjax
            var order_id = 0;
             $('.replace').click(function(e) {
                e.preventDefault();

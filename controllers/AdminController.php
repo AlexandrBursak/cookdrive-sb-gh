@@ -15,7 +15,7 @@ class AdminController extends BaseAdminController
 {
     public function actionOrders()
     {
-        $orders = Order::find()->select('product_id, SUM(quantity) AS quantity_sum')->groupBy(['product_id'])->asArray()->where(['date' => date("Y:m:d")])->all();
+        $orders = Order::find()->select('product_id, SUM(quantity) AS quantity_sum, GROUP_CONCAT(DISTINCT user_id) as users_id')->groupBy(['product_id'])->asArray()->where(['date' => date("Y:m:d")])->all();
         //debug($orders);exit();
         $orders_per_service = [];
         foreach ($orders as $key => $value) {
