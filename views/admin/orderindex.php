@@ -139,7 +139,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ?>
                                             <?php $product = Product::findOne($value['product_id']); ?>
                                             <tr>
-                                                <td><a href="<?= $product->link ?>"><?= '[' . $product->category . '|' . $product->sub_category . '] ' . $product->product_name ?></a></td>
+                                                <td><a href="<?= $product->link ?>" target="_blank"><?= '[' . $product->category . '|' . $product->sub_category . '] ' . $product->product_name ?></a></td>
                                                 <td><?= $product->price ?> грн.</td>
                                                 <td><span data-toggle="tooltip" title="<?= $users_name ?>"><?= $value['quantity_sum'] ?> шт.</span></td>
                                                 <td><?= $product->price*$value['quantity_sum'] ?> грн.</td>
