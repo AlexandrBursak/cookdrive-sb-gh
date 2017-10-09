@@ -125,7 +125,7 @@ class CartController extends Controller {
 
    			if (!(\Yii::$app->user->isGuest)) {
 
-				if ((History::myBalance(\Yii::$app->user->id))>-300) {
+				if ((History::myBalance(\Yii::$app->user->id))>-3000) {
 
 	    			if (isset($session['cart'])) {
 
