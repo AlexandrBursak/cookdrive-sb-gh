@@ -131,25 +131,27 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php yii\bootstrap\Modal::end();?>
 
 <?php
-$this->registerJs("$(document).on('ready', function() {  // 'pjax:success' use if you have used pjax
-            $('.givemoney').click(function(e) {
+$this->registerJs("function onReadyAndPjaxSuccess() {
+    $('.givemoney').click(function(e) {
                e.preventDefault();
                $('#bModal').modal('show').find('.modal-content').load($(this).attr('href'));
                var user_id = $(this).attr('data-user-id');
                 $('#bModal').attr('data-user-id', user_id);
-
+    
             });
-            $('#bModal').on('givemoneyconfirm', function (e, obj) {
-                $.ajax({
-                    url:'/user/admin/money?id=' + obj.userId + '&summ=' + obj.summ,
-                    success: function(result) {
-                        $.pjax.reload({container:'[id=items]'}); 
-                    },
-                    error: function() {
-                    }
-                });
-            });
+    $('#bModal').on('givemoneyconfirm', function (e, obj) {
+        $.ajax({
+            url:'/user/admin/money?id=' + obj.userId + '&summ=' + obj.summ,
+            success: function(result) {
+                $.pjax.reload({container:'[id=items]'}); 
+            },
+            error: function() {
+            }
         });
-    ");
+    });
+};
 
+$(document).on('ready',onReadyAndPjaxSuccess);
+$(document).on('pjax:success',onReadyAndPjaxSuccess);
+ ");
 ?>
