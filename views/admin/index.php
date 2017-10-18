@@ -139,7 +139,10 @@ $this->registerJs("function onReadyAndPjaxSuccess() {
                 $('#bModal').attr('data-user-id', user_id);
     
             });
-    $('#bModal').on('givemoneyconfirm', function (e, obj) {
+};
+
+$('#bModal').on('givemoneyconfirm', function (e, obj) {
+    console.log('executed');
         $.ajax({
             url:'/user/admin/money?id=' + obj.userId + '&summ=' + obj.summ,
             success: function(result) {
@@ -149,7 +152,6 @@ $this->registerJs("function onReadyAndPjaxSuccess() {
             }
         });
     });
-};
 
 $(document).on('ready',onReadyAndPjaxSuccess);
 $(document).on('pjax:success',onReadyAndPjaxSuccess);
