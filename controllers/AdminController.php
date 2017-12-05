@@ -202,5 +202,20 @@ class AdminController extends BaseAdminController
 
     }
 
+    public function actionUndefinedProducts()
+    {
+        $products = Product::find()
+            ->select('id, product_name, photo_url')
+            ->where(['category' => 'Другі страви']) //undefined category
+            ->all();
+
+        $categories = Product::find()
+            ->select('category')
+            ->distinct()
+            ->all();
+
+        return $this->render('undefined-products',
+            compact('products', 'categories'));
+    }
 
 }
