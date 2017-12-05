@@ -28,6 +28,10 @@ use yii\bootstrap\Nav;
             'url' => ['/user/admin/user-orders'],
         ],
         [
+            'label' => 'Нерозподілені продукти',
+            'url' => ['/user/admin/undefined-products'],
+        ],
+        [
             'label' => 'Користувачі',
             'url' => ['/user/admin/index'],
         ],
