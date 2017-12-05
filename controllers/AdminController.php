@@ -218,4 +218,16 @@ class AdminController extends BaseAdminController
             compact('products', 'categories'));
     }
 
+    public function actionAddToCategory()
+    {
+        $category = Yii::$app->request->get('category');
+        $idProducts = Yii::$app->request->get('products');
+
+        $condition = "id IN (" . implode(",", $idProducts) . ")";
+
+        Product::updateAll(['category' => $category], $condition);
+
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
 }
