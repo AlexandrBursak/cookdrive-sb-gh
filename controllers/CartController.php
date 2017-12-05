@@ -9,6 +9,9 @@ use app\models\Cart;
 use app\models\Order;
 use app\models\SkypeBot;
 
+use Skype\Client;
+use Skype\Authentication\FileTokenStorage;
+
 use Yii;
 
 class CartController extends Controller {
@@ -157,6 +160,19 @@ class CartController extends Controller {
 	     				}
 						
 						SkypeBot::createOrderCards($orders);
+						
+						/**
+						 * Try PHP API
+						 */
+						$client = new Client([
+							'clientId' => 'f8dd5aa5-9d39-4530-b3cf-e1a09b504937',
+							'clientSecret' => 'clbqCL4+[#jdzGNKGE5682]',
+							'tokenStorageClass' => FileTokenStorage::class,
+						]);
+						
+						$api = $client->authorize()->api('conversation');
+						$api->activity('29:1pbexxzmBBEPq_u6i20WAZ_vGY_RV-4Oztqnrwpuqk1k', 'TestMessage');
+						
 						$session->open();
 						$session->remove('cart');
 						$session->remove('cart.qty');
