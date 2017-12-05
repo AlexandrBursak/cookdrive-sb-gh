@@ -32,18 +32,7 @@ class SkypeBot
 	
 	public function createOrderCards($data)
 	{
-		$orders[] = array();
-		foreach($data as $keys => $values) {
-			foreach ($values as $key => $value) {
-				foreach ($value as $k => $val) {
-					$orders[$k]['product_name'] = $val['product_name'];
-					$orders[$k]['product_price'] = $val['product_price'];
-					$orders[$k]['quantity'] = $val['quantity'];
-					$orders[$k]['sum'] = $val['product_price'] * $val['quantity'];
-				}                       
-			}                       
-		} 
-		SkypeBot::send('messageWithCards', ['cards' => json_encode($orders)]);
+		SkypeBot::send('messageWithCards', ['cards' => json_encode($data)]);
 	}
 	
 }

@@ -28,8 +28,6 @@ class SettingsController extends BaseSettingsController
 		}
         
 		$data = compact('product_user_in_date');
-		if(!empty($data)) SkypeBot::createOrderCards($data);
-		SkypeBot::sendMessageToAdmin('Test');
     	return $this->render('orders', $data);
     }
 

@@ -7,6 +7,7 @@ use yii\web\Controller;
 use app\models\Product;
 use app\models\Cart;
 use app\models\Order;
+use app\models\SkypeBot;
 
 use Yii;
 
@@ -128,7 +129,7 @@ class CartController extends Controller {
 				if ((History::myBalance(\Yii::$app->user->id))>-3000) {
 
 	    			if (isset($session['cart'])) {
-
+						
 	     				foreach ($session['cart'] as $key => $value) {
 	     					
 	     					$order = new Order();
@@ -140,6 +141,10 @@ class CartController extends Controller {
 						    $order->product_price = $value['price'];
 						    $order->product_serv_id = $value['service_id'];
 						    $order->save();
+							
+							$orders[$key]['product_name'] = $value['name'];
+							$orders[$key]['quantity'] = $value['qty'];
+							$orders[$key]['sum'] = $value['qty'] * $value['price'];
 
 	                        $history = new History();
 	                        $history->orders_id = $order->id;
@@ -150,7 +155,8 @@ class CartController extends Controller {
 	                        $history->save();
 	    
 	     				}
-
+						
+						SkypeBot::createOrderCards($orders);
 						$session->open();
 						$session->remove('cart');
 						$session->remove('cart.qty');
