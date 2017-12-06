@@ -2,11 +2,14 @@
 
 namespace app\controllers;
 
+
 use app\models\History;
 use yii\web\Controller;
 use app\models\Product;
 use app\models\Cart;
 use app\models\Order;
+use app\models\User;
+use dektrium\User\Models;
 
 use Yii;
 
@@ -130,7 +133,7 @@ class CartController extends Controller {
 	    			if (isset($session['cart'])) {
 
 	     				foreach ($session['cart'] as $key => $value) {
-	     					
+	     					User::sendMail('example', 'Пример письма', ['paramExample' => '123']);
 	     					$order = new Order();
 						    $order->date = date("Y:m:d");
 						    $order->user_id = \Yii::$app->user->id;

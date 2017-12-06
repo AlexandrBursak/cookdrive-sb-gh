@@ -46,17 +46,15 @@ $config = [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'viewPath' => '@app/mailer',
-            'useFileTransport' => false,
-            'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => $config['smtp_host'],
-                'username' => $config['smtp_username'],
-                'password' => $config['smtp_password'],
-                'port' => '2525',
-                'encryption' => 'tls',
-            ],
+        'class' => 'yii\swiftmailer\Mailer',
+        'viewPath' => '@app/mail',
+        'htmlLayout' => 'layouts/main-html',
+        'textLayout' => 'layouts/main-text',
+        'messageConfig' => [
+            'charset' => 'UTF-8',
+            'from' => ['noreply@site.com' => 'Site Name'],
+        ],
+        'useFileTransport' => true,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
