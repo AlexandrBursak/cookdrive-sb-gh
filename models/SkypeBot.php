@@ -9,30 +9,78 @@
 namespace app\models;
 
 use app\models\Order;
-use yii\httpclient\Client;
+use app\models\Profile;
 
 class SkypeBot 
 {
 	
-	public function send($route, $data)
+	private $skype_id = null;
+	private $client_id = '78da4f2c-5280-40ab-9279-5dcc3bfb6cf1';
+	private $client_secret = 'zhaGG892{?fiakTYYLT58%)';
+	private $token = null;
+	
+	public function getToken()
 	{
-		$client = new Client();
-		$response = $client->createRequest()
-			->setMethod('post')
-			->setUrl('https://foodbistro.azurewebsites.net/api/'.$route)
-			->setData($data)
-			->send();
+		$url='https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token';
+		
+		$params=array(
+			'client_id' => $this->client_id, 
+			'client_secret' => $this->client_secret,          
+			'grant_type' => 'client_credentials',                    
+			'scope' => 'https://api.botframework.com/.default');
+			
+		$result=file_get_contents($url, false, stream_context_create(array('http' => array(
+			'method' => 'POST',
+			'header' => 'Content-type: application/x-www-form-urlencoded',
+			'content' => http_build_query($params)))));
+
+		$token = json_decode($result, TRUE);
+		
+		return $token['access_token'];
 	}
 	
-	public function sendMessageToAdmin($message) 
+	public function auth() 
 	{
-		$data = ['message' => $message];
-		SkypeBot::send('messageToAdmin', $data);
+		$this->token = $this->getToken();
+		$this->skype_id = $this->getSkypeId();
 	}
 	
-	public function createOrderCards($data)
+	public function getSkypeId() 
 	{
-		SkypeBot::send('messageWithCards', ['cards' => json_encode($data)]);
+		//$this->skype_id = Profile::getSkypeId();
+
+		return '29%3A1G4aGMUwgfji1N6UfCahar98IOuvvDp-Q-doHYHrNaZk';
+	}
+	
+	public function send($message)
+	{
+		$this->auth();
+		$url = 'https://smba.trafficmanager.net/apis/v3/conversations/'.$this->skype_id.'/activities';
+		$data_string = '
+		{
+		  "type": "message",
+		  "text": "'.$message.'",
+		}
+		';
+
+		$ch = curl_init();                 
+		curl_setopt($ch, CURLOPT_URL, $url);   
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);                                                                                                                    
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                       
+		curl_setopt($ch, CURLOPT_POST, 1);                                                                        
+
+		$headers = array();
+		$headers[] = 'Content-Type: application/json';
+		$headers[] = 'Authorization: Bearer '.$this->token;
+		$headers[] = 'Content-Length: ' . strlen($data_string);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+		$result = curl_exec($ch);
+		if (curl_errno($ch)) {
+			echo 'Error:' . curl_error($ch);
+		}
+
+		curl_close ($ch);
 	}
 	
 }

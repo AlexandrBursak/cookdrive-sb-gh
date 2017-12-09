@@ -25,7 +25,6 @@
         "sunra/php-simple-html-dom-parser": "1.5.2",
         "newerton/yii2-fancybox": "dev-master",
         "yiisoft/yii2-jui": "^2.0",
-        "radutopala/skype-bot-php": "^1.2"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
