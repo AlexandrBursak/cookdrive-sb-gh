@@ -15,8 +15,8 @@ class SkypeBot
 {
 	
 	private $skype_id = null;
-	private $client_id = '78da4f2c-5280-40ab-9279-5dcc3bfb6cf1';
-	private $client_secret = 'zhaGG892{?fiakTYYLT58%)';
+	private $client_id = '<APP_ID>';
+	private $client_secret = '<APP_SECRET>';
 	private $token = null;
 	
 	public function getToken()
