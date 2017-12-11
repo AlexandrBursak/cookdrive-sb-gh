@@ -8,7 +8,7 @@ use app\models\ACategory;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Acategories';
+$this->title = 'Admin categories';
 
 ?>
 
@@ -26,8 +26,8 @@ $this->title = 'Acategories';
         ],
     ]); ?>
 
-    <p>
+   <!-- <p>
         <?= Html::a('Create Acategory', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    </p>-->
 
 </div>

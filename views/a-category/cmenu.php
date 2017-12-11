@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
         [
             'label' => 'Страви',
-            'url' => [''],
+            'url' => ['/a-product/index'],
         ],
     ],
 ]) ?>
