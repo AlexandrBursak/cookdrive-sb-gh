@@ -225,7 +225,7 @@ class AdminController extends BaseAdminController
         $category = Yii::$app->request->get('category');
         $idProducts = Yii::$app->request->get('products');
 
-        if(!isset($category) || $category == "" || !isset($idProducts))
+        if(!isset($category) || empty($category) || !isset($idProducts))
             return $this->redirect(['undefined-products','status' => 'error']);
 
         $condition = "id IN (" . implode(",", $idProducts) . ")";
