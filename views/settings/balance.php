@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="panel-body">
                 <p class="balance_before">Ваш баланс<span><?= History::myBalance(\Yii::$app->user->id);  if(isset($balance_user_in_date)) { ?>
                 <div class="clearfix">
-                    <?php if( count($balance_user_in_date) > 1 ) { ?>
+                    <?php if( count($balance_user_in_date) > 0 ) { ?>
                     <div class="all_user_order_block_slide">
                         <span>Розгорнути всі</span>
                     </div>
@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <li class="admin_order_one">
                         <div class="user_order_block_up">
                             <div class="user_name">
-                                <p><?=  date("d.m.Y", strtotime($keys)) ?></p>
+                                <p><?=  date("Y-m-d", strtotime($keys)) ?></p>
                             </div>
                         </div>
                         <div class="table-responsive user_order_block_dn">
@@ -60,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php endforeach;?>
                 </ul>
                 <?php }  else { ?>
-                    <h1>Shit</h1>
+                    <h1>Транзакцій не знайдено</h1>
                 <?php }?>
             </div>
         </div>
