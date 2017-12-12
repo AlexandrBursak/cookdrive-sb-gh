@@ -21,6 +21,7 @@ class m170116_095557_create_table_product extends Migration
             'sub_category' => Schema::TYPE_STRING . '(255)',
             'serv_id' => Schema::TYPE_INTEGER,
             'link' => Schema::TYPE_STRING . '(255)',
+            'product_id' => Schema::TYPE_INTEGER,
         ]);
     }
 
