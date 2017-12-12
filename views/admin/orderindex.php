@@ -151,7 +151,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ?>
                                         <tfooter>
                                             <tr>
-                                                <th colspan="6">Все замовлення сервісу на суму: <?=$summ_all?> грн. </th>
+                                                <th colspan="6">Все замовлення сервісу на суму: <?=$summ_all?> грн. <a href="<?= Url::to(['admin/order-cookdrive']) ?>" class="btn btn-success" style="float: right;">Замовити все</a></th>
+
                                             </tr>
                                         </tfooter>
                                     </table>
