@@ -16,16 +16,80 @@ class AdminController extends BaseAdminController
     public function actionOrders()
     {
         $orders = Order::find()->select('product_id, SUM(quantity) AS quantity_sum, GROUP_CONCAT(DISTINCT user_id) as users_id')->groupBy(['product_id'])->asArray()->where(['date' => date("Y:m:d")])->all();
-        //debug($orders);exit();
         $orders_per_service = [];
+
         foreach ($orders as $key => $value) {
             if (($service_id = Product::findOne($value['product_id'])->serv_id) !== null) {
                 $orders_per_service[$service_id][]=$value;
             }
         }
 
-        //debug($orders_per_service);
         return $this->render('orderindex', ['orders_per_service' => $orders_per_service]);
+    }
+
+    public function actionOrderCookdrive()
+    {
+        $orders = Order::find()->select('product_id, SUM(quantity) AS quantity_sum, GROUP_CONCAT(DISTINCT user_id) as users_id')->groupBy(['product_id'])->asArray()->where(['date' => date("Y:m:d")])->all();
+        $product = [];
+
+        foreach ($orders as $key => $value) {            
+            array_push($product, ['id' => Product::findOne($value['product_id'])->product_id, 
+                                  'quantity' => $value['quantity_sum']]);     
+        }
+
+        // cookies file (session settings)
+        $cookieFile = "cookies.txt";
+        if(!file_exists($cookieFile)) {
+            $fh = fopen($cookieFile, "w");
+            fwrite($fh, "");
+            fclose($fh);
+        } //
+
+        if (!empty($product)) {
+            
+            foreach ($product as $key => $item) {  
+                $cd_url = 'http://cookdrive.com.ua/cart/add/id/'.$item['id'];
+
+                $curl = \curl_init(); // start require
+                curl_setopt($curl, CURLOPT_URL, $cd_url); //URL
+                curl_setopt($curl, CURLOPT_HEADER, 1); //display headers
+                curl_setopt($curl, CURLOPT_POST, 1); //POST type
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); //now curl give back response
+                curl_setopt($curl, CURLINFO_HEADER_OUT, true);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, //data of POST
+                array (
+                    'cnt'=>$item['quantity'],
+                    'double'=>0,
+                    'blank'=>0,
+                    'special'=>0,
+                ));
+                curl_setopt($curl, CURLOPT_COOKIEFILE, $cookieFile); // Cookie read
+                curl_setopt($curl, CURLOPT_COOKIEJAR, $cookieFile); // Cookie write
+
+                $res = curl_exec($curl);
+                $sent_headers = curl_getinfo($curl, CURLINFO_HEADER_OUT); //get headers
+                //if error -> type error
+                if(!$res) {
+                    $error = curl_error($curl).'('.curl_errno($curl).')';
+                    echo $error;
+                }
+
+                curl_close($curl);
+
+            } // endforeach.      
+        }
+
+        //cut session_id from header
+        $first = substr($sent_headers, strrpos($sent_headers, 'PHPSESSID=')+10);
+        $last = strpos($first, 'Content')-2;
+        $session_id = substr($first, 0, $last); // 
+        
+/*      // clear cookie file
+        $fh = fopen($cookieFile, "w");
+        fwrite($fh, "");
+        fclose($fh); //  */
+        
+        return $this->redirect("http://cookdrive.com.ua/");
     }
 
     public function actionUserOrders()
@@ -201,6 +265,7 @@ class AdminController extends BaseAdminController
         }
 
     }
+
 
 
 }
