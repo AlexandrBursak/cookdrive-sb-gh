@@ -88,7 +88,7 @@ $config = [
                 'settings' => 'app\controllers\SettingsController',
             ],
 
-            'admins' => ['admin', 'iboyko', 'igorostapchuk']
+            'admins' => ['admin', 'iboyko', 'igorostapchuk', 'denis']
         ],
 
     ],

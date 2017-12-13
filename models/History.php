@@ -29,7 +29,7 @@ class History extends ActiveRecord
         ];
     }
 
-    public function myBalance($user_id)
+    public static function myBalance($user_id)
     {
         $data = History::find()->where(['users_id' => $user_id])->sum('summa');
         if(!$data) {

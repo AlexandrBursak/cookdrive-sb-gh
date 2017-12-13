@@ -2,8 +2,8 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=sb',
+    'dsn' => 'mysql:host=localhost;dbname=cookorg',
     'username' => 'root',
-    'password' => 'softbistro',
+    'password' => '',
     'charset' => 'utf8',
 ];
