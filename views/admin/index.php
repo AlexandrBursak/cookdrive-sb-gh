@@ -95,8 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'header' => 'Редагування балансу',
             'value' => function ($model) {
-                    return "<a class=\"btn btn-sm btn-success givemoney\" data-user-id=\"" . $model->id . "\">Редагувати баланс</a>";
-
+                    return "<a class=\"btn btn-sm btn-success givemoney\" data-user-id=\"" . $model->id . "\" data-user-balance=\"" . History::myBalance($model) . "\">Редагувати баланс</a>";
             },
             'format' => 'raw',
         ],
@@ -136,8 +135,9 @@ $this->registerJs("function onReadyAndPjaxSuccess() {
                e.preventDefault();
                $('#bModal').modal('show').find('.modal-content').load($(this).attr('href'));
                var user_id = $(this).attr('data-user-id');
+               var summ = $(this).attr('data-user-balance');
                 $('#bModal').attr('data-user-id', user_id);
-    
+                $('#bModal').attr('data-user-balance', summ);    
             });
 };
 

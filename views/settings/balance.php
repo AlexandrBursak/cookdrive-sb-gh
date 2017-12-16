@@ -49,7 +49,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?php
                                     foreach ($values as $key => $value): ?>    
                                     <tr>
-                                        <td><?= $value['operation'] ?></td>
+                                        <td><?= ($value['operation'] == 1 ? "Знято. Замовлення #".$value['orders_id'] :
+                                                ($value['operation'] == 2 ? "Поповнено" : 
+                                                ($value['operation'] == 3 ? "Знято адміністрацією" : "..."))) ?></td>
                                         <td><?= $value['summa'] ?> грн.</td>
                                         <td><?= $value['date'] ?></td>
                                     </tr>

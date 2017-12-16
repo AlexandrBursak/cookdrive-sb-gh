@@ -33,7 +33,7 @@ class SettingsController extends BaseSettingsController
 
     public function actionBalance() {
         $authorized_user_id = Yii::$app->user->id;
-        $balance_user = History::find()->select('date, users_id, summa, operation')->groupBy(['date', 'users_id', 'summa', 'operation'])->asArray()->where(['users_id' => $authorized_user_id])->orderBy(['date' => SORT_DESC])->all();
+        $balance_user = History::find()->select('date, users_id, summa, orders_id, operation, id')->groupBy(['id'])->asArray()->where(['users_id' => $authorized_user_id])->orderBy(['date' => SORT_DESC])->all();
 
         foreach ($balance_user as $key => $value) {
             $balance_user_in_date[$value['date']][]=$value;
