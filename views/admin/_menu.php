@@ -28,6 +28,10 @@ use yii\bootstrap\Nav;
             'url' => ['/user/admin/user-orders'],
         ],
         [
+            'label' => 'Менеджер',
+            'url' => ['/a-category/index'],
+        ],
+        [
             'label' => 'Користувачі',
             'url' => ['/user/admin/index'],
         ],
@@ -73,4 +77,4 @@ use yii\bootstrap\Nav;
             'visible' => false,
         ],
     ],
-]) ?>
+    ]) ?>
