@@ -16,25 +16,17 @@ $this->title = 'Admin products';
 
    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
 
-   <!-- <p>
+    <!--<p>
         <?= Html::a('Create Aproduct', ['create'], ['class' => 'btn btn-success']) ?>
-    </p> -->
+    </p>-->
+
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
-            //['class' => 'yii\grid\SerialColumn'],
-
-           // 'id',
             'product_name',
-            //'description:ntext',
-            //'weight:ntext',
-            //'ingredients:ntext',
              'price',
-            // 'photo_url:url',
-            // 'date_add',
              'sub_category',
-            // 'serv_id',
-            // 'link',
              'category',
 
             ['class' => 'yii\grid\ActionColumn'],
