@@ -28,7 +28,7 @@ class AdminController extends BaseAdminController
     }
 
     public function actionUserBalance() {        
-        $balance_user = History::find()->select('date, users_id, summa, orders_id, operation, id')->groupBy([/*'date', 'operation',  'summa','orders_id', */'id'])->asArray()->all();
+        $balance_user = History::find()->select('date, users_id, summa, orders_id, operation, id')->groupBy([/*'date', 'operation',  'summa','orders_id', */'id'])->asArray()->orderBy(['id' => SORT_ASC])->all();
 
         foreach ($balance_user as $key => $value) {
             $balance_per_user[$value['users_id']][]=$value;
