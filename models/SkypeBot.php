@@ -56,7 +56,7 @@ class SkypeBot
 	public function sendOrder($order) 
 	{
 		$sum = 0;
-		$message = 'Заказ успещно оформлен!\n\nВаш заказ:\n\n';
+		$message = 'Заказ успешно оформлен!\n\nВаш заказ:\n\n';
 						
 		foreach($order as $key => $dish)
 		{
