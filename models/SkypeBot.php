@@ -11,12 +11,14 @@ namespace app\models;
 use app\models\Order;
 use app\models\Profile;
 
+use Yii;
+
 class SkypeBot 
 {
 	
-	private $skype_id = null;
-	private $client_id = '<APP_ID>';
-	private $client_secret = '<APP_SECRET>';
+	public $skype_id = null;
+	private $client_id = '<CLIENT_APP>';
+	private $client_secret = '<CLIENT_SECRET>';
 	private $token = null;
 	
 	public function getToken()
@@ -47,15 +49,30 @@ class SkypeBot
 	
 	public function getSkypeId() 
 	{
-		//$this->skype_id = Profile::getSkypeId();
-
-		return '29%3A1G4aGMUwgfji1N6UfCahar98IOuvvDp-Q-doHYHrNaZk';
+		$this->skype_id = Profile::find()->select('skype_id')->where(['user_id' => Yii::$app->user->id])->asArray()->one();
+		return $this->skype_id;
+	}
+	
+	public function sendOrder($order) 
+	{
+		$sum = 0;
+		$message = 'Заказ успещно оформлен!\n\nВаш заказ:\n\n';
+						
+		foreach($order as $key => $dish)
+		{
+			$message .= $dish['product_name'].' | ';
+			$message .= $dish['quantity'].'шт. | ';
+			$message .= $dish['sum'].'грн.\n\n';
+			$sum += $dish['sum'];
+		}
+		$message .= '\n\nВсего: '.$sum.'грн.';
+		$this->send($message);
 	}
 	
 	public function send($message)
 	{
 		$this->auth();
-		$url = 'https://smba.trafficmanager.net/apis/v3/conversations/'.$this->skype_id.'/activities';
+		$url = 'https://smba.trafficmanager.net/apis/v3/conversations/'.$this->skype_id['skype_id'].'/activities';
 		$data_string = '
 		{
 		  "type": "message",
