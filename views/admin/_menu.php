@@ -30,6 +30,10 @@ use yii\bootstrap\Nav;
         [
             'label' => 'Нерозподілені продукти',
             'url' => ['/user/admin/undefined-products'],
+	],
+	[
+            'label' => 'Менеджер',
+            'url' => ['/a-category/index'],
         ],
         [
             'label' => 'Користувачі',
@@ -77,4 +81,4 @@ use yii\bootstrap\Nav;
             'visible' => false,
         ],
     ],
-]) ?>
+    ]) ?>
