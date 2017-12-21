@@ -60,6 +60,11 @@ AppAsset::register($this);
             ];
 
             $subitems[] = [
+                'label' => 'Менеджер',
+                'url' => ['/a-category/index'],
+            ];
+
+            $subitems[] = [
                 'label' => 'Мій кабінет',
                 'url' => ['/user/settings'],
             ];

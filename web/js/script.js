@@ -367,4 +367,34 @@ $(document).ready(function () {
 
 });
 
+function selectCategory(id) {
+    $(".list-group-item")
+        .removeClass("active")
+        .css("background-color", "#fcf8e3")
+        .css("border-color", "#ddd");
+
+    $("#label_category_" + id).find("a")
+        .addClass("active")
+        .css("background-color", "#f56a48")
+        .css("border-color", "#f56a48");
+}
+
+function selectProduct(id) {
+    if($("#product_" + id).is(':checked')) {
+        $("#product_wrap_" + id)
+            .removeClass("catalog_product_wrap")
+            .addClass("catalog_product_wrap-active")
+            .find("label").addClass("selected_product")
+            .find("span").css("display", "block");
+    } else {
+        $("#product_wrap_" + id)
+            .removeClass("catalog_product_wrap-active")
+            .addClass("catalog_product_wrap")
+            .find("label").removeClass("selected_product")
+            .find("span").css("display", "none");
+    }
+
+
+}
+
 
