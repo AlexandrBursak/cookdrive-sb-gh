@@ -32,20 +32,21 @@ class AdminController extends BaseAdminController
         $orders = Order::find()->select('product_id, SUM(quantity) AS quantity_sum, GROUP_CONCAT(DISTINCT user_id) as users_id')->groupBy(['product_id'])->asArray()->where(['date' => date("Y:m:d")])->all();
         $product = [];
 
+        $date = date("d.m.Y");
+
         foreach ($orders as $key => $value) {            
             array_push($product, ['id' => Product::findOne($value['product_id'])->product_id, 
                                   'quantity' => $value['quantity_sum']]);     
         }
+        if (!empty($product)) {
 
         // cookies file (session settings)
-        $cookieFile = "cookies.txt";
-        if(!file_exists($cookieFile)) {
-            $fh = fopen($cookieFile, "w");
-            fwrite($fh, "");
-            fclose($fh);
-        } //
-
-        if (!empty($product)) {
+            $cookieFile = "cookies.txt";
+            if(!file_exists($cookieFile)) {
+                $fh = fopen($cookieFile, "w");
+                fwrite($fh, "");
+                fclose($fh);
+            } //
             
             foreach ($product as $key => $item) {  
                 $cd_url = 'http://cookdrive.com.ua/cart/add/id/'.$item['id'];
@@ -73,23 +74,64 @@ class AdminController extends BaseAdminController
                     $error = curl_error($curl).'('.curl_errno($curl).')';
                     echo $error;
                 }
-
                 curl_close($curl);
 
-            } // endforeach.      
-        }
+            } // endforeach.  
+            
+            // order form request
+                $cd_url = 'http://cookdrive.com.ua/cart/order';
 
-        //cut session_id from header
-        $first = substr($sent_headers, strrpos($sent_headers, 'PHPSESSID=')+10);
-        $last = strpos($first, 'Content')-2;
-        $session_id = substr($first, 0, $last); // 
+                $curl = \curl_init(); // start require
+                curl_setopt($curl, CURLOPT_URL, $cd_url); //URL
+                curl_setopt($curl, CURLOPT_HEADER, 1); //display headers
+                curl_setopt($curl, CURLOPT_POST, 1); //POST type
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); //now curl give back response
+                curl_setopt($curl, CURLINFO_HEADER_OUT, true);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, //data of POST
+                array (
+                        'type'=>0,
+                        'phone'=>979471223,
+                        'name'=>'Михайло',
+                        'street'=>'Зарічанська',
+                        'home'=>'5/3',
+                        'code'=>'',
+                        'floor'=>'5',
+                        'apartment'=>'SoftBistro',
+                        'time'=>'1',
+                        'date'=>$date,
+                        'hour'=>'00',
+                        'minute'=>'00',
+                        'comment'=>'Оплата карткою',
+                        'porch'=>'',
+
+                ));
+                curl_setopt($curl, CURLOPT_COOKIEFILE, $cookieFile); // Cookie read
+                curl_setopt($curl, CURLOPT_COOKIEJAR, $cookieFile); // Cookie write
+
+                $res = curl_exec($curl);
+                $sent_headers = curl_getinfo($curl, CURLINFO_HEADER_OUT); //get headers
+                
+                //if error -> type error
+                if(!$res) {
+                    $error = curl_error($curl).'('.curl_errno($curl).')';
+                    echo $error;
+                }
+                curl_close($curl);
+            // end request
+        } //end if
+
+        //cut res_link from $res
+        $first = substr($res, strrpos($res, 'Location:')+10);
+        $last = strpos($first, 'Vary')-2;
+        $cart_link = substr($first, 0, $last); // 
         
-/*      // clear cookie file
+        // clear cookie file
         $fh = fopen($cookieFile, "w");
         fwrite($fh, "");
-        fclose($fh); //  */
-        
-        return $this->redirect("http://cookdrive.com.ua/");
+        fclose($fh);
+
+        return $this->redirect("http://cookdrive.com.ua".$cart_link);
+
     }
 
     public function actionUserOrders()
