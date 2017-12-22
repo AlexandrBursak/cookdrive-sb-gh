@@ -86,6 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                             <div class="catalog_product_footer clearfix">
                                 <a class='add_to_cart' data-id='<?php echo $product->id?>' href="<?= \yii\helpers\Url::to(['cart/index', 'id'=>$product->id])?>">Замовити</a>
+                                <a class='signup-button' href="<?= \yii\helpers\Url::to(['/a-product/update', 'id'=>$product->id])?>">Змінити</a>
                                 <div class="catalog_product_quantity">
                                     <input class='qty' type="text" value="1" maxlength="3">
                                     <span class="plus"></span>

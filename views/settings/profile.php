@@ -53,6 +53,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'public_email')->label('Email') ?>
 
                 <?= $form->field($model, 'website')->label('Веб сторінка') ?>
+				
+				<?= $form->field($model, 'skype_id')->label('Скайп') ?>
 
                 <?php /* $form->field($model, 'location')->label('Місце знаходження') */?>
 

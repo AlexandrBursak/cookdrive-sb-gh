@@ -210,5 +210,36 @@ class AdminController extends BaseAdminController
 
     }
 
+    public function actionUndefinedProducts()
+    {
+        $products = Product::find()
+            ->select('id, product_name, photo_url, description')
+            ->where(['category' => 'Другі страви']) //undefined category
+            ->all();
+
+        $categories = Product::find()
+            ->select('category')
+            ->distinct()
+            ->all();
+
+        $status = Yii::$app->request->get('status');
+
+        return $this->render('undefined-products',
+            compact('products', 'categories','status'));
+    }
+
+    public function actionAddToCategory()
+    {
+        $category = Yii::$app->request->get('category');
+        $idProducts = Yii::$app->request->get('products');
+
+        if(!isset($category) || empty($category) || !isset($idProducts))
+            return $this->redirect(['undefined-products','status' => 'error']);
+
+        $condition = "id IN (" . implode(",", $idProducts) . ")";
+        Product::updateAll(['category' => $category], $condition);
+
+        return $this->redirect(['undefined-products','status' => 'success']);
+    }
 
 }
