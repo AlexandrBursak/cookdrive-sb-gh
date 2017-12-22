@@ -1,20 +1,21 @@
-<?
+<?php
+
 
 $content = file_get_contents("php://input");
+$config = require(__DIR__ . '/../config/skype.php');
 
 if($content) {
 	$IN = json_decode($content, true);
 	
 	if($IN['type'] == "message") {
-		$url='https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token';
 		$params=array
 			(
-			'client_id' => '<CLIENT_APP>',
-			'client_secret' => '<CLIENT_SECRET>',         
+			'client_id' => $config['app_id'],
+			'client_secret' => $config['app_secret'],         
 			'grant_type'=>'client_credentials',                   
 			'scope'=>'https://api.botframework.com/.default'
 			);
-		$result=file_get_contents($url, false, stream_context_create(array('http' => array
+		$result=file_get_contents($config['authUri'], false, stream_context_create(array('http' => array
 			(
 			'method' => 'POST',
 			'header' => 'Content-type: application/x-www-form-urlencoded',
@@ -23,7 +24,7 @@ if($content) {
 
 		$token = json_decode($result, TRUE);
 		
-		$url = 'https://smba.trafficmanager.net/apis/v3/conversations/'.$IN['conversation']['id'].'/activities';
+		$url = $config['baseUri'].'conversations/'.$IN['conversation']['id'].'/activities';
 		
 		if($IN['text'] == '!getid') {
 			$IN['text'] = $IN['conversation']['id'];

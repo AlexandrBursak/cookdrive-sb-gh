@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\models\Order;
-use app\models\SkypeBot;
 use Yii;
 
 use dektrium\user\controllers\SettingsController as BaseSettingsController;

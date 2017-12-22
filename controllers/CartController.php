@@ -157,6 +157,7 @@ class CartController extends Controller {
 	     				}
 						
 						$skype = new SkypeBot();
+						$skype->init();
 						$skype->sendOrder($orders);
 						
 						$session->open();
