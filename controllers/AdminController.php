@@ -23,9 +23,17 @@ class AdminController extends BaseAdminController
                 $orders_per_service[$service_id][]=$value;
             }
         }
-
         //debug($orders_per_service);
         return $this->render('orderindex', ['orders_per_service' => $orders_per_service]);
+    }
+
+    public function actionUserBalance() {        
+        $balance_user = History::find()->select('date, users_id, summa, orders_id, operation, id')->groupBy([/*'date', 'operation',  'summa','orders_id', */'id'])->asArray()->all();
+
+        foreach ($balance_user as $key => $value) {
+            $balance_per_user[$value['users_id']][]=$value;
+        }
+        return $this->render('balanceindex', compact('balance_per_user'));
     }
 
     public function actionUserOrders()

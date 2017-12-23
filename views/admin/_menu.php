@@ -26,6 +26,10 @@ use yii\bootstrap\Nav;
         [
             'label' => 'Замовлення на користувача',
             'url' => ['/user/admin/user-orders'],
+        ],        
+        [
+            'label' => 'Історія операцій',
+            'url' => ['/user/admin/user-balance'],
         ],
         [
             'label' => 'Нерозподілені продукти',
