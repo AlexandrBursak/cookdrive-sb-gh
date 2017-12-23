@@ -16,22 +16,31 @@ use Yii;
 class SkypeBot 
 {
 	
-	public $skype_id = null;
-	private $client_id = '<CLIENT_APP>';
-	private $client_secret = '<CLIENT_SECRET>';
+	private $skype_id = null;
+	private $client_id;
+	private $client_secret;
 	private $token = null;
+	private $authUri;
+	private $baseUri;
+	
+	public function init()
+	{
+		$config = require(__DIR__ . '/../config/skype.php');
+		$this->client_id = $config['app_id'];
+		$this->client_secret = $config['app_secret'];
+		$this->authUri = $config['authUri'];
+		$this->baseUri = $config['baseUri'];
+	}
 	
 	public function getToken()
-	{
-		$url='https://login.microsoftonline.com/botframework.com/oauth2/v2.0/token';
-		
+	{	
 		$params=array(
 			'client_id' => $this->client_id, 
 			'client_secret' => $this->client_secret,          
 			'grant_type' => 'client_credentials',                    
 			'scope' => 'https://api.botframework.com/.default');
 			
-		$result=file_get_contents($url, false, stream_context_create(array('http' => array(
+		$result=file_get_contents($this->authUri, false, stream_context_create(array('http' => array(
 			'method' => 'POST',
 			'header' => 'Content-type: application/x-www-form-urlencoded',
 			'content' => http_build_query($params)))));
@@ -72,7 +81,7 @@ class SkypeBot
 	public function send($message)
 	{
 		$this->auth();
-		$url = 'https://smba.trafficmanager.net/apis/v3/conversations/'.$this->skype_id['skype_id'].'/activities';
+		$url = $this->baseUri.'conversations/'.$this->skype_id['skype_id'].'/activities';
 		$data_string = '
 		{
 		  "type": "message",

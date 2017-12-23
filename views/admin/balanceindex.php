@@ -25,12 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="clearfix">
                     <?php if( count($balance_per_user) > 0 ) { ?>
                     <div class="all_user_order_block_slide">
-                        <span>Розгорнути всі</span>
+                        <span>Згорнути всі</span>
                     </div>
                     <?php } ?>
                 </div>
                 <ul class='product_user'>
-                    <?php foreach($balance_per_user as $keys => $values): ?>
+                    <?php if(isset($balance_per_user)) : ?>
+                    <?php foreach ($balance_per_user as $keys => $values) : ?>
                     <li class="admin_order_one">
                         <div class="user_order_block_up">
                             <div class="user_name">
@@ -69,6 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </li>
                     <?php endforeach;?>
+                <?php endif;?>
                 </ul>
             </div>
         </div>
