@@ -5,6 +5,8 @@
 /* @var $content string main view render result */
 
 ?>
-Здравствуйте <?= $this->params['userName'] ?>
+Дратути, <?= $this->params['userName'] ?>
 
 <?= $content ?>
+
+Приятного аппетита!

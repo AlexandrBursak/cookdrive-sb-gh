@@ -1,28 +1,19 @@
 <?php
-
 namespace app\controllers;
-
-
 use app\models\History;
 use yii\web\Controller;
 use app\models\Product;
 use app\models\Cart;
 use app\models\Order;
-use app\models\User;
-use dektrium\User\Models;
-
+use app\models\SkypeBot;
 use Yii;
-
 class CartController extends Controller {
-
 	public function actionIndex() {
 		$session = Yii::$app->session;
 		$session->open();
 		return $this->render('index', compact('session'));
 	}
-
 	public function actionAdd() {
-
 		if (Yii::$app->request->isAjax){
 			$id = Yii::$app->request->get('id');
 			if (Product::findOne($id)) {
@@ -48,7 +39,6 @@ class CartController extends Controller {
 			return $this->redirect(['site/error']);
 		}
 	}
-
 	public function actionClear() {
 		if (Yii::$app->request->isAjax){
 			$session = Yii::$app->session;
@@ -67,9 +57,7 @@ class CartController extends Controller {
 			return $this->redirect(['site/error']);
 		}
 	}
-
 	public function actionDel(){
-
 		if (Yii::$app->request->isAjax){
 			$id = Yii::$app->request->get('id');
 			if (Product::findOne($id)) {
@@ -89,7 +77,6 @@ class CartController extends Controller {
 			return $this->redirect(['site/error']);
 		}
 	}
-
 	public function actionChange(){
 		if (Yii::$app->request->isAjax){
 			$id = Yii::$app->request->get('id');
@@ -120,20 +107,15 @@ class CartController extends Controller {
 			return $this->redirect(['site/error']);
 		}
 	}
-
 	public function actionConfirm() {
   		if (Yii::$app->request->isAjax) {
-
    			$session = Yii::$app->session;
-
    			if (!(\Yii::$app->user->isGuest)) {
-
 				if ((History::myBalance(\Yii::$app->user->id))>-3000) {
-
 	    			if (isset($session['cart'])) {
-
+						
 	     				foreach ($session['cart'] as $key => $value) {
-	     					User::sendMail('example', 'Пример письма', ['paramExample' => '123']);
+	     					
 	     					$order = new Order();
 						    $order->date = date("Y:m:d");
 						    $order->user_id = \Yii::$app->user->id;
@@ -143,7 +125,10 @@ class CartController extends Controller {
 						    $order->product_price = $value['price'];
 						    $order->product_serv_id = $value['service_id'];
 						    $order->save();
-
+							
+							$orders[$key]['product_name'] = $value['name'];
+							$orders[$key]['quantity'] = $value['qty'];
+							$orders[$key]['sum'] = $value['qty'] * $value['price'];
 	                        $history = new History();
 	                        $history->orders_id = $order->id;
 	                        $history->summa = -($order->quantity * $value['price']);
@@ -154,6 +139,13 @@ class CartController extends Controller {
 	    
 	     				}
 
+
+						\Yii::$app->user->identity->sendOrderMail($orders);
+
+						$skype = new SkypeBot();
+						$skype->init();
+						$skype->sendOrder($orders);
+						
 						$session->open();
 						$session->remove('cart');
 						$session->remove('cart.qty');
@@ -182,3 +174,4 @@ class CartController extends Controller {
 	}
 }
 
+	     		

@@ -52,9 +52,17 @@ $config = [
         'textLayout' => 'layouts/main-text',
         'messageConfig' => [
             'charset' => 'UTF-8',
-            'from' => ['noreply@site.com' => 'Site Name'],
+            'from' => ['food.softbistro@gmail.com' => 'SoftBistro'],
         ],
-        'useFileTransport' => true,
+        'useFileTransport' => false,
+        'transport' => [
+            'class' => 'Swift_SmtpTransport',
+            'host' => 'smtp.gmail.com',
+            'username' => 'food.softbistro@gmail.com',
+            'password' => '159951Azq',
+            'port' => '465',
+            'encryption' => 'ssl',
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -79,6 +87,7 @@ $config = [
             'cost' => 12,
             'modelMap' => [
                 'Profile' => 'app\models\Profile',
+                'User' => 'app\models\User',
             ],
             'controllerMap' => [
                 'registration' => 'app\controllers\RegistrationController',
@@ -93,13 +102,13 @@ $config = [
     'params' => $params,
 ];
 
-/*if (YII_ENV_DEV) {
+if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = 'yii\debug\Module';
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = 'yii\gii\Module';
-}*/
+}
 
 return $config;
