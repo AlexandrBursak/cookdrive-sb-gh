@@ -16,7 +16,7 @@ class User extends BaseProfile
 			}
 		$msg .= 'Всего: '.$sum.'грн.';
 
-		$this->sendMail('order', 'Ваше замовлення сформоване.', ['Orders' => $msg, 'OrderDate' => date("Y:m:d"), 'UserBalance' => History::myBalance(\Yii::$app->user->id) ]);
+		$this->sendMail('order', 'Ваш заказ принят.', ['Orders' => $msg, 'OrderDate' => date("Y:m:d"), 'UserBalance' => History::myBalance(\Yii::$app->user->id) ]);
 	}
 
     public function sendMail($view, $subject, $params = []) {
