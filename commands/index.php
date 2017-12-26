@@ -22,7 +22,7 @@ foreach ($html->find('a[data-category_id]') as $category){
         if (($element->find('a div img'))){
             $linkElement =$SERVICE.$element->find('a',0)->href;
         }
-//echo $linkElement;
+
         $nameElement = $element->find('a div.c__list-content h3.c__list-name', 0);
 
         if (!empty($nameElement)) {
