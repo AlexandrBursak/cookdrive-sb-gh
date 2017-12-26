@@ -8,7 +8,7 @@
 use yii\bootstrap\Nav;
 
 ?>
-<?
+<?php
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
