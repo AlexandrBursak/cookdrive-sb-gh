@@ -5,7 +5,7 @@
 /* @var $content string main view render result */
 
 ?>
-Дратути, <?= $this->params['userName'] ?>
+Дратути, <?= $this->params['userName'] ?>.
 
 <?= $content ?>
 

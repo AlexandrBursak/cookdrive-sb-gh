@@ -10,13 +10,13 @@ class User extends BaseProfile
 		foreach($order as $key => $dish)
 		    {
 		      	$msg .= $dish['product_name'].' | ';
-		    	$msg .= $dish['quantity'].'шт. | ';
-		    	$msg .= $dish['sum'].'грн.';
+		    	$msg .= $dish['quantity'].' шт. |';
+		    	$msg .= $dish['sum'].' грн.|<br>';
 				$sum += $dish['sum'];
 			}
 		$msg .= 'Всего: '.$sum.'грн.';
 
-		$this->sendMail('order', 'Ваш заказ принят.', ['Orders' => $msg, 'OrderDate' => date("Y:m:d"), 'UserBalance' => History::myBalance(\Yii::$app->user->id) ]);
+		$this->sendMail('order', 'Ваш заказ принят.', ['Orders' => $msg, 'OrderDate' => date("Y:m:d")]);
 	}
 
     public function sendMail($view, $subject, $params = []) {
