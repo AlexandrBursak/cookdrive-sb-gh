@@ -8,9 +8,7 @@
 use yii\bootstrap\Nav;
 
 ?>
-<?php
-$this->params['breadcrumbs'][] = $this->title;
-?>
+<?= $this->params['breadcrumbs'][] = $this->title; ?>
 
 <?= $this->render('/admin/_menu') ?>
 
