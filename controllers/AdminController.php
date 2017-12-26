@@ -33,6 +33,7 @@ class AdminController extends BaseAdminController
         $product = [];
 
         $date = date("d.m.Y");
+        $SITE_NAME = 'http://cookdrive.com.ua';
 
         foreach ($orders as $key => $value) {            
             array_push($product, ['id' => Product::findOne($value['product_id'])->product_id, 
@@ -49,7 +50,7 @@ class AdminController extends BaseAdminController
             } //
             
             foreach ($product as $key => $item) {  
-                $cd_url = 'http://cookdrive.com.ua/cart/add/id/'.$item['id'];
+                $cd_url = $SITE_NAME.'/cart/add/id/'.$item['id'];
 
                 $curl = \curl_init(); // start require
                 curl_setopt($curl, CURLOPT_URL, $cd_url); //URL
@@ -79,7 +80,7 @@ class AdminController extends BaseAdminController
             } // endforeach.  
             
             // order form request
-                $cd_url = 'http://cookdrive.com.ua/cart/order';
+                $cd_url = $SITE_NAME.'/cart/order';
 
                 $curl = \curl_init(); // start require
                 curl_setopt($curl, CURLOPT_URL, $cd_url); //URL
@@ -130,7 +131,7 @@ class AdminController extends BaseAdminController
         fwrite($fh, "");
         fclose($fh);
 
-        return $this->redirect("http://cookdrive.com.ua".$cart_link);
+        return $this->redirect($SITE_NAME.$cart_link);
 
     }
 
