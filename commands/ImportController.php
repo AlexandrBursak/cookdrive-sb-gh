@@ -9,9 +9,11 @@ namespace app\commands;
 
 use app\models\Service;
 use phpDocumentor\Reflection\Types\Null_;
+use Yii;
 use yii\db\Query;
 use yii\console\Controller;
 use app\models\Product;
+use app\models\ACategory;
 
 /**
  * This command parses cookdrive.com.ua and imports items into the data base. It must be run every day in the morning to keep foods and prices up-to-date
@@ -29,9 +31,11 @@ class ImportController extends Controller
 
         $product = Product::find()->where(['link' => $item['link']])
             ->one();
-       if (empty($product)){
+
+        if (empty($product)){
             $product = new Product();
         }
+
         //TODO: якщо продукт не знайдено по лінку, то створюємо новий,
         //TODO: якщо товар знайдено, але хеш-сумма не збігається, то оновлюємо товару всі поля,
         //TODO: якщо хеш-сума збігається, то оновлюємо дату
@@ -62,7 +66,6 @@ class ImportController extends Controller
         $product->link = $item['link'];
         $product->product_id = $item['product_id'];
         $product->save();
-
     }
 
     private function importSet($set, $categoryName) {
@@ -76,6 +79,7 @@ class ImportController extends Controller
 
     private function importFile(){
         // Start the parser here
+        $this->deleteData();
         $commandPath = \Yii::getAlias('@app') . "/commands/";
         $filepath=\Yii::getAlias('@app') ."/runtime/";
             $output = array();
@@ -91,7 +95,9 @@ class ImportController extends Controller
 
                 foreach ($sets_json as $category => $set) {
                     if (isset($set)) {
-
+                        Yii::$app->db->createCommand()->insert('category', [
+                            'name' => $category,
+                        ])->execute();
                         $this->importSet($set, $category);
                     }
                 }
@@ -103,6 +109,7 @@ class ImportController extends Controller
 
     private function deleteData(){
         Product::deleteAll();
+        ACategory::deleteAll();
     }
 
     public function actionIndex()

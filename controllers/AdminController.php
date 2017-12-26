@@ -132,7 +132,15 @@ class AdminController extends BaseAdminController
         fclose($fh);
 
         return $this->redirect($SITE_NAME.$cart_link);
+    }
 
+    public function actionUserBalance() {        
+        $balance_user = History::find()->select('date, users_id, summa, orders_id, operation, id')->groupBy([/*'date', 'operation',  'summa','orders_id', */'id'])->asArray()->all();
+
+        foreach ($balance_user as $key => $value) {
+            $balance_per_user[$value['users_id']][]=$value;
+        }
+        return $this->render('balanceindex', compact('balance_per_user'));
     }
 
     public function actionUserOrders()
@@ -309,6 +317,37 @@ class AdminController extends BaseAdminController
 
     }
 
+    public function actionUndefinedProducts()
+    {
+        $products = Product::find()
+            ->select('id, product_name, photo_url, description')
+            ->where(['category' => 'Другі страви']) //undefined category
+            ->all();
+
+        $categories = Product::find()
+            ->select('category')
+            ->distinct()
+            ->all();
+
+        $status = Yii::$app->request->get('status');
+
+        return $this->render('undefined-products',
+            compact('products', 'categories','status'));
+    }
+
+    public function actionAddToCategory()
+    {
+        $category = Yii::$app->request->get('category');
+        $idProducts = Yii::$app->request->get('products');
+
+        if(!isset($category) || empty($category) || !isset($idProducts))
+            return $this->redirect(['undefined-products','status' => 'error']);
+
+        $condition = "id IN (" . implode(",", $idProducts) . ")";
+        Product::updateAll(['category' => $category], $condition);
+
+        return $this->redirect(['undefined-products','status' => 'success']);
+    }
 
 
 }

@@ -20,6 +20,7 @@ class Profile extends BaseProfile
     {
 
         $rules = parent::rules();
+		$rules[] = ['skype_id', 'string'];
         $rules[] = ['photo_url', 'string'];
         $rules[] = ['name', 'required'];
         $rules[] = ['name', 'string', 'min' => 3];
@@ -31,6 +32,11 @@ class Profile extends BaseProfile
     public function getAvatarUrl($size = 200)
     {
         return $this->photo_url . '?sz=' . $size;
+    }
+	
+	public function getSkypeId()
+    {
+        return $this->skype_id;
     }
 
 }
