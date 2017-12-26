@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
             </div>
             <div class="panel-body">
-                <p class="balance_before">Ваш баланс<span><?= History::myBalance(\Yii::$app->user->id);  if(isset($balance_user_in_date)) { ?>
+                <p class="balance_before">Ваш баланс<span><?= History::myBalance(\Yii::$app->user->id)." грн.";  if(isset($balance_user_in_date)) { ?>
                 <div class="clearfix">
                     <?php if( count($balance_user_in_date) > 0 ) { ?>
                     <div class="all_user_order_block_slide">
