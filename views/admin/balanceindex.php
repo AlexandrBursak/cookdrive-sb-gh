@@ -35,11 +35,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     <li class="admin_order_one">
                         <div class="user_order_block_up">
                             <div class="user_name">
+                                <?php if(isset($keys)) : ?>
                                 <?= Html::img(Profile::findOne($keys)->getAvatarUrl(24), [
                                     'class' => 'img-rounded',
                                     'alt' => Profile::findOne($keys)->name,
                                 ]) ?>
-                                <?php echo Profile::findOne($keys)->name ; ?>                                
+                                <?php endif;?> 
+                                <?php echo Profile::findOne($keys)->name ; ?>                               
                                 <a class="btn btn-sm btn-success givemoney" data-user-id="<?php echo Profile::findOne($keys)->user_id ?>" data-user-balance="<?php echo History::myBalance($keys) ?>">Редагувати баланс</a></th>
                             </div>
                         </div>
