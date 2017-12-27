@@ -129,5 +129,4 @@ class SiteController extends Controller
         $account = Account::find()->one();
         debug($account->decodedData);
     }
-
 }

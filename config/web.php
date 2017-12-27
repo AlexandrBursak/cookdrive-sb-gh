@@ -46,22 +46,16 @@ $config = [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
-        'class' => 'yii\swiftmailer\Mailer',
-        'viewPath' => '@app/mail',
-        'htmlLayout' => 'layouts/main-html',
-        'textLayout' => 'layouts/main-text',
-        'messageConfig' => [
-            'charset' => 'UTF-8',
-            'from' => ['food.softbistro@gmail.com' => 'SoftBistro'],
-        ],
-        'useFileTransport' => false,
-        'transport' => [
-            'class' => 'Swift_SmtpTransport',
-            'host' => 'smtp.gmail.com',
-            'username' => 'food.softbistro@gmail.com',
-            'password' => '159951Azq',
-            'port' => '465',
-            'encryption' => 'ssl',
+            'class' => 'yii\swiftmailer\Mailer',
+            'viewPath' => '@app/mailer',
+            'useFileTransport' => false,
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => $config['smtp_host'],
+                'username' => $config['smtp_username'],
+                'password' => $config['smtp_password'],
+                'port' => '2525',
+                'encryption' => 'tls',
             ],
         ],
         'log' => [
@@ -87,7 +81,6 @@ $config = [
             'cost' => 12,
             'modelMap' => [
                 'Profile' => 'app\models\Profile',
-                'User' => 'app\models\User',
             ],
             'controllerMap' => [
                 'registration' => 'app\controllers\RegistrationController',
@@ -102,13 +95,13 @@ $config = [
     'params' => $params,
 ];
 
-if (YII_ENV_DEV) {
+/*if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = 'yii\debug\Module';
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = 'yii\gii\Module';
-}
+}*/
 
 return $config;
