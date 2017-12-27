@@ -64,6 +64,7 @@ class ImportController extends Controller
             ->one());
         $product->serv_id=$service["id"];
         $product->link = $item['link'];
+        $product->product_id = $item['product_id'];
         $product->save();
     }
 

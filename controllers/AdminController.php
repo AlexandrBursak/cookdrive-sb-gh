@@ -16,15 +16,122 @@ class AdminController extends BaseAdminController
     public function actionOrders()
     {
         $orders = Order::find()->select('product_id, SUM(quantity) AS quantity_sum, GROUP_CONCAT(DISTINCT user_id) as users_id')->groupBy(['product_id'])->asArray()->where(['date' => date("Y:m:d")])->all();
-        //debug($orders);exit();
         $orders_per_service = [];
+
         foreach ($orders as $key => $value) {
             if (($service_id = Product::findOne($value['product_id'])->serv_id) !== null) {
                 $orders_per_service[$service_id][]=$value;
             }
         }
-        //debug($orders_per_service);
+
         return $this->render('orderindex', ['orders_per_service' => $orders_per_service]);
+    }
+
+    public function actionOrderCookdrive()
+    {
+        $orders = Order::find()->select('product_id, SUM(quantity) AS quantity_sum, GROUP_CONCAT(DISTINCT user_id) as users_id')->groupBy(['product_id'])->asArray()->where(['date' => date("Y:m:d")])->all();
+        $product = [];
+
+        $date = date("d.m.Y");
+        $SITE_NAME = 'http://cookdrive.com.ua';
+
+        foreach ($orders as $key => $value) {            
+            array_push($product, ['id' => Product::findOne($value['product_id'])->product_id, 
+                                  'quantity' => $value['quantity_sum']]);     
+        }
+        if (!empty($product)) {
+
+        // cookies file (session settings)
+            $cookieFile = "cookies.txt";
+            if(!file_exists($cookieFile)) {
+                $fh = fopen($cookieFile, "w");
+                fwrite($fh, "");
+                fclose($fh);
+            } //
+            
+            foreach ($product as $key => $item) {  
+                $cd_url = $SITE_NAME.'/cart/add/id/'.$item['id'];
+
+                $curl = \curl_init(); // start require
+                curl_setopt($curl, CURLOPT_URL, $cd_url); //URL
+                curl_setopt($curl, CURLOPT_HEADER, 1); //display headers
+                curl_setopt($curl, CURLOPT_POST, 1); //POST type
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); //now curl give back response
+                curl_setopt($curl, CURLINFO_HEADER_OUT, true);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, //data of POST
+                array (
+                    'cnt'=>$item['quantity'],
+                    'double'=>0,
+                    'blank'=>0,
+                    'special'=>0,
+                ));
+                curl_setopt($curl, CURLOPT_COOKIEFILE, $cookieFile); // Cookie read
+                curl_setopt($curl, CURLOPT_COOKIEJAR, $cookieFile); // Cookie write
+
+                $res = curl_exec($curl);
+                $sent_headers = curl_getinfo($curl, CURLINFO_HEADER_OUT); //get headers
+                //if error -> type error
+                if(!$res) {
+                    $error = curl_error($curl).'('.curl_errno($curl).')';
+                    echo $error;
+                }
+                curl_close($curl);
+
+            } // endforeach.  
+            
+            // order form request
+                $cd_url = $SITE_NAME.'/cart/order';
+
+                $curl = \curl_init(); // start require
+                curl_setopt($curl, CURLOPT_URL, $cd_url); //URL
+                curl_setopt($curl, CURLOPT_HEADER, 1); //display headers
+                curl_setopt($curl, CURLOPT_POST, 1); //POST type
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); //now curl give back response
+                curl_setopt($curl, CURLINFO_HEADER_OUT, true);
+                curl_setopt($curl, CURLOPT_POSTFIELDS, //data of POST
+                array (
+                        'type'=>0,
+                        'phone'=>979471223,
+                        'name'=>'Михайло',
+                        'street'=>'Зарічанська',
+                        'home'=>'5/3',
+                        'code'=>'',
+                        'floor'=>'5',
+                        'apartment'=>'SoftBistro',
+                        'time'=>'1',
+                        'date'=>$date,
+                        'hour'=>'00',
+                        'minute'=>'00',
+                        'comment'=>'Оплата карткою',
+                        'porch'=>'',
+
+                ));
+                curl_setopt($curl, CURLOPT_COOKIEFILE, $cookieFile); // Cookie read
+                curl_setopt($curl, CURLOPT_COOKIEJAR, $cookieFile); // Cookie write
+
+                $res = curl_exec($curl);
+                $sent_headers = curl_getinfo($curl, CURLINFO_HEADER_OUT); //get headers
+                
+                //if error -> type error
+                if(!$res) {
+                    $error = curl_error($curl).'('.curl_errno($curl).')';
+                    echo $error;
+                }
+                curl_close($curl);
+            // end request
+        } //end if
+
+        //cut res_link from $res
+        $first = substr($res, strrpos($res, 'Location:')+10);
+        $last = strpos($first, 'Vary')-2;
+        $cart_link = substr($first, 0, $last); // 
+        
+        // clear cookie file
+        $fh = fopen($cookieFile, "w");
+        fwrite($fh, "");
+        fclose($fh);
+
+        return $this->redirect($SITE_NAME.$cart_link);
     }
 
     public function actionUserBalance() {        
@@ -241,5 +348,6 @@ class AdminController extends BaseAdminController
 
         return $this->redirect(['undefined-products','status' => 'success']);
     }
+
 
 }
