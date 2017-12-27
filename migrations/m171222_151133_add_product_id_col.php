@@ -20,9 +20,7 @@ class m171222_151133_add_product_id_col extends Migration
      */
     public function safeDown()
     {
-        echo "m171222_151133_add_product_id_col cannot be reverted.\n";
-
-        return false;
+         $this->dropColumn('product', 'product_id');
     }
 
     /*
