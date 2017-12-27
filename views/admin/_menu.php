@@ -26,6 +26,18 @@ use yii\bootstrap\Nav;
         [
             'label' => 'Замовлення на користувача',
             'url' => ['/user/admin/user-orders'],
+        ],        
+        [
+            'label' => 'Історія операцій',
+            'url' => ['/user/admin/user-balance'],
+        ],
+        [
+            'label' => 'Нерозподілені продукти',
+            'url' => ['/user/admin/undefined-products'],
+	],
+	[
+            'label' => 'Менеджер',
+            'url' => ['/a-category/index'],
         ],
         [
             'label' => 'Користувачі',
@@ -73,4 +85,4 @@ use yii\bootstrap\Nav;
             'visible' => false,
         ],
     ],
-]) ?>
+    ]) ?>

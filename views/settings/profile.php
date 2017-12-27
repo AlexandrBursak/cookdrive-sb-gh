@@ -52,11 +52,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'public_email')->label('Email') ?>
 
-                <?= $form->field($model, 'website')->label('Веб сторінка') ?>
+                <?= $form->field($model, 'website')->label('Веб сторінка') ?> 
+				
+				<?= $form->field($model, 'skype_id')->label('Скайп')?>
 
-                <?php /* $form->field($model, 'location')->label('Місце знаходження') */?>
+                <?php  $form->field($model, 'location')->label('Місце знаходження') ?>
 
-                <?php /*$form
+                <?php $form
                     ->field($model, 'timezone')
                     ->dropDownList(
                         ArrayHelper::map(
@@ -64,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'timezone',
                             'name'
                         )
-                    ); */ ?>
+                    );  ?>
 
                 <?= $form->field($model, 'bio')->textarea()->label('Інформація про себе') ?>
 

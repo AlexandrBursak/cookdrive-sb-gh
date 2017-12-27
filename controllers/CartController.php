@@ -139,8 +139,13 @@ class CartController extends Controller {
 	    
 	     				}
 
-
 						\Yii::$app->user->identity->sendOrderMail($orders);
+
+						
+						$skype = new SkypeBot();
+						$skype->init();
+						$skype->sendOrder($orders);
+
 						
 						$session->open();
 						$session->remove('cart');
