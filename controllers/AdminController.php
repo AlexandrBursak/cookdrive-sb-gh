@@ -214,12 +214,13 @@ class AdminController extends BaseAdminController
     {
         $products = Product::find()
             ->select('id, product_name, photo_url, description')
-            ->where(['category' => 'Другі страви']) //undefined category
+            ->where(['category' => NULL]) //undefined category
             ->all();
 
         $categories = Product::find()
             ->select('category')
-            ->distinct()
+           ->where(['not', ['category' => NULL]])
+		->distinct()
             ->all();
 
         $status = Yii::$app->request->get('status');
